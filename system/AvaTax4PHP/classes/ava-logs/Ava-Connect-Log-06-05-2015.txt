@@ -1,0 +1,21 @@
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:50:54:90236) - End Time: (17:50:56:63954) Line Count: (4) Time Difference: 1.737
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:50:54:88736) - End Time: (17:50:56:64954) Time Difference: 1.762
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:51:14:71735) - End Time: (17:51:16:46752) Line Count: (4) Time Difference: 1.750
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:51:14:70334) - End Time: (17:51:16:47752) Time Difference: 1.774
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:51:33:71024) - End Time: (17:51:35:48742) Line Count: (4) Time Difference: 1.777
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:51:33:69624) - End Time: (17:51:35:49842) Time Difference: 1.802
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:51:36:70954) - End Time: (17:51:38:49072) Line Count: (4) Time Difference: 1.781
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:51:36:69554) - End Time: (17:51:38:50172) Time Difference: 1.806
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:52:01:44302) - End Time: (17:52:03:16419) Line Count: (4) Time Difference: 1.721
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:52:01:42302) - End Time: (17:52:03:17519) Time Difference: 1.752
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:52:11:40801) - End Time: (17:52:13:17919) Line Count: (4) Time Difference: 1.771
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:52:11:39401) - End Time: (17:52:13:19119) Time Difference: 1.797
+
+Calc Time - Class Name: (ModelCheckoutOrder) Method Name: (ModelCheckoutOrder::AvaTaxGetTax) Start Time: (17:52:14:43032) - End Time: (17:52:16:20749) Line Count: (4) Time Difference: 1.777
+Connector Time - Class Name: (ModelCheckoutOrder) Method Name: (ModelCheckoutOrder::addOrderHistory) Start Time: (17:52:17:34561) - End Time: (17:52:18:73675) Time Difference: 1.391
+

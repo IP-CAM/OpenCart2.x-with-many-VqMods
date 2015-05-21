@@ -1,0 +1,66 @@
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (11:03:24:71017) - End Time: (11:03:26:22917) Line Count: (2) Time Difference: 1.519
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (11:03:24:45317) - End Time: (11:03:26:23917) Time Difference: 1.786
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:35:55:17753) - End Time: (12:35:56:38965) Line Count: (2) Time Difference: 1.212
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:35:55:15353) - End Time: (12:35:56:39965) Time Difference: 1.246
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:35:59:82399) - End Time: (12:36:01:28014) Line Count: (2) Time Difference: 1.456
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:35:59:81099) - End Time: (12:36:01:28914) Time Difference: 1.478
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:36:10:59407) - End Time: (12:36:12:07322) Line Count: (2) Time Difference: 1.479
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:36:10:56607) - End Time: (12:36:12:08322) Time Difference: 1.517
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:36:57:38075) - End Time: (12:36:59:12492) Line Count: (2) Time Difference: 1.744
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:36:57:36775) - End Time: (12:36:59:13592) Time Difference: 1.768
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:48:28:31432) - End Time: (12:48:29:51132) Line Count: (2) Time Difference: 1.197
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:48:28:19332) - End Time: (12:48:29:51732) Time Difference: 1.324
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:48:33:02032) - End Time: (12:48:34:52532) Line Count: (2) Time Difference: 1.505
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:48:33:00732) - End Time: (12:48:34:53532) Time Difference: 1.528
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (12:48:40:24932) - End Time: (12:48:41:68032) Line Count: (2) Time Difference: 1.431
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:48:40:23632) - End Time: (12:48:41:69132) Time Difference: 1.455
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (15:44:35:47709) - End Time: (15:44:37:88633) Line Count: (2) Time Difference: 2.409
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (15:44:35:46108) - End Time: (15:44:37:89733) Time Difference: 2.436
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (15:57:44:50298) - End Time: (15:57:46:27216) Line Count: (2) Time Difference: 1.769
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (15:46:32:87783) - End Time: (15:57:46:28516) Time Difference: 673.407
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:01:33:43787) - End Time: (16:01:34:86887) Line Count: (1) Time Difference: 1.431
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:01:31:50387) - End Time: (16:01:34:87287) Time Difference: 3.369
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:03:45:03987) - End Time: (16:03:46:78287) Line Count: (2) Time Difference: 1.743
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:03:43:65887) - End Time: (16:03:46:79587) Time Difference: 3.137
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:03:54:35087) - End Time: (16:03:56:11487) Line Count: (2) Time Difference: 1.764
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:03:49:36087) - End Time: (16:03:56:12587) Time Difference: 6.765
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:04:59:37587) - End Time: (16:05:01:49987) Line Count: (2) Time Difference: 2.124
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:04:54:76087) - End Time: (16:05:01:50587) Time Difference: 6.745
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:07:15:69987) - End Time: (16:07:17:18287) Line Count: (2) Time Difference: 1.483
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:07:15:68787) - End Time: (16:07:17:19387) Time Difference: 1.506
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:07:24:06587) - End Time: (16:07:25:58787) Line Count: (2) Time Difference: 1.522
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:07:24:05187) - End Time: (16:07:25:60087) Time Difference: 1.549
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:07:32:72587) - End Time: (16:07:34:22887) Line Count: (2) Time Difference: 1.503
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:07:32:71187) - End Time: (16:07:34:23587) Time Difference: 1.524
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:07:43:32887) - End Time: (16:07:44:95787) Line Count: (2) Time Difference: 1.629
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:07:43:31587) - End Time: (16:07:44:96587) Time Difference: 1.650
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:07:55:24587) - End Time: (16:07:56:72987) Line Count: (2) Time Difference: 1.484
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:07:55:23387) - End Time: (16:07:56:74287) Time Difference: 1.509
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:08:49:79987) - End Time: (16:08:51:75687) Line Count: (2) Time Difference: 1.957
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:08:49:78687) - End Time: (16:08:51:76387) Time Difference: 1.977
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (16:08:56:03287) - End Time: (16:08:58:10887) Line Count: (2) Time Difference: 2.760
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (16:08:56:02087) - End Time: (16:08:58:11287) Time Difference: 2.920
+
+Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (17:28:14:17807) - End Time: (17:28:15:91207) Line Count: (2) Time Difference: 1.734
+Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (17:28:14:15907) - End Time: (17:28:15:92607) Time Difference: 1.767
+

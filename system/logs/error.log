@@ -1,0 +1,22 @@
+2015-05-11 11:11:42 - PHP Notice:  Error: Unknown column 'modified' in 'field list'<br />Error No: 1054<br />INSERT INTO `oc_paypal_order` SET
+			`order_id` = '374',
+			`date_added` = NOW(),
+			`modified` = NOW(),
+			`capture_status` = 'Complete',
+			`currency_code` = 'USD',
+			`total` = '623.63',
+			`authorization_id` = '9AX298331X335941H' in D:\phpwork\opencart-2.0.0.0-release\system\library\db\mysqli.php on line 40
+2015-05-13 14:35:22 - PHP Notice:  Undefined variable: config_avatax_log in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 698
+2015-05-13 14:35:23 - PHP Notice:  Undefined variable: config_avatax_log in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 708
+2015-05-13 14:53:48 - PHP Notice:  Undefined variable: config_avatax_log in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 698
+2015-05-13 14:53:48 - PHP Notice:  Undefined variable: config_avatax_log in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 708
+2015-05-14 17:01:12 - PHP Warning:  SoapClient::__doRequest(): php_network_getaddresses: getaddrinfo failed: No such host is known.  in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\DynamicSoapClient.class.php on line 34
+2015-05-14 17:01:12 - PHP Warning:  SoapClient::__doRequest(): connect() failed: php_network_getaddresses: getaddrinfo failed: No such host is known.  in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\DynamicSoapClient.class.php on line 34
+2015-05-20 15:01:36 - PHP Notice:  unserialize(): Error at offset 0 of 1 bytes in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_cart.php on line 23
+2015-05-20 15:01:36 - PHP Notice:  Undefined index: tax_class_id in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_cart.php on line 46
+2015-05-20 15:38:58 - PHP Notice:  unserialize(): Error at offset 0 of 1 bytes in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_cart.php on line 23
+2015-05-20 15:38:58 - PHP Notice:  Undefined index: tax_class_id in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_cart.php on line 46
+2015-05-21 11:05:28 - PHP Notice:  Undefined property: Loader::$config in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1328
+2015-05-21 11:07:11 - PHP Notice:  Undefined property: Loader::$config in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1328
+2015-05-21 16:01:00 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-05-21 16:03:03 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
