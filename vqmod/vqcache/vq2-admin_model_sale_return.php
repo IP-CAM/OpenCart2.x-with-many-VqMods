@@ -15,6 +15,7 @@ class ModelSaleReturn extends Model {
 
 				if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
 				{
+					$time_start = round(microtime(true) * 1000);
 					$return_details = $this->getReturn($return_id);
 
 					if(count($return_details) > 0)
@@ -34,6 +35,7 @@ class ModelSaleReturn extends Model {
 							$data["return_reason_id"] = $return_details["return_reason_id"];
 							$data["avatax_return_document_code"] = $return_details["avatax_return_document_code"];
 							
+							$connectortime = round(microtime(true) * 1000)-$time_start;
 							
 							if($return_details["return_status_id"] == 3){
 								$cancelCode = "DocDeleted";
@@ -50,10 +52,50 @@ class ModelSaleReturn extends Model {
 							}
 
 							$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
-						   $ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
+							
+							$time_start = round(microtime(true) * 1000);
+							$time_start = $time_start + $connectortime;
+							
+							require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
+						    $ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 							if(is_array($ReturnsReturnValue))
 							{
 								$this->session->data['avatax_return_error_message'] = 'Success';
+								/************* Logging code snippet (optional) starts here *******************/
+						// System Logger starts here:
+						
+						$log_mode = $this->config->get('config_avatax_log');
+						
+						
+						if($log_mode==1){
+						   
+									
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+						
+						
+						// Creating the System Logger Object
+						$application_log 	= 	new SystemLogger;
+						$connectortime = round(microtime(true) * 1000)-$time_start;
+						$latency = $this->session->data['latency'];
+						$connectortime= $connectortime- $latency;
+						
+						$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+						
+						
+							$latency =""  ;
+							$this->session->data['latency'] ="";							
+							$this->session->data['getTaxLines'] ="";							
+							$this->session->data['getDocType'] ="";							
+							$this->session->data['getDocCode'] ="";
+
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
+			
+					}
+			
 							}
 							else
 							{
@@ -106,12 +148,15 @@ class ModelSaleReturn extends Model {
 			$data["avatax_return_document_code"] = $return_details["avatax_return_document_code"];
 
 						$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
-
+						
+						require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
 						$ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 					
 						if(is_array($ReturnsReturnValue))
 						{
 							$this->session->data['avatax_return_error_message'] = 'Success';
+							
+							
 						}
 						else
 						{
@@ -319,6 +364,7 @@ class ModelSaleReturn extends Model {
 
 				if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
 				{
+					$time_start = round(microtime(true) * 1000);
 					$return_details = $this->getReturn($return_id);
 
 					if(count($return_details) > 0)
@@ -338,6 +384,8 @@ class ModelSaleReturn extends Model {
 							$data["return_reason_id"] = $return_details["return_reason_id"];
 							$data["avatax_return_document_code"] = $return_details["avatax_return_document_code"];
 							
+							$connectortime = round(microtime(true) * 1000)-$time_start;
+							
 							if($return_details["return_status_id"] == 3){
 								$cancelCode = "DocDeleted";
 								$CancelTaxValue = $this->AvaTaxCancelTax($return_details["avatax_return_document_code"],$cancelCode);
@@ -353,10 +401,52 @@ class ModelSaleReturn extends Model {
 							}
 
 							$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
+							
+							$time_start = round(microtime(true) * 1000);
+							$time_start = $time_start + $connectortime;
+							require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
+						    
 							$ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 							if(is_array($ReturnsReturnValue))
 							{
 								$this->session->data['avatax_return_error_message'] = 'Success';
+								
+								/************* Logging code snippet (optional) starts here *******************/
+						// System Logger starts here:
+						
+						$log_mode = $this->config->get('config_avatax_log');
+						
+						
+						if($log_mode==1){
+						   
+									
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+						
+						
+						// Creating the System Logger Object
+						$application_log 	= 	new SystemLogger;
+						$connectortime = round(microtime(true) * 1000)-$time_start;
+						$latency = $this->session->data['latency'];
+						$connectortime= $connectortime- $latency;
+						
+						$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+						
+						
+							$latency =""  ;
+							$this->session->data['latency'] ="";							
+							$this->session->data['getTaxLines'] ="";							
+							$this->session->data['getDocType'] ="";							
+							$this->session->data['getDocCode'] ="";
+
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
+			
+					}
+			
+								
 							}
 							else
 							{
@@ -763,29 +853,76 @@ class ModelSaleReturn extends Model {
 						$returnMessage = "";
 
 						try {
-							$getTaxResult = $client->getTax($request);
-							// Error Trapping
-							if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+			
+			if (!empty($DestAddress)) {
+			
+            //$connectortime = round(microtime(true) * 1000)-$time_start;
+            $latency = round(microtime(true) * 1000);
+                $getTaxResult = $client->getTax($request);
+            $latency = round(microtime(true) * 1000)-$latency;
+			$this->session->data['latency'] = "" ;
+			$this->session->data['getTaxLines'] = "" ;
+			$this->session->data['getDocType'] = "" ;
+			$this->session->data['getDocCode'] = "" ;
+			$this->session->data['latency'] = $latency ;
+			$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
+			$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
+			$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
+			
+				
+				// Error Trapping
+				if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 
-								$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-								$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-								$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-								$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+					$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+					$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+					$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+					$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
 
-								//return $getTaxResult->getTotalTax();
-								return $GetTaxData;
+					
 
-							} else {
+					//Added for connector metrics
+					/************* Logging code snippet (optional) starts here *******************/
+				// System Logger starts here:
+				
+                $log_mode = $this->config->get('config_avatax_log');
+				
+                if($log_mode==1){
+                   
 
-								/*foreach ($getTaxResult->getMessages() as $msg) {
-									//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
-									$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
-								}*/
-								$msg = $getTaxResult->getMessages();
-								$returnMessage .= $msg[0]->getName() . ": " . $msg[0]->getSummary();
-								return $returnMessage;
-							}
-						} catch (SoapFault $exception) {
+                    $timeStamp 			= 	new DateTime();						// Create Time Stamp
+                    $params				=   '[Input: ' . ']';		// Create Param List
+                    $u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+                    // Creating the System Logger Object
+                    $application_log 	= 	new SystemLogger;
+
+                    $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
+                    $application_log->WriteSystemLogToFile();			// Log info goes to log file
+
+                    $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
+                    $application_log->WriteSystemLogToFile();			// Log info goes to log file
+
+                    
+
+                    //	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+                    // 	System Logger ends here
+                    //	Logging code snippet (optional) ends here
+                }
+                else{}
+				
+					
+					return $GetTaxData;
+
+				} else {
+
+					foreach ($getTaxResult->getMessages() as $msg) {
+						//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
+						$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
+					}
+					return $returnMessage;
+				}
+				} 
+				}catch (SoapFault $exception) {
 							$msg = "Exception: ";
 							if ($exception)
 								$msg .= $exception->faultstring;

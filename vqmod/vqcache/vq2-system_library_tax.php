@@ -707,8 +707,13 @@ $this->shipping_address = array(
 					else
 					{
 						//$amount = $this->AvaTaxAmount($value);
+
+
+						
 						$tax_result = $this->AvaTaxAmount($value);
-		
+					
+						
+			
 						$tax_rate_data = array();
 						$tax_rate_count = 0;
 

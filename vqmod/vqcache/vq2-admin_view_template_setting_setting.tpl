@@ -1062,7 +1062,7 @@
 
 					<div class="tab-pane" id="tab-avalara">
 						<fieldset>
-						<legend><?php echo "Avalara Credentials"; ?></legend>
+						<legend>Avalara Credentials</legend>
 				
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
@@ -1102,11 +1102,19 @@
 							  <input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
+							<div class="col-sm-10"><br>
+							  <a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
+							</div>
+						</div>
+						
 						<div class="form-group">&nbsp;</div>
 						</fieldset>
 						
 						<fieldset>
-						<legend><?php echo "Tax Calculation Settings"; ?></legend>
+						<legend>Tax Calculation Settings</legend>
 
 						<div class="form-group">
 							  <label class="col-sm-2 control-label">Enable AvaTax tax calculation:</label>
@@ -1157,7 +1165,36 @@
 								</label>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-country">Only Validate addresses in:</label>
+							<div class="col-sm-10">
+							  <select name="config_avatax_validate_address_in" class="form-control">
+								<?php  if ($config_avatax_validate_address_in == 'US') { ?>
+							  <option value="US" selected="selected">USA</option>
+							  <option value="CA">Canada</option>
+							  <option value="both">Both</option>
+							  <?php } else if ($config_avatax_validate_address_in == 'CA') { ?>
+							  <option value="US">USA</option>
+							  <option value="CA" selected="selected">Canada</option>
+							  <option value="both">Both</option>
+							  <?php } else if ($config_avatax_validate_address_in == 'both') { ?>
+							  <option value="US">USA</option>
+							  <option value="CA">Canada</option>
+							  <option value="both" selected="selected">Both</option>
+							  <?php } else { ?>
+							  <option value="US">USA</option>
+							  <option value="CA">Canada</option>
+							  <option value="both" selected="selected" >Both</option>
+							  <?php } ?>
+							  </select>
+							</div>
+						</div>
+						<div class="form-group">&nbsp;</div>
+						</fieldset>
 							
+						<fieldset>
+						<legend>Customer Specific Settings</legend>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Do you want save transaction on AvaTax:</label>
 							<div class="col-sm-10">
@@ -1256,45 +1293,7 @@
 								&nbsp;&nbsp;<img src="../image/question.jpg" title="If UPC/SKU is not available then Model Number will be sent to AvaTax by default">
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-country">Only Validate addresses in:</label>
-							<div class="col-sm-10">
-							  <select name="config_avatax_validate_address_in" class="form-control">
-								<?php  if ($config_avatax_validate_address_in == 'US') { ?>
-							  <option value="US" selected="selected">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both">Both</option>
-							  <?php } else if ($config_avatax_validate_address_in == 'CA') { ?>
-							  <option value="US">USA</option>
-							  <option value="CA" selected="selected">Canada</option>
-							  <option value="both">Both</option>
-							  <?php } else if ($config_avatax_validate_address_in == 'both') { ?>
-							  <option value="US">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both" selected="selected">Both</option>
-							  <?php } else { ?>
-							  <option value="US">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both" selected="selected" >Both</option>
-							  <?php } ?>
-							  </select>
-							</div>
-						</div>
-						  
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
-							<div class="col-sm-10"><br>
-							  <a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
-							<div class="col-sm-10" style="margin-top:10px">
-							  <a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
-							</div>
-						</div>
-						
+				
 						<div class="form-group">
 							<div class="col-sm-10">
 							  <input type="hidden" name="config_avatax_taxcall_flag" id="config_avatax_taxcall_flag" value="0" />
@@ -1307,15 +1306,11 @@
 						   </div>
 						  </div>
 
-						<div class="form-group">
-							<div class="col-sm-10">
-							  <input type="hidden" name="EnableAvaTaxValidation" id="EnableAvaTaxValidation"  />
-							</div>
-						</div>
+						<div><input type="hidden" name="EnableAvaTaxValidation" id="EnableAvaTaxValidation"  /></div>
 					</fieldset>
 
 					<fieldset>
-					<legend><?php echo "Avalara Details"; ?></legend>
+					<legend>Avalara Details</legend>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_details">About Avalara:</label>
 							<div class="col-sm-10" style="margin-top:10px">Copyright &copy; 2015 Avalara, Inc. All Rights Reserved.
@@ -1337,6 +1332,12 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_details">Phone:</label>
 							<div class="col-sm-10" style="margin-top:10px">(877)-780-4848
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
+							<div class="col-sm-10" style="margin-top:10px">
+							  <a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
 							</div>
 						</div>
 					</fieldset>

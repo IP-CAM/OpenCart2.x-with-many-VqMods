@@ -364,7 +364,7 @@
 				<add><![CDATA[
 					<div class="tab-pane" id="tab-avalara">
 						<fieldset>
-						<legend>Avalara Credentials</legend>
+						<legend><?php echo "Avalara Credentials"; ?></legend>
 				
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
@@ -404,19 +404,11 @@
 							  <input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
 							</div>
 						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
-							<div class="col-sm-10"><br>
-							  <a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
-							</div>
-						</div>
-						
 						<div class="form-group">&nbsp;</div>
 						</fieldset>
 						
 						<fieldset>
-						<legend>Tax Calculation Settings</legend>
+						<legend><?php echo "Tax Calculation Settings"; ?></legend>
 
 						<div class="form-group">
 							  <label class="col-sm-2 control-label">Enable AvaTax tax calculation:</label>
@@ -467,36 +459,7 @@
 								</label>
 							</div>
 						</div>
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-country">Only Validate addresses in:</label>
-							<div class="col-sm-10">
-							  <select name="config_avatax_validate_address_in" class="form-control">
-								<?php  if ($config_avatax_validate_address_in == 'US') { ?>
-							  <option value="US" selected="selected">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both">Both</option>
-							  <?php } else if ($config_avatax_validate_address_in == 'CA') { ?>
-							  <option value="US">USA</option>
-							  <option value="CA" selected="selected">Canada</option>
-							  <option value="both">Both</option>
-							  <?php } else if ($config_avatax_validate_address_in == 'both') { ?>
-							  <option value="US">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both" selected="selected">Both</option>
-							  <?php } else { ?>
-							  <option value="US">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both" selected="selected" >Both</option>
-							  <?php } ?>
-							  </select>
-							</div>
-						</div>
-						<div class="form-group">&nbsp;</div>
-						</fieldset>
 							
-						<fieldset>
-						<legend>Customer Specific Settings</legend>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Do you want save transaction on AvaTax:</label>
 							<div class="col-sm-10">
@@ -595,7 +558,45 @@
 								&nbsp;&nbsp;<img src="../image/question.jpg" title="If UPC/SKU is not available then Model Number will be sent to AvaTax by default">
 							</div>
 						</div>
-				
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-country">Only Validate addresses in:</label>
+							<div class="col-sm-10">
+							  <select name="config_avatax_validate_address_in" class="form-control">
+								<?php  if ($config_avatax_validate_address_in == 'US') { ?>
+							  <option value="US" selected="selected">USA</option>
+							  <option value="CA">Canada</option>
+							  <option value="both">Both</option>
+							  <?php } else if ($config_avatax_validate_address_in == 'CA') { ?>
+							  <option value="US">USA</option>
+							  <option value="CA" selected="selected">Canada</option>
+							  <option value="both">Both</option>
+							  <?php } else if ($config_avatax_validate_address_in == 'both') { ?>
+							  <option value="US">USA</option>
+							  <option value="CA">Canada</option>
+							  <option value="both" selected="selected">Both</option>
+							  <?php } else { ?>
+							  <option value="US">USA</option>
+							  <option value="CA">Canada</option>
+							  <option value="both" selected="selected" >Both</option>
+							  <?php } ?>
+							  </select>
+							</div>
+						</div>
+						  
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
+							<div class="col-sm-10"><br>
+							  <a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
+							<div class="col-sm-10" style="margin-top:10px">
+							  <a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
+							</div>
+						</div>
+						
 						<div class="form-group">
 							<div class="col-sm-10">
 							  <input type="hidden" name="config_avatax_taxcall_flag" id="config_avatax_taxcall_flag" value="0" />
@@ -608,11 +609,15 @@
 						   </div>
 						  </div>
 
-						<div><input type="hidden" name="EnableAvaTaxValidation" id="EnableAvaTaxValidation"  /></div>
+						<div class="form-group">
+							<div class="col-sm-10">
+							  <input type="hidden" name="EnableAvaTaxValidation" id="EnableAvaTaxValidation"  />
+							</div>
+						</div>
 					</fieldset>
 
 					<fieldset>
-					<legend>Avalara Details</legend>
+					<legend><?php echo "AvaTax Details"; ?></legend>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_details">About Avalara:</label>
 							<div class="col-sm-10" style="margin-top:10px">Copyright &copy; 2015 Avalara, Inc. All Rights Reserved.
@@ -634,12 +639,6 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_details">Phone:</label>
 							<div class="col-sm-10" style="margin-top:10px">(877)-780-4848
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
-							<div class="col-sm-10" style="margin-top:10px">
-							  <a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
 							</div>
 						</div>
 					</fieldset>
@@ -2212,7 +2211,7 @@
 			
 			if (!empty($DestAddress)) {
 			
-            //$connectortime = round(microtime(true) * 1000)-$time_start;
+            $connectortime = round(microtime(true) * 1000)-$time_start;
             $latency = round(microtime(true) * 1000);
                 $getTaxResult = $client->getTax($request);
             $latency = round(microtime(true) * 1000)-$latency;
@@ -2669,76 +2668,32 @@
 						$returnMessage = "";
 
 						try {
-			
-			if (!empty($DestAddress)) {
-			
-            $connectortime = round(microtime(true) * 1000)-$time_start;
-            $latency = round(microtime(true) * 1000);
-                $getTaxResult = $client->getTax($request);
-            $latency = round(microtime(true) * 1000)-$latency;
-			$this->session->data['latency'] = "" ;
-			$this->session->data['getTaxLines'] = "" ;
-			$this->session->data['getDocType'] = "" ;
-			$this->session->data['getDocCode'] = "" ;
-			$this->session->data['latency'] = $latency ;
-			$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
-			$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
-			$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
-			
-				
-				// Error Trapping
-				if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+							$getTaxResult = $client->getTax($request);
 
-					$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-					$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-					$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-					$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+							// Error Trapping
+							if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 
-					
+								$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+								$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+								$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+								$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
 
-					//Added for connector metrics
-					/************* Logging code snippet (optional) starts here *******************/
-				// System Logger starts here:
-				
-                $log_mode = $this->config->get('config_avatax_log');
-				
-                if($log_mode==1){
-                   
+								//return $getTaxResult->getTotalTax();
+								//print_r($GetTaxData);
+								//exit;
+								return $GetTaxData;
 
-                    $timeStamp 			= 	new DateTime();						// Create Time Stamp
-                    $params				=   '[Input: ' . ']';		// Create Param List
-                    $u_name				=	'';							// Eventually will come from $_SESSION[] object
+							} else {
 
-                    // Creating the System Logger Object
-                    $application_log 	= 	new SystemLogger;
-
-                    $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
-                    $application_log->WriteSystemLogToFile();			// Log info goes to log file
-
-                    $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
-                    $application_log->WriteSystemLogToFile();			// Log info goes to log file
-
-                    
-
-                    //	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-                    // 	System Logger ends here
-                    //	Logging code snippet (optional) ends here
-                }
-                else{}
-				
-					
-					return $GetTaxData;
-
-				} else {
-
-					foreach ($getTaxResult->getMessages() as $msg) {
-						//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
-						$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
-					}
-					return $returnMessage;
-				}
-				} 
-				}catch (SoapFault $exception) {
+								/*foreach ($getTaxResult->getMessages() as $msg) {
+									//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
+									$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
+								}*/
+								$msg = $getTaxResult->getMessages();
+								$returnMessage .= $msg[0]->getName() . ": " . $msg[0]->getSummary();
+								return $returnMessage;
+							}
+						} catch (SoapFault $exception) {
 							$msg = "Exception: ";
 							if ($exception)
 								$msg .= $exception->faultstring;
@@ -2761,7 +2716,6 @@
 				<add><![CDATA[
 				if($this->config->get('config_avatax_tax_calculation'))
 				{
-					$time_start = round(microtime(true) * 1000);
 					//$return_last_insert_id = $this->db->getLastId();
 
 					$order_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND order_id = '" . (int)$data['order_id'] . "'");
@@ -2781,55 +2735,12 @@
 					//print_r($data);
 					//exit;
 					$data["avatax_return_document_code"] = $this->getReturnOrderDocCode($data['order_id']);
-					
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					
 					$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
-					
-					$time_start = round(microtime(true) * 1000);
-					$time_start = $time_start + $connectortime;
-					
-					require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
 					$ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 
 					if(is_array($ReturnsReturnValue))
 					{
 						$this->editReturnWithAvaTaxDocCode($ReturnsReturnValue['GetTaxDocCode'], $return_id);
-						/************* Logging code snippet (optional) starts here *******************/
-						// System Logger starts here:
-						
-						$log_mode = $this->config->get('config_avatax_log');
-						
-						
-						if($log_mode==1){
-						   
-									
-							$timeStamp 			= 	new DateTime();						// Create Time Stamp
-							$params				=   '[Input: ' . ']';		// Create Param List
-							$u_name				=	'';							// Eventually will come from $_SESSION[] object
-						
-						
-						// Creating the System Logger Object
-						$application_log 	= 	new SystemLogger;
-						$connectortime = round(microtime(true) * 1000)-$time_start;
-						$latency = $this->session->data['latency'];
-						$connectortime= $connectortime- $latency;
-						
-						$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-						
-						
-							$latency =""  ;
-							$this->session->data['latency'] ="";							
-							$this->session->data['getTaxLines'] ="";							
-							$this->session->data['getDocType'] ="";							
-							$this->session->data['getDocCode'] ="";
-
-							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-							// 	System Logger ends here
-							//	Logging code snippet (optional) ends here
-			
-					}
-			
 					}
 				}
 				]]></add>
@@ -2849,7 +2760,6 @@
 
 				if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
 				{
-					$time_start = round(microtime(true) * 1000);
 					$return_details = $this->getReturn($return_id);
 
 					if(count($return_details) > 0)
@@ -2869,7 +2779,6 @@
 							$data["return_reason_id"] = $return_details["return_reason_id"];
 							$data["avatax_return_document_code"] = $return_details["avatax_return_document_code"];
 							
-							$connectortime = round(microtime(true) * 1000)-$time_start;
 							
 							if($return_details["return_status_id"] == 3){
 								$cancelCode = "DocDeleted";
@@ -2886,50 +2795,10 @@
 							}
 
 							$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
-							
-							$time_start = round(microtime(true) * 1000);
-							$time_start = $time_start + $connectortime;
-							
-							require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
-						    $ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
+						   $ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 							if(is_array($ReturnsReturnValue))
 							{
 								$this->session->data['avatax_return_error_message'] = 'Success';
-								/************* Logging code snippet (optional) starts here *******************/
-						// System Logger starts here:
-						
-						$log_mode = $this->config->get('config_avatax_log');
-						
-						
-						if($log_mode==1){
-						   
-									
-							$timeStamp 			= 	new DateTime();						// Create Time Stamp
-							$params				=   '[Input: ' . ']';		// Create Param List
-							$u_name				=	'';							// Eventually will come from $_SESSION[] object
-						
-						
-						// Creating the System Logger Object
-						$application_log 	= 	new SystemLogger;
-						$connectortime = round(microtime(true) * 1000)-$time_start;
-						$latency = $this->session->data['latency'];
-						$connectortime= $connectortime- $latency;
-						
-						$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-						
-						
-							$latency =""  ;
-							$this->session->data['latency'] ="";							
-							$this->session->data['getTaxLines'] ="";							
-							$this->session->data['getDocType'] ="";							
-							$this->session->data['getDocCode'] ="";
-
-							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-							// 	System Logger ends here
-							//	Logging code snippet (optional) ends here
-			
-					}
-			
 							}
 							else
 							{
@@ -2982,15 +2851,12 @@
 			$data["avatax_return_document_code"] = $return_details["avatax_return_document_code"];
 
 						$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
-						
-						require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
+
 						$ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 					
 						if(is_array($ReturnsReturnValue))
 						{
 							$this->session->data['avatax_return_error_message'] = 'Success';
-							
-							
 						}
 						else
 						{
@@ -3020,7 +2886,6 @@
 				<add><![CDATA[
 				if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
 				{
-					$time_start = round(microtime(true) * 1000);
 					$return_details = $this->getReturn($return_id);
 
 					if(count($return_details) > 0)
@@ -3040,8 +2905,6 @@
 							$data["return_reason_id"] = $return_details["return_reason_id"];
 							$data["avatax_return_document_code"] = $return_details["avatax_return_document_code"];
 							
-							$connectortime = round(microtime(true) * 1000)-$time_start;
-							
 							if($return_details["return_status_id"] == 3){
 								$cancelCode = "DocDeleted";
 								$CancelTaxValue = $this->AvaTaxCancelTax($return_details["avatax_return_document_code"],$cancelCode);
@@ -3057,52 +2920,10 @@
 							}
 
 							$TaxHistoryReturnValue = $this->AvaTaxGetTaxHistory($order_query);
-							
-							$time_start = round(microtime(true) * 1000);
-							$time_start = $time_start + $connectortime;
-							require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
-						    
 							$ReturnsReturnValue = $this->AvaTaxReturnInvoice($order_query, $order_products, $data, $TaxHistoryReturnValue);
 							if(is_array($ReturnsReturnValue))
 							{
 								$this->session->data['avatax_return_error_message'] = 'Success';
-								
-								/************* Logging code snippet (optional) starts here *******************/
-						// System Logger starts here:
-						
-						$log_mode = $this->config->get('config_avatax_log');
-						
-						
-						if($log_mode==1){
-						   
-									
-							$timeStamp 			= 	new DateTime();						// Create Time Stamp
-							$params				=   '[Input: ' . ']';		// Create Param List
-							$u_name				=	'';							// Eventually will come from $_SESSION[] object
-						
-						
-						// Creating the System Logger Object
-						$application_log 	= 	new SystemLogger;
-						$connectortime = round(microtime(true) * 1000)-$time_start;
-						$latency = $this->session->data['latency'];
-						$connectortime= $connectortime- $latency;
-						
-						$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-						
-						
-							$latency =""  ;
-							$this->session->data['latency'] ="";							
-							$this->session->data['getTaxLines'] ="";							
-							$this->session->data['getDocType'] ="";							
-							$this->session->data['getDocCode'] ="";
-
-							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-							// 	System Logger ends here
-							//	Logging code snippet (optional) ends here
-			
-					}
-			
-								
 							}
 							else
 							{
@@ -3483,76 +3304,29 @@
 						$returnMessage = "";
 
 						try {
-			
-			if (!empty($DestAddress)) {
-			
-            //$connectortime = round(microtime(true) * 1000)-$time_start;
-            $latency = round(microtime(true) * 1000);
-                $getTaxResult = $client->getTax($request);
-            $latency = round(microtime(true) * 1000)-$latency;
-			$this->session->data['latency'] = "" ;
-			$this->session->data['getTaxLines'] = "" ;
-			$this->session->data['getDocType'] = "" ;
-			$this->session->data['getDocCode'] = "" ;
-			$this->session->data['latency'] = $latency ;
-			$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
-			$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
-			$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
-			
-				
-				// Error Trapping
-				if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+							$getTaxResult = $client->getTax($request);
+							// Error Trapping
+							if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 
-					$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-					$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-					$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-					$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+								$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+								$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+								$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+								$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
 
-					
+								//return $getTaxResult->getTotalTax();
+								return $GetTaxData;
 
-					//Added for connector metrics
-					/************* Logging code snippet (optional) starts here *******************/
-				// System Logger starts here:
-				
-                $log_mode = $this->config->get('config_avatax_log');
-				
-                if($log_mode==1){
-                   
+							} else {
 
-                    $timeStamp 			= 	new DateTime();						// Create Time Stamp
-                    $params				=   '[Input: ' . ']';		// Create Param List
-                    $u_name				=	'';							// Eventually will come from $_SESSION[] object
-
-                    // Creating the System Logger Object
-                    $application_log 	= 	new SystemLogger;
-
-                    $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
-                    $application_log->WriteSystemLogToFile();			// Log info goes to log file
-
-                    $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
-                    $application_log->WriteSystemLogToFile();			// Log info goes to log file
-
-                    
-
-                    //	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-                    // 	System Logger ends here
-                    //	Logging code snippet (optional) ends here
-                }
-                else{}
-				
-					
-					return $GetTaxData;
-
-				} else {
-
-					foreach ($getTaxResult->getMessages() as $msg) {
-						//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
-						$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
-					}
-					return $returnMessage;
-				}
-				} 
-				}catch (SoapFault $exception) {
+								/*foreach ($getTaxResult->getMessages() as $msg) {
+									//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
+									$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
+								}*/
+								$msg = $getTaxResult->getMessages();
+								$returnMessage .= $msg[0]->getName() . ": " . $msg[0]->getSummary();
+								return $returnMessage;
+							}
+						} catch (SoapFault $exception) {
 							$msg = "Exception: ";
 							if ($exception)
 								$msg .= $exception->faultstring;
@@ -4072,53 +3846,36 @@
 
 			if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Committed")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = DocVoided
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;	
 				//2. Call GetTax with Commit = False
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
-				
-				$connectortime = round(microtime(true) * 1000)-$time_start;
+
 				//3. Call CancelTax with CancelCode = DocVoided
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-				
+
 			}
 			else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Voided")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = DocDeleted
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;	
 				//2. Call GetTax with Commit = False
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//3. Call CancelTax with CancelCode = DocVoided
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-				
 			}
 			else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Uncommitted")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = DocVoided
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;
 				//2. Call GetTax with Commit = False
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//3. Call CancelTax with CancelCode = DocVoided
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-				
 			}
 			 if(is_array($DocCommittedReturn))
 			{
@@ -4140,7 +3897,7 @@
 						
 						// Creating the System Logger Object
 						$application_log 	= 	new SystemLogger;
-						//$connectortime = round(microtime(true) * 1000)-$time_start;
+						$connectortime = round(microtime(true) * 1000)-$time_start;
 						$latency = $this->session->data['latency'];
 						$connectortime = $connectortime - $latency;
 						
@@ -4172,25 +3929,17 @@
 
 			if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Committed")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = Voided
 				$DocVoidedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
 				//2. Call CancelTax with CancelCode = DocDeleted
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;				
 				//3. Call GetTax with Commit = False
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 			}
 			else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Voided")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = DocDeleted
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;	
 				//2. Call GetTax with Commit = False
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 			}
@@ -4250,25 +3999,17 @@
 
 			if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Committed")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = Voided
 				$DocVoidedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
 				//2. Call CancelTax with CancelCode = DocDeleted
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
 				//3. Call GetTax with Commit = False
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 1);
 			}
 			else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Voided")
 			{
-				$connectortime = round(microtime(true) * 1000)-$time_start;
 				//1. Call CancelTax with CancelCode = DocDeleted
 				$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-				
-				$time_start = round(microtime(true) * 1000);
-				$time_start = $time_start + $connectortime;
 				//2. Call GetTax with Commit = False
 				$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 1);
 			}
