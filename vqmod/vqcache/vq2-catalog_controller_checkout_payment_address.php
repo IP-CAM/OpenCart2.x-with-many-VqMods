@@ -2,7 +2,7 @@
 class ControllerCheckoutPaymentAddress extends Controller {
 public function AvaTaxAddressValidation($data) {
 
-				print_r($data);
+					print_r($data);
 					$environment = 'Development';
 					if($this->config->get('config_avatax_development_mode')) $environment = 'Development';
 					else $environment = 'Production';
@@ -27,6 +27,8 @@ public function AvaTaxAddressValidation($data) {
 
 					$return_message = AddressValidation($address_data);
 
+					echo "<br>return: ";
+					print_r($return_message);
 					$avatax_address_validation = "";
 					if(trim($return_message) != "Success")
 					{
@@ -111,7 +113,7 @@ if(isset($this->request->post['payment_address'])&& $this->request->post['paymen
                                                         {
                                                             $res=$this->AvaTaxAddressValidation($this->session->data["shipping_addess"]);
                                                         }
-                                                         //print_r($res);exit;
+                                                         print_r($res);exit;
 
 
 		// Validate if customer is logged in.

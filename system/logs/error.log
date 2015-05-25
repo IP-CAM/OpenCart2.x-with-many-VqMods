@@ -20,3 +20,7 @@
 2015-05-21 11:07:11 - PHP Notice:  Undefined property: Loader::$config in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1328
 2015-05-21 16:01:00 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
 2015-05-21 16:03:03 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-05-22 17:40:35 - PHP Unknown:  Object of class Message could not be converted to string in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php on line 45
+2015-05-22 17:40:35 - PHP Unknown:  Object of class Message could not be converted to string in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php on line 45
+2015-05-22 17:41:37 - PHP Unknown:  Object of class Message could not be converted to string in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php on line 45
+2015-05-22 17:41:37 - PHP Unknown:  Object of class Message could not be converted to string in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php on line 45
