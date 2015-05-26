@@ -373,7 +373,7 @@ class Cart {
 		}
 		
 		public function AvaTaxAmount($price) {				
-			$time_start = round(microtime(true) * 1000);
+			
 			//echo "In PHP AvaTaxAmount1 function";
 			require_once(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php'));	
 			
@@ -526,11 +526,12 @@ class Cart {
 			$returnMessage = "";
 			try {
 			if (!empty($DestAddress)) {
-            $connectortime = round(microtime(true) * 1000)-$time_start;
+
             $latency = round(microtime(true) * 1000);
                 $getTaxResult = $client->getTax($request);
             $latency = round(microtime(true) * 1000)-$latency;
-				
+			$this->session->data['latency'] = "" ;
+			$this->session->data['latency'] = $latency ;
 				
 				// Error Trapping
 				if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
@@ -557,8 +558,7 @@ class Cart {
                     $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
                     $application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-                    $application_log->metric('GetTax
-					'.$getTaxResult->getDocType(),count($getTaxResult->getTaxLines()),$getTaxResult->getDocCode(),$connectortime,$latency);
+                    
 
                     //	$application_log->WriteSystemLogToDB();							// Log info goes to DB
                     // 	System Logger ends here

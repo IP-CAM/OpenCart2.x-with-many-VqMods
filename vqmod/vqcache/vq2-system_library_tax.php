@@ -153,7 +153,7 @@ $this->shipping_address = array(
 		}
 
 		public function AvaTaxAmount($price) {
-		    $time_start = round(microtime(true) * 1000);
+		
 			require_once(VQMod::modCheck(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php')));
 
 			global $registry;
@@ -327,7 +327,7 @@ $this->shipping_address = array(
 			$EntityUseCode = "";
 			$Discount = 0;
 
-			//Added for discount calculation
+			//Added for discount calculation and coupon amount is taken from store front
 			if(isset($this->session->data['coupon_amount']) && !empty($this->session->data['coupon_amount']))
 			{
 				$Discount = $this->session->data['coupon_amount'];
@@ -442,7 +442,7 @@ $this->shipping_address = array(
 				//$line1->setAmount($product["total"]);
 				$line1->setAmount($total_amount);
 
-			   //Added to handle multiple coupon scenario regarding product or order
+			   //Added to handle coupon scenario regarding multiple products or order
 				if(isset($this->session->data['coupon_amount']) && !empty($this->session->data['coupon_amount']))
 				{
 					if(isset($this->session->data['coupon_info']) && !empty($this->session->data['coupon_info']))
@@ -600,11 +600,12 @@ $this->shipping_address = array(
 			try {
 			
 			if (!empty($DestAddress)) {
-            $connectortime = round(microtime(true) * 1000)-$time_start;
+            
             $latency = round(microtime(true) * 1000);
                 $getTaxResult = $client->getTax($request);
             $latency = round(microtime(true) * 1000)-$latency;
-			
+			$this->session->data['latency'] = "" ;
+			$this->session->data['latency'] = $latency ;
 				
 				
 				// Error Trapping
@@ -632,7 +633,6 @@ $this->shipping_address = array(
                     $application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
                     $application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-                    $application_log->metric('GetTax '.$getTaxResult->getDocType(),count($getTaxResult->getTaxLines()),$getTaxResult->getDocCode(),$connectortime,$latency);
 
                     //	$application_log->WriteSystemLogToDB();							// Log info goes to DB
                     // 	System Logger ends here
@@ -696,6 +696,7 @@ $this->shipping_address = array(
 			{
 				if($this->config->get('config_avatax_taxcall_flag')== 1)
 				{
+					$time_start = round(microtime(true) * 1000);
 					unset($this->session->data['avatax_tax']);
 					if(isset($this->session->data['avatax_tax'][number_format($value, 4, '.', '')]))
 					{
@@ -751,6 +752,36 @@ $this->shipping_address = array(
 							$this->session->data['ava_taxrate']= 'T';
 						}
 						$this->config->set('config_avatax_taxcall_flag','0');
+						
+						/************* Logging code snippet (optional) starts here *******************/
+						// System Logger starts here:
+						
+						$log_mode = $this->config->get('config_avatax_log');
+						
+						if($log_mode==1){
+						   
+							require_once(VQMod::modCheck(VQMod::modCheck(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php'))));			
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+							// Creating the System Logger Object
+							$application_log 	= 	new SystemLogger;
+							$connectortime = round(microtime(true) * 1000)-$time_start;
+							$latency = $this->session->data['latency']  ;
+							$connectortime= $connectortime- $latency;
+							
+							$application_log->metric('GetTax '.$tax_result->getDocType(),count($tax_result->getTaxLines()),$tax_result->getDocCode(),$connectortime,$latency);
+							
+							$latency =""  ;
+							$this->session->data['latency'] ="";
+							//$application_log->metric('GetTax123','','',$connectortime,'');
+
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
+						
+						}
 					}
 				}
 			}

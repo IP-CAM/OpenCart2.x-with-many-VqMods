@@ -1983,8 +1983,8 @@ $('select[name=\'config_country_id\']').on('change', function() {
 $('select[name=\'config_country_id\']').trigger('change');
 //--></script></div>
 
-		<script type="text/javascript" src="view/javascript/jquery/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="view/javascript/jquery/ui/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
 	<script type="text/javascript">
 	var jQuery_1_8_16 = $.noConflict(true);
