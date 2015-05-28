@@ -3846,7 +3846,6 @@ $address_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE 
 	</file>
 	
 	<!-- Return Handling - Admin Section ENDS -->
-	<!--Not Solved-->
 	<file name="catalog/model/checkout/order.php"><!--file modified from admin/model/sale/order.php to catalog/model/checkout/order.php-->
 		<operation><!--Operation doesnt exist, exist in catalog/model/checkout/order.php-->
 			<search position="after" ><![CDATA[public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
@@ -3876,30 +3875,6 @@ $address_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE 
 			}
 			]]></add>
 		</operation>
-		<!--<operation>--><!--Operation doesnt exist -->
-			<!--<search position="after" offset="1" ><![CDATA[// Restock]]></search>
-			<add><![CDATA[
-		if($this->config->get('config_avatax_tax_calculation'))
-		{
-			$existing_product_list = $product_query->rows;
-			$new_product_list = $data['order_product'];
-		}
-			]]></add>
-		</operation>-->
-		<!--<operation>--><!--Operation doesnt exist in admin, exist in catalog/model/checkout/order.php
-			<search position="before" offset="2" ><![CDATA[public function deleteOrder($order_id) {]]></search>
-			<add><![CDATA[
-		if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
-		{
-			$this->AvaTaxChangeDocumentStatus($order_query, $data, $new_product_list);
-		}
-			else{
-				$this->session->data['previous_error_status'] = "Success";
-			}
-			]]></add>
-		</operation>-->
-		
-		
 		
 		<operation><!--Operation doesnt exist in admin,  exist in catalog/model/checkout/order.php-->
 			<search position="before" ><![CDATA[public function deleteOrder($order_id) {]]></search>

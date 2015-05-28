@@ -431,12 +431,12 @@ class ControllerSaleOrder extends Controller {
 		}
 
 
-					//Display Avalara error for sales order after save order
-					if(isset($this->session->data['warning']))
-					{
-						$json['error_warning'] = $this->session->data['warning'];
-						unset($this->session->data['warning']);
-					}
+				//Display Avalara error for sales order after save order
+				if(isset($this->session->data['warning']))
+				{
+					$json['error_warning'] = $this->session->data['warning'];
+					unset($this->session->data['warning']);
+				}
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 

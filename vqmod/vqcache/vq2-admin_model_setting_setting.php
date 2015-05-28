@@ -29,46 +29,37 @@ class ModelSettingSetting extends Model {
 				}
 			}
 
-					if(isset($data["config_avatax_tax_calculation"]) && $data["config_avatax_tax_calculation"]==1)
-					{
-						$this->avataxAddFields();
-					}
-				
+				if(isset($data["config_avatax_tax_calculation"]) && $data["config_avatax_tax_calculation"]==1)
+				{
+					$this->avataxAddFields();
+				}
+			
 		}
 	}
 
 
-			public function avataxAddFields() {
-				//Commented below line as on 3rd Dec 2014 as mysql_query will not be executed in below line.
-				//$query = mysql_query("SELECT avatax_paytax_document_id FROM `" . DB_PREFIX . "order`");
-
-				$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "order` LIKE 'avatax_paytax_document_id'");
-				if($result->num_rows == 0){
-					$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` ADD `avatax_paytax_document_id` INT NOT NULL DEFAULT '0', ADD `avatax_paytax_transaction_id` INT NOT NULL DEFAULT '0', ADD `avatax_paytax_error_message` TEXT NOT NULL, ADD `avatax_paytax_document_code` VARCHAR( 40 ) NOT NULL");
-				}
-
-				//Add one new field to Open Cart "order_status" table
-				//Commented below line as on 3rd Dec 2014 as mysql_query will not be executed in below line.
-				//$query_document_status = mysql_query("SELECT avatax_document_status FROM `" . DB_PREFIX . "order_status`");
-
-				$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "order_status` LIKE 'avatax_document_status'");
-				if($result->num_rows == 0){
-					$this->db->query("ALTER TABLE `" . DB_PREFIX . "order_status` ADD `avatax_document_status` VARCHAR( 30 ) NOT NULL");
-					$this->db->query("UPDATE `" . DB_PREFIX . "order_status` SET avatax_document_status = 'Uncommitted' where order_status_id in (1, 2)");
-					$this->db->query("UPDATE `" . DB_PREFIX . "order_status` SET avatax_document_status = 'Committed' where order_status_id in (3, 5, 15)");
-					$this->db->query("UPDATE `" . DB_PREFIX . "order_status` SET avatax_document_status = 'Voided' where order_status_id in (7, 8, 9, 10, 11, 12, 13, 14, 16)");
-				}
-
-				//Add one new field to Open Cart "return" table
-				//Commented below line as on 3rd Dec 2014 as mysql_query will not be executed in below line.
-				//$query_return = mysql_query("SELECT avatax_return_document_code FROM `" . DB_PREFIX . "return`");
-
-				$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "return` LIKE 'avatax_return_document_code'");
-				if($result->num_rows == 0){
-					$this->db->query("ALTER TABLE `" . DB_PREFIX . "return` ADD `avatax_return_document_code` VARCHAR( 10 ) NOT NULL");
-				}
+		public function avataxAddFields() {
+			$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "order` LIKE 'avatax_paytax_document_id'");
+			if($result->num_rows == 0){
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` ADD `avatax_paytax_document_id` INT NOT NULL DEFAULT '0', ADD `avatax_paytax_transaction_id` INT NOT NULL DEFAULT '0', ADD `avatax_paytax_error_message` TEXT NOT NULL, ADD `avatax_paytax_document_code` VARCHAR( 40 ) NOT NULL");
 			}
-				
+
+			//Add one new field to Open Cart "order_status" table
+			$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "order_status` LIKE 'avatax_document_status'");
+			if($result->num_rows == 0){
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . "order_status` ADD `avatax_document_status` VARCHAR( 30 ) NOT NULL");
+				$this->db->query("UPDATE `" . DB_PREFIX . "order_status` SET avatax_document_status = 'Uncommitted' where order_status_id in (1, 2)");
+				$this->db->query("UPDATE `" . DB_PREFIX . "order_status` SET avatax_document_status = 'Committed' where order_status_id in (3, 5, 15)");
+				$this->db->query("UPDATE `" . DB_PREFIX . "order_status` SET avatax_document_status = 'Voided' where order_status_id in (7, 8, 9, 10, 11, 12, 13, 14, 16)");
+			}
+
+			//Add one new field to Open Cart "return" table
+			$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "return` LIKE 'avatax_return_document_code'");
+			if($result->num_rows == 0){
+				$this->db->query("ALTER TABLE `" . DB_PREFIX . "return` ADD `avatax_return_document_code` VARCHAR( 10 ) NOT NULL");
+			}
+		}
+			
 	public function deleteSetting($group, $store_id = 0) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE store_id = '" . (int)$store_id . "' AND `group` = '" . $this->db->escape($group) . "'");
 	}
