@@ -201,10 +201,10 @@ $_['error_name']                       = 'Store Name must be between 3 and 32 ch
 $_['error_owner']                      = 'Store Owner must be between 3 and 64 characters!';
 $_['error_address']                = 'Store Address must be between 10 and 50 characters!';
 
-				$_['error_zone_id']			= 'State/Province is required!';
-				$_['error_postal_code']		= 'Postal Code must be 5 characters!';
-				$_['error_city']			= 'Store City required!';
-				
+			$_['error_zone_id']			= 'State/Province is required!';
+			$_['error_postal_code']		= 'Postal Code must be 5 characters!';
+			$_['error_city']			= 'Store City required!';
+			
 $_['error_email']                      = 'E-Mail Address does not appear to be valid!';
 $_['error_telephone']                  = 'Telephone must be between 3 and 32 characters!';
 $_['error_meta_title']                 = 'Title must be between 3 and 32 characters!';

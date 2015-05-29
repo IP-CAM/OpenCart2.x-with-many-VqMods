@@ -66,8 +66,8 @@
                 <label class="col-sm-2 control-label" for="input-address"><?php echo $entry_address; ?></label>
                 <div class="col-sm-10">
                   
-				<input type="text" name="config_address" id="config_address" class="form-control" value="<?php echo $config_address; ?>" size="40" />
-				
+			<input type="text" name="config_address" id="config_address" class="form-control" value="<?php echo $config_address; ?>" size="40" />
+			
                   <?php if ($error_address) { ?>
                   <div class="text-danger"><?php echo $error_address; ?></div>
                   <?php } ?>
@@ -80,57 +80,57 @@
                 </div>
               </div>
 
-				<div class="form-group">
-				  <label class="col-sm-2 control-label" for="config_address_line2">Address Line 2</label>
-					<div class="col-sm-10">
-					  <input type="text" name="config_address_line2" value="<?php echo $config_address_line2; ?>" placeholder="Address Line 2" id="config_address_line2" class="form-control" />
-					</div>
-				  </div>
-				
-				  
-				  <div class="form-group required">
-					<label class="col-sm-2 control-label" for="config_city">City:</label>
-					<div class="col-sm-10">
-					  <input type="text" name="config_city" value="<?php echo $config_city; ?>" placeholder="City" id="config_city" class="form-control" />
-					  <?php if ($error_city) { ?>
-					  <div class="text-danger"><?php echo $error_city; ?></div>
-					  <?php } ?>
-					</div>
-				  </div>
-				  
-				  <div class="form-group">
-					<label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
-					<div class="col-sm-10">
-					  <select name="config_country_id" id="input-country" class="form-control">
-						<?php foreach ($countries as $country) { ?>
-						<?php if ($country['country_id'] == $config_country_id) { ?>
-						<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-						<?php } else { ?>
-						<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-						<?php } ?>
-						<?php } ?>
-					  </select>
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label class="col-sm-2 control-label" for="input-zone"><?php echo $entry_zone; ?></label>
-					<div class="col-sm-10">
-					  <select name="config_zone_id" id="input-zone" class="form-control">
-					  </select>
-					</div>
-				  </div>
-				  
-				   <div class="form-group required">
-					<label class="col-sm-2 control-label" for="config_postal_code">Postal Code:</label>
-					<div class="col-sm-10">
-					  <input type="text" name="config_postal_code" value="<?php echo $config_postal_code; ?>" placeholder="Postal Code" id="config_postal_code" class="form-control" />
-					  <?php if ($error_postal_code) { ?>
-					  <div class="text-danger"><?php echo $error_postal_code; ?></div>
-					  <?php } ?>
-					</div>
-				  </div>
-							
-				
+			<div class="form-group">
+			  <label class="col-sm-2 control-label" for="config_address_line2">Address Line 2</label>
+				<div class="col-sm-10">
+				  <input type="text" name="config_address_line2" value="<?php echo $config_address_line2; ?>" placeholder="Address Line 2" id="config_address_line2" class="form-control" />
+				</div>
+			  </div>
+			
+			  
+			  <div class="form-group required">
+				<label class="col-sm-2 control-label" for="config_city">City:</label>
+				<div class="col-sm-10">
+				  <input type="text" name="config_city" value="<?php echo $config_city; ?>" placeholder="City" id="config_city" class="form-control" />
+				  <?php if ($error_city) { ?>
+				  <div class="text-danger"><?php echo $error_city; ?></div>
+				  <?php } ?>
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+				<label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
+				<div class="col-sm-10">
+				  <select name="config_country_id" id="input-country" class="form-control">
+					<?php foreach ($countries as $country) { ?>
+					<?php if ($country['country_id'] == $config_country_id) { ?>
+					<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+					<?php } else { ?>
+					<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+					<?php } ?>
+					<?php } ?>
+				  </select>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="col-sm-2 control-label" for="input-zone"><?php echo $entry_zone; ?></label>
+				<div class="col-sm-10">
+				  <select name="config_zone_id" id="input-zone" class="form-control">
+				  </select>
+				</div>
+			  </div>
+			  
+			   <div class="form-group required">
+				<label class="col-sm-2 control-label" for="config_postal_code">Postal Code:</label>
+				<div class="col-sm-10">
+				  <input type="text" name="config_postal_code" value="<?php echo $config_postal_code; ?>" placeholder="Postal Code" id="config_postal_code" class="form-control" />
+				  <?php if ($error_postal_code) { ?>
+				  <div class="text-danger"><?php echo $error_postal_code; ?></div>
+				  <?php } ?>
+				</div>
+			  </div>
+						
+			
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
                 <div class="col-sm-10">
@@ -1060,289 +1060,289 @@
               </fieldset>
             </div>
 
-					<div class="tab-pane" id="tab-avalara">
-						<fieldset>
-						<legend>Avalara Credentials</legend>
-				
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
-							<div class="col-sm-10">
-								<input type="text" name="config_avatax_account" value="<?php echo $config_avatax_account; ?>" placeholder="Account Number" id="config_avatax_account" class="form-control" />
-							</div>
-						</div>
-				
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_license_key">License Key:</label>
-							<div class="col-sm-10">
-								<input type="text" name="config_avatax_license_key" value="<?php echo $config_avatax_license_key; ?>" placeholder="License Key" id="config_avatax_license_key" class="form-control" />
-							</div>
-						</div>
-				
-						<?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
-						<input type="hidden" name="config_avatax_client" value="<?=$version?>" id="config_avatax_client" />
-				
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-country">Service URL:</label>
-							<div class="col-sm-10">
-								<select name="config_avatax_service_url" id="config_avatax_service_url" class="form-control">
-								<?php if($config_avatax_service_url=='https://development.avalara.net')	{	?>
-									<option value="https://development.avalara.net" selected="selected">https://development.avalara.net</option>
-									<option value="https://avatax.avalara.net">https://avatax.avalara.net</option>
-								<?php	}	else	{	?>
-									<option value="https://development.avalara.net">https://development.avalara.net</option>
-									<option value="https://avatax.avalara.net" selected="selected">https://avatax.avalara.net</option>
-								<?php	}	?>
-								  </select>
-							</div>
-						</div>
-		
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Code:</label>
-							<div class="col-sm-10">
-							  <input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
-							<div class="col-sm-10"><br>
-							  <a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
-							</div>
-						</div>
-						
-						<div class="form-group">&nbsp;</div>
-						</fieldset>
-						
-						<fieldset>
-						<legend>Tax Calculation Settings</legend>
-
-						<div class="form-group">
-							  <label class="col-sm-2 control-label">Enable AvaTax tax calculation:</label>
-							  <div class="col-sm-10">
-								<label class="radio-inline">
-								  <?php if ($config_avatax_tax_calculation) { ?>
-								  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_yes" value="1" checked="checked" />
-								  <?php echo $text_yes; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_yes" value="1" />
-								  <?php echo $text_yes; ?>
-								  
-								  <?php } ?>
-								</label>
-								<label class="radio-inline">
-								  <?php if (!$config_avatax_tax_calculation) { ?>
-								  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_no" value="0" checked="checked" />
-								  <?php echo $text_no; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_no" value="0" />
-								  <?php echo $text_no; ?>
-								  <?php } ?>
-								</label>
-							</div>
-						</div>
-							
-						<div class="form-group">
-							  <label class="col-sm-2 control-label">Enable AvaTax address validation:</label>
-							  <div class="col-sm-10">
-								<label class="radio-inline">
-								  <?php if ($config_avatax_tax_address_validation) { ?>
-								  <input type="radio" name="config_avatax_tax_address_validation"  value="1" checked="checked" />
-								  <?php echo $text_yes; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_tax_address_validation" value="1" />
-								  <?php echo $text_yes; ?>
-								  
-								  <?php } ?>
-								</label>
-								<label class="radio-inline">
-								  <?php if (!$config_avatax_tax_address_validation) { ?>
-								  <input type="radio" name="config_avatax_tax_address_validation" value="0" checked="checked" />
-								  <?php echo $text_no; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_tax_address_validation" value="0" />
-								  <?php echo $text_no; ?>
-								  <?php } ?>
-								</label>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-country">Only Validate addresses in:</label>
-							<div class="col-sm-10">
-							  <select name="config_avatax_validate_address_in" class="form-control">
-								<?php  if ($config_avatax_validate_address_in == 'US') { ?>
-							  <option value="US" selected="selected">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both">Both</option>
-							  <?php } else if ($config_avatax_validate_address_in == 'CA') { ?>
-							  <option value="US">USA</option>
-							  <option value="CA" selected="selected">Canada</option>
-							  <option value="both">Both</option>
-							  <?php } else if ($config_avatax_validate_address_in == 'both') { ?>
-							  <option value="US">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both" selected="selected">Both</option>
-							  <?php } else { ?>
-							  <option value="US">USA</option>
-							  <option value="CA">Canada</option>
-							  <option value="both" selected="selected" >Both</option>
-							  <?php } ?>
-							  </select>
-							</div>
-						</div>
-						<div class="form-group">&nbsp;</div>
-						</fieldset>
-							
-						<fieldset>
-						<legend>Customer Specific Settings</legend>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Do you want save transaction on AvaTax:</label>
-							<div class="col-sm-10">
-								<label class="radio-inline">
-								  <?php if ($config_avatax_transaction_calculation) { ?>
-								  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="1" checked="checked" />
-								  <?php echo $text_yes; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="1" />
-								  <?php echo $text_yes; ?>
-								  
-								  <?php } ?>
-								</label>
-								<label class="radio-inline">
-								  <?php if (!$config_avatax_transaction_calculation) { ?>
-								  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="0" checked="checked" />
-								  <?php echo $text_no; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="0" />
-								  <?php echo $text_no; ?>
-								  <?php } ?>
-								</label>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Enable Log:</label>
-							<div class="col-sm-10">
-								<label class="radio-inline">
-								  <?php if ($config_avatax_log) { ?>
-								  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="1" checked="checked" />
-								  <?php echo $text_yes; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="1" />
-								  <?php echo $text_yes; ?>
-								  
-								  <?php } ?>
-								</label>
-								<label class="radio-inline">
-								  <?php if (!$config_avatax_log) { ?>
-								  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="0" checked="checked" />
-								  <?php echo $text_no; ?>
-								  <?php } else { ?>
-								  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="0" />
-								  <?php echo $text_no; ?>
-								  <?php } ?>
-								</label>
-							</div>
-						</div>
-							
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Send Model Number/UPC/SKU to AvaTax:</label>
-							<div class="col-sm-10">
-							  <label class="radio-inline">	
-								<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" checked="checked" />
-								<?php echo "Model"; ?>
-								<?php } ?>
-								<?php if ($config_avatax_product_code=="UPC") { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" />
-								<?php echo "Model"; ?>
-								<?php } ?>
-								<?php if ($config_avatax_product_code=="SKU") { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" />
-								<?php echo "Model"; ?>
-								<?php } ?>
-							  </label>
-							  <label class="radio-inline">
-								<?php if ($config_avatax_product_code=="UPC") { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="UPC" checked="checked"/>
-								<?php echo "UPC"; ?>
-								<?php } ?>
-								<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="UPC" />
-								<?php echo "UPC"; ?>
-								<?php } ?>
-								<?php if ($config_avatax_product_code=="SKU") { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="UPC" />
-								<?php echo "UPC"; ?>
-								<?php } ?>
-							  </label>
-							  <label class="radio-inline">
-								<?php if ($config_avatax_product_code=="SKU") { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="SKU" checked="checked" />
-								<?php echo "SKU"; ?>
-								<?php } ?>
-								<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="SKU" />
-								<?php echo "SKU"; ?>
-								<?php } ?>
-								<?php if ($config_avatax_product_code=="UPC") { ?>
-								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="SKU" />
-								<?php echo "SKU"; ?>
-								<?php } ?>
-								</label>
-								&nbsp;&nbsp;<img src="../image/question.jpg" title="If UPC/SKU is not available then Model Number will be sent to AvaTax by default">
-							</div>
-						</div>
-				
-						<div class="form-group">
-							<div class="col-sm-10">
-							  <input type="hidden" name="config_avatax_taxcall_flag" id="config_avatax_taxcall_flag" value="0" />
-							</div>
-						</div>
-						
-						 <div class="form-group">
-							<div class="col-sm-10">
-								<div id="AvaTaxTestConnectionDialog" title="AvaTax Test Connection" style="display:none;"></div>
-						   </div>
-						  </div>
-
-						<div><input type="hidden" name="EnableAvaTaxValidation" id="EnableAvaTaxValidation"  /></div>
-					</fieldset>
-
+				<div class="tab-pane" id="tab-avalara">
 					<fieldset>
-					<legend>Avalara Details</legend>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_details">About Avalara:</label>
-							<div class="col-sm-10" style="margin-top:10px">Copyright &copy; 2015 Avalara, Inc. All Rights Reserved.
-							</div>
+					<legend>Avalara Credentials</legend>
+			
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
+						<div class="col-sm-10">
+							<input type="text" name="config_avatax_account" value="<?php echo $config_avatax_account; ?>" placeholder="Account Number" id="config_avatax_account" class="form-control" />
 						</div>
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_details">AvaTax Version:</label>
-							<div class="col-sm-10" style="margin-top:10px"><?php echo $version; ?>
-							</div>
+					</div>
+			
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_license_key">License Key:</label>
+						<div class="col-sm-10">
+							<input type="text" name="config_avatax_license_key" value="<?php echo $config_avatax_license_key; ?>" placeholder="License Key" id="config_avatax_license_key" class="form-control" />
 						</div>
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_details">Email:</label>
-							<div class="col-sm-10" style="margin-top:10px"><a href="support@avalara.com">support@avalara.com</a>
-							</div>
+					</div>
+			
+					<?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
+					<input type="hidden" name="config_avatax_client" value="<?=$version?>" id="config_avatax_client" />
+			
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-country">Service URL:</label>
+						<div class="col-sm-10">
+							<select name="config_avatax_service_url" id="config_avatax_service_url" class="form-control">
+							<?php if($config_avatax_service_url=='https://development.avalara.net')	{	?>
+								<option value="https://development.avalara.net" selected="selected">https://development.avalara.net</option>
+								<option value="https://avatax.avalara.net">https://avatax.avalara.net</option>
+							<?php	}	else	{	?>
+								<option value="https://development.avalara.net">https://development.avalara.net</option>
+								<option value="https://avatax.avalara.net" selected="selected">https://avatax.avalara.net</option>
+							<?php	}	?>
+							  </select>
 						</div>
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_details">Phone:</label>
-							<div class="col-sm-10" style="margin-top:10px">(877)-780-4848
-							</div>
+					</div>
+	
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Code:</label>
+						<div class="col-sm-10">
+						  <input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
 						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
-							<div class="col-sm-10" style="margin-top:10px">
-							  <a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
-							</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
+						<div class="col-sm-10"><br>
+						  <a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
 						</div>
+					</div>
+					
+					<div class="form-group">&nbsp;</div>
 					</fieldset>
-				</div>
-			  
+					
+					<fieldset>
+					<legend>Tax Calculation Settings</legend>
+
+					<div class="form-group">
+						  <label class="col-sm-2 control-label">Enable AvaTax tax calculation:</label>
+						  <div class="col-sm-10">
+							<label class="radio-inline">
+							  <?php if ($config_avatax_tax_calculation) { ?>
+							  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_yes" value="1" checked="checked" />
+							  <?php echo $text_yes; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_yes" value="1" />
+							  <?php echo $text_yes; ?>
+							  
+							  <?php } ?>
+							</label>
+							<label class="radio-inline">
+							  <?php if (!$config_avatax_tax_calculation) { ?>
+							  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_no" value="0" checked="checked" />
+							  <?php echo $text_no; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_no" value="0" />
+							  <?php echo $text_no; ?>
+							  <?php } ?>
+							</label>
+						</div>
+					</div>
+						
+					<div class="form-group">
+						  <label class="col-sm-2 control-label">Enable AvaTax address validation:</label>
+						  <div class="col-sm-10">
+							<label class="radio-inline">
+							  <?php if ($config_avatax_tax_address_validation) { ?>
+							  <input type="radio" name="config_avatax_tax_address_validation"  value="1" checked="checked" />
+							  <?php echo $text_yes; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_tax_address_validation" value="1" />
+							  <?php echo $text_yes; ?>
+							  
+							  <?php } ?>
+							</label>
+							<label class="radio-inline">
+							  <?php if (!$config_avatax_tax_address_validation) { ?>
+							  <input type="radio" name="config_avatax_tax_address_validation" value="0" checked="checked" />
+							  <?php echo $text_no; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_tax_address_validation" value="0" />
+							  <?php echo $text_no; ?>
+							  <?php } ?>
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-country">Only Validate addresses in:</label>
+						<div class="col-sm-10">
+						  <select name="config_avatax_validate_address_in" class="form-control">
+							<?php  if ($config_avatax_validate_address_in == 'US') { ?>
+						  <option value="US" selected="selected">USA</option>
+						  <option value="CA">Canada</option>
+						  <option value="both">Both</option>
+						  <?php } else if ($config_avatax_validate_address_in == 'CA') { ?>
+						  <option value="US">USA</option>
+						  <option value="CA" selected="selected">Canada</option>
+						  <option value="both">Both</option>
+						  <?php } else if ($config_avatax_validate_address_in == 'both') { ?>
+						  <option value="US">USA</option>
+						  <option value="CA">Canada</option>
+						  <option value="both" selected="selected">Both</option>
+						  <?php } else { ?>
+						  <option value="US">USA</option>
+						  <option value="CA">Canada</option>
+						  <option value="both" selected="selected" >Both</option>
+						  <?php } ?>
+						  </select>
+						</div>
+					</div>
+					<div class="form-group">&nbsp;</div>
+					</fieldset>
+						
+					<fieldset>
+					<legend>Customer Specific Settings</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Do you want save transaction on AvaTax:</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+							  <?php if ($config_avatax_transaction_calculation) { ?>
+							  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="1" checked="checked" />
+							  <?php echo $text_yes; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="1" />
+							  <?php echo $text_yes; ?>
+							  
+							  <?php } ?>
+							</label>
+							<label class="radio-inline">
+							  <?php if (!$config_avatax_transaction_calculation) { ?>
+							  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="0" checked="checked" />
+							  <?php echo $text_no; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="0" />
+							  <?php echo $text_no; ?>
+							  <?php } ?>
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Enable Log:</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+							  <?php if ($config_avatax_log) { ?>
+							  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="1" checked="checked" />
+							  <?php echo $text_yes; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="1" />
+							  <?php echo $text_yes; ?>
+							  
+							  <?php } ?>
+							</label>
+							<label class="radio-inline">
+							  <?php if (!$config_avatax_log) { ?>
+							  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="0" checked="checked" />
+							  <?php echo $text_no; ?>
+							  <?php } else { ?>
+							  <input type="radio" name="config_avatax_log" id="config_avatax_log" value="0" />
+							  <?php echo $text_no; ?>
+							  <?php } ?>
+							</label>
+						</div>
+					</div>
+						
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Send Model Number/UPC/SKU to AvaTax:</label>
+						<div class="col-sm-10">
+						  <label class="radio-inline">	
+							<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" checked="checked" />
+							<?php echo "Model"; ?>
+							<?php } ?>
+							<?php if ($config_avatax_product_code=="UPC") { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" />
+							<?php echo "Model"; ?>
+							<?php } ?>
+							<?php if ($config_avatax_product_code=="SKU") { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" />
+							<?php echo "Model"; ?>
+							<?php } ?>
+						  </label>
+						  <label class="radio-inline">
+							<?php if ($config_avatax_product_code=="UPC") { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="UPC" checked="checked"/>
+							<?php echo "UPC"; ?>
+							<?php } ?>
+							<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="UPC" />
+							<?php echo "UPC"; ?>
+							<?php } ?>
+							<?php if ($config_avatax_product_code=="SKU") { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="UPC" />
+							<?php echo "UPC"; ?>
+							<?php } ?>
+						  </label>
+						  <label class="radio-inline">
+							<?php if ($config_avatax_product_code=="SKU") { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="SKU" checked="checked" />
+							<?php echo "SKU"; ?>
+							<?php } ?>
+							<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="SKU" />
+							<?php echo "SKU"; ?>
+							<?php } ?>
+							<?php if ($config_avatax_product_code=="UPC") { ?>
+							<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="SKU" />
+							<?php echo "SKU"; ?>
+							<?php } ?>
+							</label>
+							&nbsp;&nbsp;<img src="../image/question.jpg" title="If UPC/SKU is not available then Model Number will be sent to AvaTax by default">
+						</div>
+					</div>
+			
+					<div class="form-group">
+						<div class="col-sm-10">
+						  <input type="hidden" name="config_avatax_taxcall_flag" id="config_avatax_taxcall_flag" value="0" />
+						</div>
+					</div>
+					
+					 <div class="form-group">
+						<div class="col-sm-10">
+							<div id="AvaTaxTestConnectionDialog" title="AvaTax Test Connection" style="display:none;"></div>
+					   </div>
+					  </div>
+
+					<div><input type="hidden" name="EnableAvaTaxValidation" id="EnableAvaTaxValidation"  /></div>
+				</fieldset>
+
+				<fieldset>
+				<legend>Avalara Details</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_details">About Avalara:</label>
+						<div class="col-sm-10" style="margin-top:10px">Copyright &copy; 2015 Avalara, Inc. All Rights Reserved.
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_details">AvaTax Version:</label>
+						<div class="col-sm-10" style="margin-top:10px"><?php echo $version; ?>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_details">Email:</label>
+						<div class="col-sm-10" style="margin-top:10px"><a href="support@avalara.com">support@avalara.com</a>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_details">Phone:</label>
+						<div class="col-sm-10" style="margin-top:10px">(877)-780-4848
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
+						<div class="col-sm-10" style="margin-top:10px">
+						  <a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		  
             <div class="tab-pane" id="tab-image">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-logo"><?php echo $entry_logo; ?></label>
@@ -1983,88 +1983,87 @@ $('select[name=\'config_country_id\']').on('change', function() {
 $('select[name=\'config_country_id\']').trigger('change');
 //--></script></div>
 
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
-	<script type="text/javascript">
-	var jQuery_1_8_16 = $.noConflict(true);
-	</script>
+<script type="text/javascript">
+var jQuery_1_8_16 = $.noConflict(true);
+</script>
 
-	<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-					
-		<script type="text/javascript"><!--
-			$('#config_avatax_tax_calculation_yes').click(function() {
+<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 				
-				if($("#config_avatax_account").val()=="") {
-					alert("AvaTax Account Number should not empty.");
-					$("#config_avatax_tax_calculation_no").prop("checked", true);
-					$("#config_avatax_account").focus();				
-				}
-				else if($("#config_avatax_license_key").val()=="") {
-					alert("AvaTax License Key should not empty.");
-					$("#config_avatax_tax_calculation_no").prop("checked", true);
-					$("#config_avatax_license_key").focus();
-				}
-				else if($("#config_avatax_service_url").val()=="") {
-					alert("AvaTax Service URL should not empty.");
-					$("#config_avatax_tax_calculation_no").prop("checked", true);
-					$("#config_avatax_service_url").focus();
-				}
-				else if($("#config_avatax_company_code").val()=="") {
-					alert("AvaTax Company Code should not empty.");
-					$("#config_avatax_tax_calculation_no").prop("checked", true);
-					$("#config_avatax_company_code").focus();
-				}	
-				if(($("#config_address").val()=="") || ($("#config_city").val()=="") ||($("#config_country_id").val()=="") ||($("#config_zone_id").val()=="") ||($("#config_postal_code").val()==""))	
-				{
-					alert("Store Address Line 1, City, Country, Region and Postal Code are required!\n\n Without these values we are not enable the AvaTax Tax Calculation.\n\n So, Please make sure above mentioned fields are filled on the General Tab section.");				
-					//$('#EnableAvaTaxValidation').html('Store Address Line 1, City, Country, Region and Postal Code are required!<br/> Without these values we are not enable the AvaTax Tax Calculation.<br/> So, Please make sure above mentioned fields are filled on the General Tab section.');
-					//$('#EnableAvaTaxValidation').dialog();				
-					$("#config_avatax_tax_calculation_no").prop("checked", true);
-				}
-			});
+	<script type="text/javascript"><!--
+		$('#config_avatax_tax_calculation_yes').click(function() {
+			
+			if($("#config_avatax_account").val()=="") {
+				alert("AvaTax Account Number should not empty.");
+				$("#config_avatax_tax_calculation_no").prop("checked", true);
+				$("#config_avatax_account").focus();				
+			}
+			else if($("#config_avatax_license_key").val()=="") {
+				alert("AvaTax License Key should not empty.");
+				$("#config_avatax_tax_calculation_no").prop("checked", true);
+				$("#config_avatax_license_key").focus();
+			}
+			else if($("#config_avatax_service_url").val()=="") {
+				alert("AvaTax Service URL should not empty.");
+				$("#config_avatax_tax_calculation_no").prop("checked", true);
+				$("#config_avatax_service_url").focus();
+			}
+			else if($("#config_avatax_company_code").val()=="") {
+				alert("AvaTax Company Code should not empty.");
+				$("#config_avatax_tax_calculation_no").prop("checked", true);
+				$("#config_avatax_company_code").focus();
+			}	
+			if(($("#config_address").val()=="") || ($("#config_city").val()=="") ||($("#config_country_id").val()=="") ||($("#config_zone_id").val()=="") ||($("#config_postal_code").val()==""))	
+			{
+				alert("Store Address Line 1, City, Country, Region and Postal Code are required!\n\n Without these values we are not enable the AvaTax Tax Calculation.\n\n So, Please make sure above mentioned fields are filled on the General Tab section.");				
+				//$('#EnableAvaTaxValidation').html('Store Address Line 1, City, Country, Region and Postal Code are required!<br/> Without these values we are not enable the AvaTax Tax Calculation.<br/> So, Please make sure above mentioned fields are filled on the General Tab section.');
+				//$('#EnableAvaTaxValidation').dialog();				
+				$("#config_avatax_tax_calculation_no").prop("checked", true);
+			}
+		});
 
-			$('#AvaTaxTestConnection').click(function() {
-				if($("#config_avatax_account").val()=="") {
-					alert("Please enter AvaTax Account Number!");
-					$("#config_avatax_account").focus();
-				}
-				else if($("#config_avatax_license_key").val()=="") {
-					alert("Please enter AvaTax License Key");
-					$("#config_avatax_license_key").focus();
-				}
-				else if($("#config_avatax_service_url").val()=="") {
-					alert("Please enter AvaTax Service URL");
-					$("#config_avatax_service_url").focus();
-				}
-				else
-				{
-					jQuery_1_8_16('#AvaTaxTestConnectionDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
-					
-					jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog();
-					
-					
-					var accountVal = $("#config_avatax_account").val();
-					var licenseVal = $("#config_avatax_license_key").val();
-					var serviceURLVal = $("#config_avatax_service_url").val();
-					var environment = "Development";
-					var client = '<?="OpenCart||".VERSION."||02.00.02.00";?>';
-
-					if($("#config_avatax_service_url").val()=="https://development.avalara.net")
-						environment = "Development";
-					else 
-						environment = "Production";
-
-	/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_test_connection.php?from=AvaTaxConnectionTest&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&client="+ client, {q: ""}, function(data){
-
-						if(data.length >0) {
-						//alert(data);
-							jQuery_1_8_16('#AvaTaxTestConnectionDialog').html(data);
-						}
-					});
-
-				}
-			});
-		//--></script>
+		$('#AvaTaxTestConnection').click(function() {
+			if($("#config_avatax_account").val()=="") {
+				alert("Please enter AvaTax Account Number!");
+				$("#config_avatax_account").focus();
+			}
+			else if($("#config_avatax_license_key").val()=="") {
+				alert("Please enter AvaTax License Key");
+				$("#config_avatax_license_key").focus();
+			}
+			else if($("#config_avatax_service_url").val()=="") {
+				alert("Please enter AvaTax Service URL");
+				$("#config_avatax_service_url").focus();
+			}
+			else
+			{
+				jQuery_1_8_16('#AvaTaxTestConnectionDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
 				
+				jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog();
+				
+				
+				var accountVal = $("#config_avatax_account").val();
+				var licenseVal = $("#config_avatax_license_key").val();
+				var serviceURLVal = $("#config_avatax_service_url").val();
+				var environment = "Development";
+				var client = '<?="OpenCart||".VERSION."||02.00.02.00";?>';
+
+				if($("#config_avatax_service_url").val()=="https://development.avalara.net")
+					environment = "Development";
+				else 
+					environment = "Production";
+
+/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_test_connection.php?from=AvaTaxConnectionTest&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&client="+ client, {q: ""}, function(data){
+
+					if(data.length >0) {
+						jQuery_1_8_16('#AvaTaxTestConnectionDialog').html(data);
+					}
+				});
+
+			}
+		});
+	//--></script>
+			
 <?php echo $footer; ?>

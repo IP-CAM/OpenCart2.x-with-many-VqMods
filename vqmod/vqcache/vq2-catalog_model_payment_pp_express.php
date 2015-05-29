@@ -222,7 +222,8 @@ class ModelPaymentPPExpress extends Model {
 
 		$total_data = array();
 		$total = 0;
-$this->config->set('config_avatax_taxcall_flag','1');
+//To re-calculate tax when user selects paypal option
+			$this->config->set('config_avatax_taxcall_flag','1');
 		$taxes = $this->cart->getTaxes();
 
 		// Display prices

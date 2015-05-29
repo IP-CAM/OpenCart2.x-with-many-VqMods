@@ -61,9 +61,9 @@ class ModelTotalCoupon extends Model {
 					$discount_total += $discount;
 				}
 
-// AvaTax Discount for Coupon
-				$this->session->data['coupon_amount'] = $discount_total ;
-				$this->session->data['coupon_info'] = $coupon_info ;				
+//Added for discount calculation and coupon amount is taken from store front. Ticket # - CLOUDERP-3480
+			$this->session->data['coupon_amount'] = $discount_total ;
+			$this->session->data['coupon_info'] = $coupon_info ;				
 				if ($coupon_info['shipping'] && isset($this->session->data['shipping_method'])) {
 					if (!empty($this->session->data['shipping_method']['tax_class_id'])) {
 						$tax_rates = $this->tax->getRates($this->session->data['shipping_method']['cost'], $this->session->data['shipping_method']['tax_class_id']);

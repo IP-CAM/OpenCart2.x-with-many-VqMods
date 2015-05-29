@@ -261,22 +261,22 @@ class ControllerSettingSetting extends Controller {
 			$data['error_email'] = '';
 		}
 
-			if (isset($this->error['city'])) {
-				$data['error_city'] = $this->error['city'];
-			} else {
-				$data['error_city'] = '';
-			}
-			if (isset($this->error['postal_code'])) {
-				$data['error_postal_code'] = $this->error['postal_code'];
-			} else {
-				$data['error_postal_code'] = '';
-			}
-			if (isset($this->error['zone_id'])) {
-				$data['error_zone_id'] = $this->error['zone_id'];
-			} else {
-				$data['error_zone_id'] = '';
-			}
-			
+		if (isset($this->error['city'])) {
+			$data['error_city'] = $this->error['city'];
+		} else {
+			$data['error_city'] = '';
+		}
+		if (isset($this->error['postal_code'])) {
+			$data['error_postal_code'] = $this->error['postal_code'];
+		} else {
+			$data['error_postal_code'] = '';
+		}
+		if (isset($this->error['zone_id'])) {
+			$data['error_zone_id'] = $this->error['zone_id'];
+		} else {
+			$data['error_zone_id'] = '';
+		}
+		
 		if (isset($this->error['telephone'])) {
 			$data['error_telephone'] = $this->error['telephone'];
 		} else {
@@ -496,36 +496,36 @@ class ControllerSettingSetting extends Controller {
 		}
 
 
-			if (isset($this->request->post['config_address_line2'])) {
-				$data['config_address_line2'] = $this->request->post['config_address_line2'];
-			} else {
-				$data['config_address_line2'] = $this->config->get('config_address_line2');
-			}
+		if (isset($this->request->post['config_address_line2'])) {
+			$data['config_address_line2'] = $this->request->post['config_address_line2'];
+		} else {
+			$data['config_address_line2'] = $this->config->get('config_address_line2');
+		}
 
-			if (isset($this->request->post['config_city'])) {
-				$data['config_city'] = $this->request->post['config_city'];
-			} else {
-				$data['config_city'] = $this->config->get('config_city');
-			}
+		if (isset($this->request->post['config_city'])) {
+			$data['config_city'] = $this->request->post['config_city'];
+		} else {
+			$data['config_city'] = $this->config->get('config_city');
+		}
 
-			if (isset($this->request->post['config_state'])) {
-				$data['config_state'] = $this->request->post['config_state'];
-			} else {
-				$data['config_state'] = $this->config->get('config_state');
-			}
+		if (isset($this->request->post['config_state'])) {
+			$data['config_state'] = $this->request->post['config_state'];
+		} else {
+			$data['config_state'] = $this->config->get('config_state');
+		}
 
-			if (isset($this->request->post['config_country'])) {
-				$data['config_country'] = $this->request->post['config_country'];
-			} else {
-				$data['config_country'] = $this->config->get('config_country');
-			}
+		if (isset($this->request->post['config_country'])) {
+			$data['config_country'] = $this->request->post['config_country'];
+		} else {
+			$data['config_country'] = $this->config->get('config_country');
+		}
 
-			if (isset($this->request->post['config_postal_code'])) {
-				$data['config_postal_code'] = $this->request->post['config_postal_code'];
-			} else {
-				$data['config_postal_code'] = $this->config->get('config_postal_code');
-			}
-			
+		if (isset($this->request->post['config_postal_code'])) {
+			$data['config_postal_code'] = $this->request->post['config_postal_code'];
+		} else {
+			$data['config_postal_code'] = $this->config->get('config_postal_code');
+		}
+		
 		if (isset($this->request->post['config_email'])) {
 			$data['config_email'] = $this->request->post['config_email'];
 		} else {
@@ -763,84 +763,77 @@ class ControllerSettingSetting extends Controller {
 		}
 
 
-			if (isset($this->request->post['config_avatax_account'])) {
-				$data['config_avatax_account'] = $this->request->post['config_avatax_account'];
-			} else {
-				$data['config_avatax_account'] = $this->config->get('config_avatax_account');
-			}
+		if (isset($this->request->post['config_avatax_account'])) {
+			$data['config_avatax_account'] = $this->request->post['config_avatax_account'];
+		} else {
+			$data['config_avatax_account'] = $this->config->get('config_avatax_account');
+		}
 
-			if (isset($this->request->post['config_avatax_license_key'])) {
-				$data['config_avatax_license_key'] = $this->request->post['config_avatax_license_key'];
-			} else {
-				$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
-			}
+		if (isset($this->request->post['config_avatax_license_key'])) {
+			$data['config_avatax_license_key'] = $this->request->post['config_avatax_license_key'];
+		} else {
+			$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
+		}
 
-			if (isset($this->request->post['config_avatax_client'])) {
-				$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
-			} else {
-				$data['config_avatax_client'] = $this->config->get('config_avatax_client');
-			}
+		if (isset($this->request->post['config_avatax_client'])) {
+			$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
+		} else {
+			$data['config_avatax_client'] = $this->config->get('config_avatax_client');
+		}
 
-			if (isset($this->request->post['config_avatax_service_url'])) {
-				$data['config_avatax_service_url'] = $this->request->post['config_avatax_service_url'];
-			} else {
-				$data['config_avatax_service_url'] = $this->config->get('config_avatax_service_url');
-			}
+		if (isset($this->request->post['config_avatax_service_url'])) {
+			$data['config_avatax_service_url'] = $this->request->post['config_avatax_service_url'];
+		} else {
+			$data['config_avatax_service_url'] = $this->config->get('config_avatax_service_url');
+		}
 
-			if (isset($this->request->post['config_avatax_taxcall_flag'])) {
-				$data['config_avatax_taxcall_flag'] = $this->request->post['config_avatax_taxcall_flag'];
-			} else {
-				$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
-			}
-			if (isset($this->request->post['config_avatax_transaction_calculation'])) {
-				$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
-			} else {
-				$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
-			}
-			
-			if (isset($this->request->post['config_avatax_log'])) {
-				$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
-			} else {
-				$data['config_avatax_log'] = $this->config->get('config_avatax_log');
-			}
+		if (isset($this->request->post['config_avatax_taxcall_flag'])) {
+			$data['config_avatax_taxcall_flag'] = $this->request->post['config_avatax_taxcall_flag'];
+		} else {
+			$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
+		}
+		if (isset($this->request->post['config_avatax_transaction_calculation'])) {
+			$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
+		} else {
+			$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
+		}
+		
+		if (isset($this->request->post['config_avatax_log'])) {
+			$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
+		} else {
+			$data['config_avatax_log'] = $this->config->get('config_avatax_log');
+		}
 
-			//UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number
-			if (isset($this->request->post['config_avatax_product_code'])) {
-				$data['config_avatax_product_code'] = $this->request->post['config_avatax_product_code'];
-			} else {
-				$data['config_avatax_product_code'] = $this->config->get('config_avatax_product_code');
-			}
+		//UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number
+		if (isset($this->request->post['config_avatax_product_code'])) {
+			$data['config_avatax_product_code'] = $this->request->post['config_avatax_product_code'];
+		} else {
+			$data['config_avatax_product_code'] = $this->config->get('config_avatax_product_code');
+		}
 
-			if (isset($this->request->post['config_avatax_company_code'])) {
-				$data['config_avatax_company_code'] = $this->request->post['config_avatax_company_code'];
-			} else {
-				$data['config_avatax_company_code'] = $this->config->get('config_avatax_company_code');
-			}
+		if (isset($this->request->post['config_avatax_company_code'])) {
+			$data['config_avatax_company_code'] = $this->request->post['config_avatax_company_code'];
+		} else {
+			$data['config_avatax_company_code'] = $this->config->get('config_avatax_company_code');
+		}
 
-			if (isset($this->request->post['config_avatax_tax_calculation'])) {
-				$data['config_avatax_tax_calculation'] = $this->request->post['config_avatax_tax_calculation'];
-			} else {
-				$data['config_avatax_tax_calculation'] = $this->config->get('config_avatax_tax_calculation');
-			}
+		if (isset($this->request->post['config_avatax_tax_calculation'])) {
+			$data['config_avatax_tax_calculation'] = $this->request->post['config_avatax_tax_calculation'];
+		} else {
+			$data['config_avatax_tax_calculation'] = $this->config->get('config_avatax_tax_calculation');
+		}
 
-			if (isset($this->request->post['config_avatax_tax_address_validation'])) {
-				$data['config_avatax_tax_address_validation'] = $this->request->post['config_avatax_tax_address_validation'];
-			} else {
-				$data['config_avatax_tax_address_validation'] = $this->config->get('config_avatax_tax_address_validation');
-			}
-
-			/*if (isset($this->request->post['config_avatax_us_canada_only'])) {
-				$data['config_avatax_us_canada_only'] = $this->request->post['config_avatax_us_canada_only'];
-			} else {
-				$data['config_avatax_us_canada_only'] = $this->config->get('config_avatax_us_canada_only');
-			}*/
-
-			if (isset($this->request->post['config_avatax_validate_address_in'])) {
-				$data['config_avatax_validate_address_in'] = $this->request->post['config_avatax_validate_address_in'];
-			} else {
-				$data['config_avatax_validate_address_in'] = $this->config->get('config_avatax_validate_address_in');
-			}
-			
+		if (isset($this->request->post['config_avatax_tax_address_validation'])) {
+			$data['config_avatax_tax_address_validation'] = $this->request->post['config_avatax_tax_address_validation'];
+		} else {
+			$data['config_avatax_tax_address_validation'] = $this->config->get('config_avatax_tax_address_validation');
+		}
+		if (isset($this->request->post['config_avatax_validate_address_in'])) {
+			$data['config_avatax_validate_address_in'] = $this->request->post['config_avatax_validate_address_in'];
+		} else {
+			$data['config_avatax_validate_address_in'] = $this->config->get('config_avatax_validate_address_in');
+		}
+		
 		if (isset($this->request->post['config_tax_customer'])) {
 			$data['config_tax_customer'] = $this->request->post['config_tax_customer'];
 		} else {
@@ -1394,23 +1387,23 @@ class ControllerSettingSetting extends Controller {
 		}
 
 		
-				if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 64))
-			 {
+			if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 64))
+		 {
 			$this->error['address'] = $this->language->get('error_address');
 		}
 
-			if ((utf8_strlen($this->request->post['config_city']) < 3) || (utf8_strlen($this->request->post['config_city']) > 64)) {
-				$this->error['city'] = $this->language->get('error_city');
-			}
-			if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 5)) {
-				$this->error['postal_code'] = $this->language->get('error_postal_code');
-			}
+		if ((utf8_strlen($this->request->post['config_city']) < 3) || (utf8_strlen($this->request->post['config_city']) > 64)) {
+			$this->error['city'] = $this->language->get('error_city');
+		}
+		if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 5)) {
+			$this->error['postal_code'] = $this->language->get('error_postal_code');
+		}
 
-			if(isset($this->request->post['config_zone_id']) && !($this->request->post['config_zone_id']>0))
-			{
-				$this->error['zone_id'] = $this->language->get('error_zone_id');
-			}
-			
+		if(isset($this->request->post['config_zone_id']) && !($this->request->post['config_zone_id']>0))
+		{
+			$this->error['zone_id'] = $this->language->get('error_zone_id');
+		}
+		
 
 		if ((utf8_strlen($this->request->post['config_email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['config_email'])) {
 			$this->error['email'] = $this->language->get('error_email');
