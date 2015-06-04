@@ -5,12 +5,14 @@
 	<author><![CDATA[Avalara]]></author>
 	<file name="catalog/view/theme/default/template/checkout/cart.tpl">
 		<operation>
+			<!--Added Avalara error, if any error is there-->
 			<search position="before" ><![CDATA[<div class="row"><?php echo $column_left; ?>]]></search>
 			<add><![CDATA[<?php if(isset($ERROR_STATUS)) echo $ERROR_STATUS; ?>]]></add>
 		</operation>
 	</file>
 	<file name="catalog/model/total/tax.php">				
 		<operation>
+			<!--Added a variable for avalara taxcount-->
 			<search position="after" ><![CDATA[public function getTotal(&$total_data, &$total, &$taxes) {]]></search>
 			<add><![CDATA[        $taxCount=0;
 			]]></add>
@@ -20,6 +22,7 @@
 			<add><![CDATA[//}]]></add>			
 		</operation>			
 		 <operation>
+			<!--Added tax title as Total Tax on Checkout page-->
 			<search position="after" ><![CDATA[foreach ($taxes as $key => $value) {]]></search>
 				<add><![CDATA[
 					if($this->config->get('config_avatax_tax_calculation'))
@@ -48,6 +51,7 @@
 	</file>
 	<file name="catalog/controller/checkout/cart.php">				
 		<operation>
+			<!--Added Address error if any after calling getTax-->
 			<search position="after" ><![CDATA[$taxes = $this->cart->getTaxes();]]></search>
 				<add><![CDATA[$data['ERROR_STATUS'] = $this->tax->tax_address_error;]]></add>
 		</operation>
@@ -55,6 +59,7 @@
 	
 	<file name="admin/language/english/setting/setting.php">
 		<operation>
+			<!--Address validation errors are assigned to variables-->
 			<search position="after"><![CDATA[$_['error_address']                    = 'Store Address must be between 10 and 256 characters!';]]></search>
 				<add><![CDATA[
 					$_['error_zone_id']			= 'State/Province is required!';
@@ -64,6 +69,7 @@
 				</add>
 		</operation>
 		<operation>
+			<!--Store Address error is assigned to variables-->
 			<search position="replace"><![CDATA[$_['error_address']                    = 'Store Address must be between 10 and 256 characters!';]]></search>
 				<add><![CDATA[$_['error_address']                = 'Store Address must be between 10 and 50 characters!';]]></add>
 		</operation>
@@ -71,6 +77,7 @@
 	</file>
 	<file name="admin/model/setting/setting.php">
 		<operation>
+			<!--If AvaTax calculation is set true then avataxAddFields function is called, Which adds AvaTax fields to order table-->
 			<search position="after" offset="11" ><![CDATA[public function editSetting(]]></search>
 				<add><![CDATA[
 					if(isset($data["config_avatax_tax_calculation"]) && $data["config_avatax_tax_calculation"]==1)
@@ -80,6 +87,7 @@
 				]]></add>
 		</operation>
 		<operation>
+			<!--Added AvaTax fields to order, order status and return table-->
 			<search position="before" ><![CDATA[public function deleteSetting(]]></search>
 			<add><![CDATA[
 			
@@ -115,6 +123,7 @@
 	</file>
 	<file name="admin/controller/setting/setting.php">
 		<operation>
+		    <!---->
 			<search position="replace"><![CDATA[if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 256))]]></search>
 				<add><![CDATA[
 					if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 64))
@@ -137,6 +146,7 @@
 				]]></add>
 		</operation>
 		<operation>
+			<!--Errors are set for city, postal code and zone-->
 			<search position="before" offset="1" ><![CDATA[if (isset($this->error['telephone'])) {]]></search>
 				<add><![CDATA[
 					if (isset($this->error['city'])) {
@@ -157,6 +167,7 @@
 		]]></add>
 		</operation>
 		<operation>
+			<!--config address details are fetched and saved-->
 			<search position="before"><![CDATA[if (isset($this->request->post['config_email'])) {]]></search>
 				<add><![CDATA[
 					if (isset($this->request->post['config_address_line2'])) {
@@ -191,6 +202,7 @@
 				]]></add>
 		</operation>
 		<operation>
+			<!--config AvaTax details are fetched and saved-->
 			<search position="before"><![CDATA[if (isset($this->request->post['config_tax_customer'])) {]]></search>
 				<add><![CDATA[
 					if (isset($this->request->post['config_avatax_account'])) {
@@ -291,8 +303,9 @@
 				<add><![CDATA[
 					<input type="text" name="config_address" id="config_address" class="form-control" value="<?php echo $config_address; ?>" size="40" />
 			]]></add>
-		</operation>	
+		</operation>
 		<operation>
+			<!--More address fields added required for address validation-->
 			<search position="before" offset="1" ><![CDATA[<label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>]]></search>
 				<add><![CDATA[
 				<div class="form-group">
@@ -348,10 +361,12 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--Avalara tab added in opencart admin panel configuration screen-->
 			<search position="after" ><![CDATA[<li><a href="#tab-option" data-toggle="tab"><?php echo $tab_option; ?></a></li>]]></search>
 				<add><![CDATA[<li><a href="#tab-avalara" data-toggle="tab">Avalara</a></li>]]></add>
 		</operation>
 		<operation>
+			<!--Fields added to Avalara tab-->
 			<search position="before"><![CDATA[<div class="tab-pane" id="tab-image">]]></search>
 				<add><![CDATA[
 					<div class="tab-pane" id="tab-avalara">
@@ -639,6 +654,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--click events added for connection testing-->
 			<search position="before"><![CDATA[<?php echo $footer; ?>]]></search>            
 				<add><![CDATA[
 					<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -731,6 +747,7 @@
 	
 	<file name="system/library/customer.php">
 		<operation>
+			<!--function added to fetch address details-->
 			<search position="after" offset="4" ><![CDATA[ public function getRewardPoints() { ]]></search>
 				<add><![CDATA[
 			
@@ -795,6 +812,7 @@
 	<file name="system/library/tax.php">
 		<!--<operation>-->
 		  <operation>
+		  <!--initialised variables-->
 		  <search position="after" ><![CDATA[private $tax_rates = array();]]></search>
 			<add><![CDATA[public $tax_address_error;
 						  private $payment_address;
@@ -802,6 +820,7 @@
 			]]></add>			
 		</operation>
 		<operation>
+		  <!--Shipping address details are set-->
 		  <search position="after" ><![CDATA[public function setShippingAddress($country_id, $zone_id) {]]></search>
 			<add><![CDATA[$this->shipping_address = array(
 							'country_id' => $country_id,
@@ -810,6 +829,7 @@
 			]]></add>			
 		</operation>
 		<operation>
+		  <!--Payment address details are set-->
 		  <search position="after" ><![CDATA[public function setPaymentAddress($country_id, $zone_id) {]]></search>
 			<add><![CDATA[	$this->payment_address = array(
 							'country_id' => $country_id,
@@ -818,6 +838,7 @@
 			]]></add>	
 		</operation>		
 		<operation>
+		  <!--Store address details are set-->
 		  <search position="after" ><![CDATA[public function setStoreAddress($country_id, $zone_id) {]]></search>
 			<add><![CDATA[	$this->store_address = array(
 							'country_id' => $country_id,
@@ -827,10 +848,12 @@
 		</operation>
 		<!-- Add it only for OpenCart 2.0.0.0. Below line is available OpenCart 2.0.0.0 onwards -->
 		<operation>
-		  <search position="after" ><![CDATA[$this->db = $registry->get('db');]]></search>
+		    <!--Customer detail is set-->
+		    <search position="after" ><![CDATA[$this->db = $registry->get('db');]]></search>
 			<add><![CDATA[		$this->customer = $registry->get('customer');]]></add>	
 		</operation>		
 		<operation>
+			<!--Address and customer details are fetched and function is defined to calculate AvaTax amount-->
 			<search position="before"><![CDATA[public function getRateName($tax_rate_id) {]]></search>
 			<add><![CDATA[
 				public function getCountry($country_id) {
@@ -1311,8 +1334,6 @@
 					$request->setLines($lines);
 					$returnMessage = "";
 
-					
-
 					try {
 					
 					if (!empty($DestAddress)) {
@@ -1324,11 +1345,7 @@
 					$this->session->data['latency'] = $latency ;
 						
 						
-						// Error Trapping
-						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-						
-						
-						/************* Logging code snippet (optional) starts here *******************/
+					/************* Logging code snippet (optional) starts here *******************/
 						// System Logger starts here:
 						
 						$log_mode = $this->config->get('config_avatax_log');
@@ -1354,12 +1371,11 @@
 							// 	System Logger ends here
 							//	Logging code snippet (optional) ends here
 						}
-						else{}
 						
 						
-
-							
-
+						// Error Trapping
+						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+						
 							return $getTaxResult;
 
 							// If NOT success - display error messages to console
@@ -1389,6 +1405,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--logging snippet is added and function is called to calculate AvaTax amount -->
 			<search position="after"><![CDATA[$tax_rate_data = array();]]></search>
 				<add><![CDATA[
 					//Variable Mapping
@@ -1506,6 +1523,7 @@
 	</file>
 	<file name="catalog/controller/checkout/confirm.php">
 		<operation>
+			<!--variable is declared for avatax address error-->
 			<search position="before" ><![CDATA[public function index() {]]></search>
 				<add><![CDATA[public $tax_address_error;]]></add>
 		</operation>
@@ -1547,12 +1565,14 @@
 				//$data['ERROR_STATUS'] = $this->tax_address_error;]]></add>
 		</operation>
 		<operation>
+			<!--To calculate tax on store front, flag is set true-->
 			<search position="after" ><![CDATA[			$total = 0;]]></search>
 				<add><![CDATA[//To calculate tax on store front
 				$this->config->set('config_avatax_taxcall_flag','1');]]></add>
 		</operation>
 		
 		<operation>
+			<!--function is added to validates the given address-->
 			<search position="after" offset='2' ><![CDATA[$this->response->setOutput($this->load->view('default/template/checkout/confirm.tpl', $data));]]></search>
 				<add><![CDATA[
 			
@@ -1605,6 +1625,7 @@
 
 	 <file name="catalog/model/payment/pp_express.php">
 		<operation>
+			<!--To calculate tax when payPal option is selected, flag is set 1-->
 			<search position="before" ><![CDATA[$taxes = $this->cart->getTaxes();]]></search>
 				<add><![CDATA[//To re-calculate tax when user selects paypal option
 				$this->config->set('config_avatax_taxcall_flag','1');]]></add>
@@ -1619,6 +1640,7 @@
 	</file>
 	<file name="catalog/model/checkout/order.php">
 		<operation>
+			<!--function is called to calculate AvaTax amount and logging snippet is added-->
 			<search position="before" ><![CDATA[$this->cache->delete('product');]]></search>
 				<add><![CDATA[
 				$avatax_tax_country = "";
@@ -1724,6 +1746,7 @@
 	</file>
 	<file name="catalog/model/catalog/product.php">
 		<operation>
+			<!--function is added that returns discount amount of product-->
 			<search position="before" ><![CDATA[public function getProductDiscounts($product_id) {]]></search>
 				<add><![CDATA[
 			
@@ -1749,6 +1772,7 @@
 	</file>
 	<file name="admin/model/catalog/product.php">
 		<operation>
+			<!--function is added that returns discount amount of product-->
 			<search position="before" ><![CDATA[public function getProductDiscounts($product_id) {]]></search>
 				<add><![CDATA[
 				
@@ -1768,7 +1792,8 @@
 		</operation>
 	</file>
 	<file name="catalog/model/checkout/order.php">
-		<operation><!--modified from update to addorderhistory-->
+		<operation>
+			<!--Address and product details are fetched and function is defined to calculate AvaTax amount and to update the AvaTax fields-->
 			<search position="before" ><![CDATA[public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
 				<add><![CDATA[
 
@@ -2241,18 +2266,7 @@
 					$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
 					$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
 					
-						
-						// Error Trapping
-						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-
-							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
-
-							
-
-							//Added for connector metrics
+					//Added for connector metrics
 							/************* Logging code snippet (optional) starts here *******************/
 						// System Logger starts here:
 						
@@ -2282,7 +2296,15 @@
 						}
 						else{}
 						
-							
+						
+						// Error Trapping
+						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+
+							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+
 							return $GetTaxData;
 
 						} else {
@@ -2351,6 +2373,7 @@
 	</file>
 	<file name="catalog/model/account/return.php">
 		<operation>
+			<!--functions are defined to get original price of product, to get doc code of return order and to update return doc code-->
 			<search position="before" ><![CDATA[public function getReturn($return_id) {]]></search>
 				<add><![CDATA[
 			
@@ -2728,17 +2751,7 @@
 			$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
 			
 				
-				// Error Trapping
-				if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-
-					$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-					$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-					$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-					$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
-
-					
-
-					//Added for connector metrics
+			//Added for connector metrics
 					/************* Logging code snippet (optional) starts here *******************/
 				// System Logger starts here:
 				
@@ -2768,7 +2781,15 @@
 				}
 				else{}
 				
-					
+			
+				// Error Trapping
+				if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+
+					$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+					$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+					$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+					$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+	
 					return $GetTaxData;
 
 				} else {
@@ -2798,6 +2819,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--function is called to compute tax on return invoice and logging code snippet is added-->
 			<search position="after" offset="5" ><![CDATA[public function addReturn($data) {			      	]]></search>
 				<add><![CDATA[
 				if($this->config->get('config_avatax_tax_calculation'))
@@ -2872,6 +2894,7 @@
 
 	<file name="admin/model/sale/return.php">
 		<operation>
+			<!--order and product details are fetched , function is called to compute tax on return invoice and logging code snippet is added-->
 			<search position="after" ><![CDATA[public function editReturn($return_id, $data) {]]></search>
 			<add><![CDATA[
 
@@ -2988,6 +3011,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--order and product details are fetched , function is called to compute tax on return invoice and logging code snippet is added-->
 			<search position="after" ><![CDATA[public function addReturnHistory($return_id, $data) {]]></search>
 			<add><![CDATA[
 			if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
@@ -3040,39 +3064,39 @@
 							$this->session->data['avatax_return_error_message'] = 'Success';
 							
 							/************* Logging code snippet (optional) starts here *******************/
-					// System Logger starts here:
+							// System Logger starts here:
 					
-					$log_mode = $this->config->get('config_avatax_log');
+							$log_mode = $this->config->get('config_avatax_log');
 					
 					
-					if($log_mode==1){
+							if($log_mode==1){
 					   
 								
-						$timeStamp 			= 	new DateTime();						// Create Time Stamp
-						$params				=   '[Input: ' . ']';		// Create Param List
-						$u_name				=	'';							// Eventually will come from $_SESSION[] object
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+						
+					
+							// Creating the System Logger Object
+							$application_log 	= 	new SystemLogger;
+							$connectortime = round(microtime(true) * 1000)-$time_start;
+							$latency = $this->session->data['latency'];
+							$connectortime= $connectortime- $latency;
+					
+							$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
 					
 					
-					// Creating the System Logger Object
-					$application_log 	= 	new SystemLogger;
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					$latency = $this->session->data['latency'];
-					$connectortime= $connectortime- $latency;
-					
-					$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-					
-					
-						$latency =""  ;
-						$this->session->data['latency'] ="";							
-						$this->session->data['getTaxLines'] ="";							
-						$this->session->data['getDocType'] ="";							
-						$this->session->data['getDocCode'] ="";
+							$latency =""  ;
+							$this->session->data['latency'] ="";							
+							$this->session->data['getTaxLines'] ="";							
+							$this->session->data['getDocType'] ="";							
+							$this->session->data['getDocCode'] ="";
 
-						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-						// 	System Logger ends here
-						//	Logging code snippet (optional) ends here
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
 		
-				}
+							}
 		
 							
 						}
@@ -3093,6 +3117,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--return doc code is fetched ,passed to CancelTax and return success and error message is displayed-->
 			<search position="after">
 				<![CDATA[public function deleteReturn($return_id) {]]>
 			</search>
@@ -3119,6 +3144,7 @@
 			</add>
 		</operation>
 		<operation>
+			<!--Functions are defined to get original price of product, for tax computation on return invoice and to fetch address and product detail-->
 			<search position="before" ><![CDATA[public function getTotalReturnHistoriesByReturnStatusId($return_status_id) {]]></search>
 			<add><![CDATA[
 			
@@ -3491,18 +3517,7 @@
 					$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
 					$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
 					
-						
-						// Error Trapping
-						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-
-							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
-
-							
-
-							//Added for connector metrics
+						//Added for connector metrics
 							/************* Logging code snippet (optional) starts here *******************/
 						// System Logger starts here:
 						
@@ -3532,7 +3547,14 @@
 						}
 						else{}
 						
-							
+						// Error Trapping
+						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+
+							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+
 							return $GetTaxData;
 
 						} else {
@@ -3565,6 +3587,7 @@
 
 	<file name="system/library/cart.php">
 		<operation>
+			<!--tax class detail is fetched-->
 			<search position="before" ><![CDATA[if ($product_query->num_rows) {]]></search>
 			<add><![CDATA[
 				if($product_query->row["tax_class_id"] > 0)
@@ -3574,6 +3597,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--tax code is set-->
 			<search position="before" ><![CDATA[$this->data[$key] = array(]]></search>
 			<add><![CDATA[
 					if($product_query->row["tax_class_id"] > 0)
@@ -3595,12 +3619,14 @@
 
 		<!--UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number -->
 		<operation>
+			<!--model, upc and sku for product is set-->
 			<search position="after" ><![CDATA['model'           => $product_query->row['model'],]]></search>
 			<add><![CDATA['upc'                     => $product_query->row['upc'],
 			'sku'                     => $product_query->row['sku'],]]></add>
 		</operation>
 
-		<operation><!--Operation modified-->
+		<operation>
+			<!--Functions are defined to fetch address and product detail and to calculate the Taxable Amount-->
 			<search position="before" ><![CDATA[public function add($product_id, $qty = 1, $option = array(), $recurring_id = 0) {]]></search>
 			<add><![CDATA[
 			public function getProductForQuantity($product_id, $quantity) {
@@ -3832,11 +3858,7 @@
 				$this->session->data['latency'] = "" ;
 				$this->session->data['latency'] = $latency ;
 					
-					// Error Trapping
-					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-					
-					
-					/************* Logging code snippet (optional) starts here *******************/
+				/************* Logging code snippet (optional) starts here *******************/
 					// System Logger starts here:
 					
 					$log_mode = $this->config->get('config_avatax_log');
@@ -3864,6 +3886,9 @@
 						//	Logging code snippet (optional) ends here
 					}
 					else{}
+					
+					// Error Trapping
+					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 					
 						return $getTaxResult;
 						
@@ -3950,7 +3975,8 @@
 		</operation>
 	</file>
 	<file name="admin/controller/sale/return.php">
-		<operation><!--Operation modified-->
+		<operation>
+			<!--avatax return error message or success message is set-->
 			<search position="replace"><![CDATA[$data['success'] = $this->language->get('text_success');]]></search>
 			<add><![CDATA[
 			if(!empty($this->session->data['avatax_return_error_message']))
@@ -3968,6 +3994,7 @@
 				]]></add>
 		</operation>
 		<operation>
+			<!--avatax return error message or success message is set-->
 			<search position="replace" offset="2"><![CDATA[$this->model_sale_return->editReturn($this->request->get['return_id'], $this->request->post);]]></search>
 			<add><![CDATA[
 			$this->model_sale_return->editReturn($this->request->get['return_id'], $this->request->post);
@@ -3988,7 +4015,8 @@
 	</file>
 	
 	<file name="catalog/model/checkout/order.php"><!--file modified from admin/model/sale/order.php to catalog/model/checkout/order.php-->
-		<operation><!--Operation doesnt exist, exist in catalog/model/checkout/order.php-->
+		<operation>
+			<!--AvaTaxChangeDocumentStatus function is called to change Order State-->
 			<search position="after" ><![CDATA[public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
 			<add><![CDATA[
 			if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
@@ -4041,7 +4069,8 @@
 		
 		
 		
-		<operation><!--Operation doesnt exist in admin,  exist in catalog/model/checkout/order.php-->
+		<operation>
+			<!--DocumentStateVoided, DocumentStateUncommitted, DocumentStateCommitted functions are defined to change the state to void, uncommitted and committed-->
 			<search position="before" ><![CDATA[public function deleteOrder($order_id) {]]></search>
 			<add><![CDATA[
 			
@@ -4850,22 +4879,11 @@
 				$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
 				$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
 
-					// Error Trapping
-					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-
-						$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-						$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-						$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-						$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
-						$this->session->data['previous_error_status'] = "Success";
-						//return $getTaxResult->getTotalTax();
-
-						/************* Logging code snippet (optional) starts here *******************/
-					// System Logger starts here:
-					
-					$log_mode = $this->config->get('config_avatax_log');
-					
-					if($log_mode==1){
+				/************* Logging code snippet (optional) starts here *******************/
+				// System Logger starts here:
+				
+				$log_mode = $this->config->get('config_avatax_log');
+				if($log_mode==1){
 					   
 
 						$timeStamp 			= 	new DateTime();						// Create Time Stamp
@@ -4885,7 +4903,15 @@
 						// 	System Logger ends here
 						//	Logging code snippet (optional) ends here
 					}
-					else{}
+					// Error Trapping
+					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+
+						$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+						$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+						$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+						$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+						$this->session->data['previous_error_status'] = "Success";
+						//return $getTaxResult->getTotalTax();
 						
 						return $GetTaxData;
 
@@ -4918,7 +4944,8 @@
 			}
 			]]></add>
 		</operation>		
-		<operation><!--Operation doesnt exist in admin,  exist in catalog/model/checkout/order.php-->
+		<operation>
+			<!--if AvaTax tax calculation is true then addOrderHistory function is called which fetches the order detail, changes the order status and update the changes-->
 			<search position="replace" offset='3'><![CDATA[$this->event->trigger('pre.order.delete', $order_id);]]></search>
 			<add><![CDATA[
 				$this->event->trigger('pre.order.delete', $order_id);
@@ -4935,7 +4962,8 @@
 			]]></add>
 		</operation>
 		
-		<operation><!--Operation doesnt exist in admin,  exist in catalog/model/checkout/order.php-->
+		<operation>
+			<!--if AvaTax tax calculation is true then addOrderHistory function is called which fetches the order detail, changes the order status and update the changes at the time of edit order-->
 			<search position="replace" offset='3'><![CDATA[$this->event->trigger('pre.order.edit', $data);]]></search>
 			<add><![CDATA[
 				$this->event->trigger('pre.order.edit', $data);
@@ -4951,6 +4979,7 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--AvaTaxCancelTax function is defined which serves as the wrapper function for AvaTax CancelTax-->
 			<search position="before" ><![CDATA[public function getOrder($order_id) {]]></search>
 			<add><![CDATA[
 			
@@ -4993,6 +5022,7 @@
 
 	<file name="catalog/controller/api/order.php">
 		<operation>
+			<!--Error message or success message is set after addOrderHistory function updates the order-->
 			<search position="replace" offset='2'><![CDATA[$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify']);]]></search>
 			<add><![CDATA[$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify']);
 				if(isset($this->session->data['previous_error_status']) && ($this->session->data['previous_error_status'] <> 'Success'))
@@ -5006,6 +5036,7 @@
 		</operation>
 
 		<operation>
+			<!--Error message or success message is set after addOrderHistory function updates the order while editing the order-->
 			<search position="replace" offset='2'><![CDATA[$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);]]></search>
 			<add><![CDATA[
 					$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
@@ -5021,11 +5052,13 @@
 		</operation>
 		
 		<operation>
-		<search position="after" offset="55"><![CDATA[public function edit() {]]></search>
-			<add><![CDATA[//To calculate tax in edit order functionality
-			$this->config->set('config_avatax_taxcall_flag','1');]]></add>
+			<!--To calculate tax in edit order functionality avaTax flag is set as true-->
+			<search position="after" offset="55"><![CDATA[public function edit() {]]></search>
+				<add><![CDATA[//To calculate tax in edit order functionality
+				$this->config->set('config_avatax_taxcall_flag','1');]]></add>
 		</operation>
 		<operation>
+			<!--It will set the total tax value and update the order total value -->
 			<search position="before"><![CDATA[$this->model_checkout_order->editOrder($order_id, $order_data);]]></search>
 			<add><![CDATA[if($this->config->get('config_avatax_tax_calculation'))	{
 								$AvaTaxAmount = $order_data['products'][0]['tax'];
@@ -5050,9 +5083,9 @@
 				}]]></add>
 		</operation>
 		<operation>
+			<!--It will display Avalara error at admin side after saving order -->
 			<search position="after" offset="2"><![CDATA[$this->model_checkout_order->editOrder($order_id, $order_data);]]></search>
 			<add><![CDATA[
-				//Display Avalara error for sales order after save order
 				if($this->session->data['previous_error_status'] == 'Success')
 				{
 					$json['success'] = $this->language->get('text_success');
@@ -5066,11 +5099,11 @@
 		</file>
 		<file name="admin/controller/sale/order.php">
 		<operation>
+			<!--It will display Avalara error at admin side after saving order -->
 			<search position="before"><![CDATA[if (isset($this->session->data['success'])) {]]></search>
 			<add><![CDATA[
-				//Display Avalara error for sales order after save order
 				if(isset($this->session->data['warning']))
-				{
+				{	
 					$json['error_warning'] = $this->session->data['warning'];
 					unset($this->session->data['warning']);
 				}]]></add>
@@ -5078,21 +5111,23 @@
 	</file>
 	<file name="catalog/controller/api/cart.php">
 		<operation>
+			<!--AvaTax flag is set as true to calculate tax while checkout-->
 			<search position="before"><![CDATA[$taxes = $this->cart->getTaxes();]]></search>
 			<add><![CDATA[$this->config->set('config_avatax_taxcall_flag','1');]]></add>
 		</operation>
 	</file>
 	<file name="catalog/model/total/coupon.php">
 		<operation>
+			<!--Added for discount calculation and coupon amount is taken from store front. Ticket # - CLOUDERP-3480 -->
 			<search position="after" offset="2" ><![CDATA[$discount_total += $discount;]]></search>
-			<add><![CDATA[//Added for discount calculation and coupon amount is taken from store front. Ticket # - CLOUDERP-3480
+			<add><![CDATA[
 			$this->session->data['coupon_amount'] = $discount_total ;
 			$this->session->data['coupon_info'] = $coupon_info ;				]]></add>
 		</operation>
 	</file>
-	<!-- This will refresh the page when admin clicks on discount button in edit order -->
 	<file name="admin/view/template/sale/order_form.tpl">
 	<operation>
+		<!-- It will refresh the page when admin clicks on discount button in edit order -->
 		<search position="before" offset="6" ><![CDATA[$('input[name=\'coupon\']').parent().parent().parent().addClass('has-error');]]></search>
 		<add><![CDATA[$('#button-refresh').trigger('click');]]></add>
 	</operation>
