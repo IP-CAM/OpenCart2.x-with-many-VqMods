@@ -61,7 +61,7 @@ class ModelTotalCoupon extends Model {
 					$discount_total += $discount;
 				}
 
-//Added for discount calculation and coupon amount is taken from store front. Ticket # - CLOUDERP-3480
+
 			$this->session->data['coupon_amount'] = $discount_total ;
 			$this->session->data['coupon_info'] = $coupon_info ;				
 				if ($coupon_info['shipping'] && isset($this->session->data['shipping_method'])) {

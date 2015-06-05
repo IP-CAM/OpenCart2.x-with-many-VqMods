@@ -60,7 +60,7 @@ public $tax_address_error;
 			$order_data['totals'] = array();
 			$total = 0;
 //To calculate tax on store front
-			$this->config->set('config_avatax_taxcall_flag','1');
+				$this->config->set('config_avatax_taxcall_flag','1');
 			$taxes = $this->cart->getTaxes();
 
 			$this->load->model('extension/extension');
@@ -316,38 +316,38 @@ public $tax_address_error;
 
 
 
-			//AvaTax - Address Validation - Check
-			$this->load->model('localisation/country');
-			if(!empty($order_data["shipping_country_id"]))
-			{
-				$country_details = $this->model_localisation_country->getCountry($order_data["shipping_country_id"]);
-			}
-			else
-			{
-				$country_details = $this->model_localisation_country->getCountry($order_data["payment_country_id"]);
-			}
-			$avatax_tax_country = "";
-			if(trim($this->config->get('config_avatax_validate_address_in'))=="both")
-			{
-				$avatax_tax_country = "|US|CA|";
-			}
-			else
-			{
-				$avatax_tax_country = "|".$this->config->get('config_avatax_validate_address_in')."|";
-			}
-			$avatax_tax_country_pos = strpos($avatax_tax_country, "|".$country_details["iso_code_2"]."|");
-			if($avatax_tax_country_pos!==false)
-			{
-				if(isset($this->session->data['previous_error_status']))
+				//AvaTax - Address Validation - Check
+				$this->load->model('localisation/country');
+				if(!empty($order_data["shipping_country_id"]))
 				{
-					if($this->session->data['previous_error_status'] != 'Success')
-					{
-						$data['ERROR_STATUS'] = $this->session->data['previous_error_status'];
-					}
+					$country_details = $this->model_localisation_country->getCountry($order_data["shipping_country_id"]);
 				}
+				else
+				{
+					$country_details = $this->model_localisation_country->getCountry($order_data["payment_country_id"]);
+				}
+				$avatax_tax_country = "";
+				if(trim($this->config->get('config_avatax_validate_address_in'))=="both")
+				{
+					$avatax_tax_country = "|US|CA|";
+				}
+				else
+				{
+					$avatax_tax_country = "|".$this->config->get('config_avatax_validate_address_in')."|";
+				}
+				$avatax_tax_country_pos = strpos($avatax_tax_country, "|".$country_details["iso_code_2"]."|");
+				if($avatax_tax_country_pos!==false)
+				{
+					if(isset($this->session->data['previous_error_status']))
+					{
+						if($this->session->data['previous_error_status'] != 'Success')
+						{
+							$data['ERROR_STATUS'] = $this->session->data['previous_error_status'];
+						}
+					}
 
-			}
-			//$data['ERROR_STATUS'] = $this->tax_address_error;
+				}
+				//$data['ERROR_STATUS'] = $this->tax_address_error;
 			$this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
 
 			$data['text_recurring_item'] = $this->language->get('text_recurring_item');
@@ -454,36 +454,44 @@ public $tax_address_error;
 			$this->response->setOutput($this->load->view('default/template/checkout/confirm.tpl', $data));
 		}
 	}
-public function AvaTaxAddressValidation($data) {
 
-				$environment = 'Development';
-				if($this->config->get('config_avatax_development_mode')) $environment = 'Development';
-				else $environment = 'Production';
+			
+				/****************************************************************************
+				*   Last Updated On		:	05/14/2015			                           	*
+				*   Description			:  	This function validates the given address		*
+				*   Description			:  	along with order info							*
+				****************************************************************************/
+			
+				public function AvaTaxAddressValidation($data) {
 
-				$this->load->model('localisation/zone');
-							$zone_info = $this->model_localisation_zone->getZone($data['shipping_zone_id']);
+					$environment = 'Development';
+					if($this->config->get('config_avatax_development_mode')) $environment = 'Development';
+					else $environment = 'Production';
 
-					$address_data = array();
-				$address_data["service_url"] = $this->config->get('config_avatax_service_url');
-				$address_data["account"] = $this->config->get('config_avatax_account');
-				$address_data["license"] = $this->config->get('config_avatax_license_key');
-				$address_data["client"] = $this->config->get('config_avatax_client');
-				$address_data["environment"] = $environment;
-				$address_data["line1"] = $data["shipping_address_1"];
-				$address_data["line2"] = $data["shipping_address_2"];
-				$address_data["line3"] = "";
-				$address_data["city"] = $data["shipping_city"];
-				$address_data["region"] = $zone_info["code"];
-				$address_data["postalcode"] = $data["shipping_postcode"];
+					$this->load->model('localisation/zone');
+								$zone_info = $this->model_localisation_zone->getZone($data['shipping_zone_id']);
 
-				include_once(DIR_SYSTEM . 'AvaTax4PHP/address_validation.php');
-				$return_message = AddressValidation($address_data);
+						$address_data = array();
+					$address_data["service_url"] = $this->config->get('config_avatax_service_url');
+					$address_data["account"] = $this->config->get('config_avatax_account');
+					$address_data["license"] = $this->config->get('config_avatax_license_key');
+					$address_data["client"] = $this->config->get('config_avatax_client');
+					$address_data["environment"] = $environment;
+					$address_data["line1"] = $data["shipping_address_1"];
+					$address_data["line2"] = $data["shipping_address_2"];
+					$address_data["line3"] = "";
+					$address_data["city"] = $data["shipping_city"];
+					$address_data["region"] = $zone_info["code"];
+					$address_data["postalcode"] = $data["shipping_postcode"];
 
-				$avatax_address_validation = "";
-				if(trim($return_message) != "Success")
-				{
-					$avatax_address_validation = '<div class="warning">'.$return_message.'<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>';
+					include_once(DIR_SYSTEM . 'AvaTax4PHP/address_validation.php');
+					$return_message = AddressValidation($address_data);
+
+					$avatax_address_validation = "";
+					if(trim($return_message) != "Success")
+					{
+						$avatax_address_validation = '<div class="warning">'.$return_message.'<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>';
+					}
+					return $avatax_address_validation;
 				}
-				return $avatax_address_validation;
-			}
 }

@@ -1336,7 +1336,7 @@
 
 					try {
 					
-					//if (!empty($DestAddress)) {
+					if (!empty($DestAddress)) {
 					
 					$latency = round(microtime(true) * 1000);
 						$getTaxResult = $client->getTax($request);
@@ -1387,7 +1387,7 @@
 							}
 							return $getTaxResult;
 						}
-						//}
+						}
 					} catch (SoapFault $exception) {
 						$returnMessage = "Exception: ";
 						if ($exception)

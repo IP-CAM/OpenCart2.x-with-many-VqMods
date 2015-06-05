@@ -27,27 +27,21 @@ function AddressValidation($address_data)
 
 		$request = new ValidateRequest($address, ($textCase ? $textCase : TextCase::$Default), $coordinates);
 		
+		//print_r($request);
 		//echo "<br/>";
 		
 		$result = $client->Validate($request);
-		echo "<br>Address Validation Response: ";
-		print_r($result);
 		   
 		//echo "\n".'Validate ResultCode is: '. $result->getResultCode()."\n";
 		if($result->getResultCode() != SeverityLevel::$Success)
 		{
 			$return_message .= "<b>AvaTax - Address Validation - Error Mesasge</b><br/>";
 			
-			$cnt=0;
 			foreach($result->getMessages() as $msg)
 			{
 				//$return_message .= $msg->getName().": ".$msg->getSummary()."<br/>";
-				//$return_message .= $msg->getSummary()."<br/>";
-				//$return_message .= $msg."<br/>";
-				$cnt++;
-				echo "<br>Cnt: ".$cnt;
-				print_r($msg);
-			}
+				$return_message .= $msg->getSummary()."<br/>";
+			}		
 		}
 		else
 		{

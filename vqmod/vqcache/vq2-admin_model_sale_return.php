@@ -9,9 +9,8 @@ class ModelSaleReturn extends Model {
 
 			$return_details = $this->getReturn($return_id);
 	
-	if(!($return_details["avatax_return_document_code"] == "" || is_null($return_details["avatax_return_document_code"])))
-	{       
-
+			if(!($return_details["avatax_return_document_code"] == "" || is_null($return_details["avatax_return_document_code"])))
+			{       
 
 			if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
 			{
@@ -81,7 +80,7 @@ class ModelSaleReturn extends Model {
 					$latency = $this->session->data['latency'];
 					$connectortime= $connectortime- $latency;
 					
-					$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+					$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
 					
 					
 						$latency =""  ;
@@ -114,9 +113,9 @@ class ModelSaleReturn extends Model {
 			}
 			$this->db->query("UPDATE `" . DB_PREFIX . "return` SET return_status_id = '" . (int)$data['return_status_id'] . "', date_modified = NOW() WHERE return_id = '" . (int)$return_id . "'");
 
-		$this->db->query("INSERT INTO " . DB_PREFIX . "return_history SET return_id = '" . (int)$return_id . "', return_status_id = '" . (int)$data['return_status_id'] . "', notify = '" . (isset($data['notify']) ? (int)$data['notify'] : 0) . "', comment = '" . $this->db->escape(strip_tags($data['comment'])) . "', date_added = NOW()");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "return_history SET return_id = '" . (int)$return_id . "', return_status_id = '" . (int)$data['return_status_id'] . "', notify = '" . (isset($data['notify']) ? (int)$data['notify'] : 0) . "', comment = '" . $this->db->escape(strip_tags($data['comment'])) . "', date_added = NOW()");
 
-	}
+		}
 	
 			
 		$this->db->query("UPDATE `" . DB_PREFIX . "return` SET order_id = '" . (int)$data['order_id'] . "', product_id = '" . (int)$data['product_id'] . "', customer_id = '" . (int)$data['customer_id'] . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', product = '" . $this->db->escape($data['product']) . "', model = '" . $this->db->escape($data['model']) . "', quantity = '" . (int)$data['quantity'] . "', opened = '" . (int)$data['opened'] . "', return_reason_id = '" . (int)$data['return_reason_id'] . "', return_action_id = '" . (int)$data['return_action_id'] . "', comment = '" . $this->db->escape($data['comment']) . "', date_ordered = '" . $this->db->escape($data['date_ordered']) . "', date_modified = NOW() WHERE return_id = '" . (int)$return_id . "'");
@@ -351,39 +350,39 @@ class ModelSaleReturn extends Model {
 							$this->session->data['avatax_return_error_message'] = 'Success';
 							
 							/************* Logging code snippet (optional) starts here *******************/
-					// System Logger starts here:
+							// System Logger starts here:
 					
-					$log_mode = $this->config->get('config_avatax_log');
+							$log_mode = $this->config->get('config_avatax_log');
 					
 					
-					if($log_mode==1){
+							if($log_mode==1){
 					   
 								
-						$timeStamp 			= 	new DateTime();						// Create Time Stamp
-						$params				=   '[Input: ' . ']';		// Create Param List
-						$u_name				=	'';							// Eventually will come from $_SESSION[] object
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+						
+					
+							// Creating the System Logger Object
+							$application_log 	= 	new SystemLogger;
+							$connectortime = round(microtime(true) * 1000)-$time_start;
+							$latency = $this->session->data['latency'];
+							$connectortime= $connectortime- $latency;
+					
+							$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
 					
 					
-					// Creating the System Logger Object
-					$application_log 	= 	new SystemLogger;
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					$latency = $this->session->data['latency'];
-					$connectortime= $connectortime- $latency;
-					
-					$application_log->metric('GetTax123 '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-					
-					
-						$latency =""  ;
-						$this->session->data['latency'] ="";							
-						$this->session->data['getTaxLines'] ="";							
-						$this->session->data['getDocType'] ="";							
-						$this->session->data['getDocCode'] ="";
+							$latency =""  ;
+							$this->session->data['latency'] ="";							
+							$this->session->data['getTaxLines'] ="";							
+							$this->session->data['getDocType'] ="";							
+							$this->session->data['getDocCode'] ="";
 
-						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-						// 	System Logger ends here
-						//	Logging code snippet (optional) ends here
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
 		
-				}
+							}
 		
 							
 						}
@@ -458,6 +457,13 @@ class ModelSaleReturn extends Model {
 	}
 
 
+			
+			 /***************************************************************************
+			 *   Last Updated On	:	05/14/2015			                            *
+			 *   Description        :   This function returns the original price of		* 
+			 *							product by product ID							*
+			 ***************************************************************************/
+						
 			public function getProductOriginalPrice($product_id) {
 				$product_price_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
 				if($product_price_query->row["tax_class_id"] > 0)
@@ -479,6 +485,13 @@ class ModelSaleReturn extends Model {
 			 return $Product_price_taxcode;
 		  }
 
+		  
+			/****************************************************************************
+			*   Last Updated On		:	05/14/2015			                           	*
+			*   Description			:  	This function fetches gettax history for the	*
+			*   						sent order details								*
+			****************************************************************************/
+					  
 			public function AvaTaxGetTaxHistory($OrderInformation) {
 
 				$environment = 'Development';
@@ -504,6 +517,12 @@ class ModelSaleReturn extends Model {
 				return $return_message;
 			}
 
+			/****************************************************************************
+			*   Last Updated On		:	05/14/2015			                           	*
+			*   Description			:  	This function serves as the wrapper function	*
+			*   						for AvaTax CancelTax() Call						*
+			****************************************************************************/
+									
 			public function AvaTaxCancelTax($AvaTaxDocumentCode, $CancelCode) {
 
 				$environment = 'Development';
@@ -552,6 +571,12 @@ class ModelSaleReturn extends Model {
 				return $product_categories;
 			}
 
+			/****************************************************************************
+			*   Last Updated On		:	05/14/2015			                           	*
+			*   Description			:  	This function does tax computation on			*
+			*   						sent return invoice details						*
+			****************************************************************************/
+						
 			public function AvaTaxReturnInvoice($order_query, $products, $data, $tax_history_data) {
 
 				if ($order_query->num_rows) {
@@ -787,75 +812,71 @@ class ModelSaleReturn extends Model {
 
 					try {
 		
-		if (!empty($DestAddress)) {
-		
-		//$connectortime = round(microtime(true) * 1000)-$time_start;
-		$latency = round(microtime(true) * 1000);
-			$getTaxResult = $client->getTax($request);
-		$latency = round(microtime(true) * 1000)-$latency;
-		$this->session->data['latency'] = "" ;
-		$this->session->data['getTaxLines'] = "" ;
-		$this->session->data['getDocType'] = "" ;
-		$this->session->data['getDocCode'] = "" ;
-		$this->session->data['latency'] = $latency ;
-		$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
-		$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
-		$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
-		
-			
-			// Error Trapping
-			if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+					if (!empty($DestAddress)) {
+					
+					//$connectortime = round(microtime(true) * 1000)-$time_start;
+					$latency = round(microtime(true) * 1000);
+						$getTaxResult = $client->getTax($request);
+					$latency = round(microtime(true) * 1000)-$latency;
+					$this->session->data['latency'] = "" ;
+					$this->session->data['getTaxLines'] = "" ;
+					$this->session->data['getDocType'] = "" ;
+					$this->session->data['getDocCode'] = "" ;
+					$this->session->data['latency'] = $latency ;
+					$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
+					$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
+					$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
+					
+						//Added for connector metrics
+							/************* Logging code snippet (optional) starts here *******************/
+						// System Logger starts here:
+						
+						$log_mode = $this->config->get('config_avatax_log');
+						
+						if($log_mode==1){
+						   
 
-				$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-				$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-				$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-				$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
 
-				
+							// Creating the System Logger Object
+							$application_log 	= 	new SystemLogger;
 
-				//Added for connector metrics
-				/************* Logging code snippet (optional) starts here *******************/
-			// System Logger starts here:
-			
-			$log_mode = $this->config->get('config_avatax_log');
-			
-			if($log_mode==1){
-			   
+							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
+							$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-				$timeStamp 			= 	new DateTime();						// Create Time Stamp
-				$params				=   '[Input: ' . ']';		// Create Param List
-				$u_name				=	'';							// Eventually will come from $_SESSION[] object
+							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
+							$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-				// Creating the System Logger Object
-				$application_log 	= 	new SystemLogger;
+							
 
-				$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
-				$application_log->WriteSystemLogToFile();			// Log info goes to log file
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
+						}
+						else{}
+						
+						// Error Trapping
+						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 
-				$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
-				$application_log->WriteSystemLogToFile();			// Log info goes to log file
+							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
 
-				
+							return $GetTaxData;
 
-				//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-				// 	System Logger ends here
-				//	Logging code snippet (optional) ends here
-			}
-			else{}
-			
-				
-				return $GetTaxData;
+						} else {
 
-			} else {
-
-				foreach ($getTaxResult->getMessages() as $msg) {
-					//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
-					$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
-				}
-				return $returnMessage;
-			}
-			} 
-			}catch (SoapFault $exception) {
+							foreach ($getTaxResult->getMessages() as $msg) {
+								//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
+								$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
+							}
+							return $returnMessage;
+						}
+						} 
+					}catch (SoapFault $exception) {
 						$msg = "Exception: ";
 						if ($exception)
 							$msg .= $exception->faultstring;

@@ -38,9 +38,9 @@ class ControllerCheckoutSuccess extends Controller {
 			unset($this->session->data['voucher']);
 			unset($this->session->data['vouchers']);
 unset($this->session->data['avatax_tax']);
-				unset($this->session->data['coupon_amount']);
-				unset($this->session->data['coupon_info']);
-				unset($this->session->data['shipping_address_id']);
+			unset($this->session->data['coupon_amount']);
+			unset($this->session->data['coupon_info']);
+			unset($this->session->data['shipping_address_id']);
 			unset($this->session->data['totals']);
 		}
 

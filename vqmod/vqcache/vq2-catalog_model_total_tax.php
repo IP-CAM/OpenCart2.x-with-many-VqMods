@@ -5,15 +5,15 @@ class ModelTotalTax extends Model {
 			
 		foreach ($taxes as $key => $value) {
 
-			if($this->config->get('config_avatax_tax_calculation'))
-			{
-				//$title = $avatax_taxname[$taxCount]['name'];
-				$title = 'Total Tax';	//It displays title on Checkout page - Step 6: Confirm Order
-			}
-			else
-			{
-				$title = $this->tax->getRateName($key);
-			}
+					if($this->config->get('config_avatax_tax_calculation'))
+					{
+						//$title = $avatax_taxname[$taxCount]['name'];
+						$title = 'Total Tax';	//It displays title on Checkout page - Step 6: Confirm Order
+					}
+					else
+					{
+						$title = $this->tax->getRateName($key);
+					}
 			
 			if ($value >= 0) {
 				$total_data[] = array(

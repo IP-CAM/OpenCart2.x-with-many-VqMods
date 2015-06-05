@@ -360,18 +360,25 @@ class ModelCatalogProduct extends Model {
 	}
 
 
-	public function getProductDiscountsForGivenRange($product_id, $quantity, $date) {
-		if ($this->customer->isLogged()) {
-			$customer_group_id = $this->customer->getGroupId();
-		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
-		}
-
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$quantity . "' AND ((date_start = '0000-00-00' OR date_start < '" . $date . "') AND (date_end = '0000-00-00' OR date_end > '" . $date . "')) ORDER BY quantity ASC, priority ASC, price ASC");
-
-		return $query->rows;
-	}
 			
+				 /***************************************************************************
+				 *   Last Updated On	:	05/14/2015			                            *
+				 *   Description        :   This function returns the discount amount of	* 
+				 *							product by product ID							*
+				 ***************************************************************************/
+			
+				public function getProductDiscountsForGivenRange($product_id, $quantity, $date) {
+					if ($this->customer->isLogged()) {
+						$customer_group_id = $this->customer->getGroupId();
+					} else {
+						$customer_group_id = $this->config->get('config_customer_group_id');
+					}
+
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$quantity . "' AND ((date_start = '0000-00-00' OR date_start < '" . $date . "') AND (date_end = '0000-00-00' OR date_end > '" . $date . "')) ORDER BY quantity ASC, priority ASC, price ASC");
+
+					return $query->rows;
+				}
+						
 	public function getProductDiscounts($product_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity > 1 AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity ASC, priority ASC, price ASC");
 

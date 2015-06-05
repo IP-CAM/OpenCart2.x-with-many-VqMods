@@ -377,6 +377,7 @@ class ControllerApiOrder extends Controller {
 					$json['error'] = $this->language->get('error_stock');
 				}
 
+//To calculate tax in edit order functionality
 				$this->config->set('config_avatax_taxcall_flag','1');
 				// Validate minimum quantity requirements.
 				$products = $this->cart->getProducts();
@@ -602,40 +603,39 @@ class ControllerApiOrder extends Controller {
 					}
 
 if($this->config->get('config_avatax_tax_calculation'))	{
-									$AvaTaxAmount = $order_data['products'][0]['tax'];
-						$order_data['total'] = $total + $AvaTaxAmount;
+								$AvaTaxAmount = $order_data['products'][0]['tax'];
+					$order_data['total'] = $total + $AvaTaxAmount;
 
-						for($pCnt=0; $pCnt<count($order_data['totals']); $pCnt++)
+					for($pCnt=0; $pCnt<count($order_data['totals']); $pCnt++)
+					{
+						if($order_data['totals'][$pCnt]['title']=='Total')
 						{
-							if($order_data['totals'][$pCnt]['title']=='Total')
-							{
-								$order_data['totals'][$pCnt]['value']=$order_data['totals'][$pCnt]['value']+$AvaTaxAmount;
-							}
+							$order_data['totals'][$pCnt]['value']=$order_data['totals'][$pCnt]['value']+$AvaTaxAmount;
 						}
-
-						if(!isset($order_data['totals']['tax']))
-						{
-							$order_data['totals'][]=array("code" => 'tax',
-								"title" => "Total Tax",
-								"value" => $AvaTaxAmount,
-								"sort_order" => 5);
-						}
-						$order_data['products'][0]['tax'] = 0;
 					}
+
+					if(!isset($order_data['totals']['tax']))
+					{
+						$order_data['totals'][]=array("code" => 'tax',
+							"title" => "Total Tax",
+							"value" => $AvaTaxAmount,
+							"sort_order" => 5);
+					}
+					$order_data['products'][0]['tax'] = 0;
+				}
 					$this->model_checkout_order->editOrder($order_id, $order_data);
 
 					// Set the order history
 
-					//Display Avalara error for sales order after save order
-					if($this->session->data['previous_error_status'] == 'Success')
-					{
-						$json['success'] = $this->language->get('text_success');
-					}
-					else
-					{
-						unset($this->session->data['success']);
-						$this->session->data['warning'] = $this->session->data['previous_error_status'];
-					}
+				if($this->session->data['previous_error_status'] == 'Success')
+				{
+					$json['success'] = $this->language->get('text_success');
+				}
+				else
+				{
+					unset($this->session->data['success']);
+					$this->session->data['warning'] = $this->session->data['previous_error_status'];
+				}
 					if (isset($this->request->post['order_status_id'])) {
 						$order_status_id = $this->request->post['order_status_id'];
 					} else {
@@ -643,16 +643,16 @@ if($this->config->get('config_avatax_tax_calculation'))	{
 					}
 
 					
-						$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
-						//Below error will be displayed on edit order save button
-						if($this->session->data['previous_error_status'] != 'Success' && $this->config->get('config_avatax_tax_calculation'))
-						{
-							$json['error'] = $this->session->data['previous_error_status'];
-						}
-						else
-						{
-							$json['success'] = $this->language->get('text_success');
-						}
+					$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
+					//Below error will be displayed on edit order save button
+					if($this->session->data['previous_error_status'] != 'Success' && $this->config->get('config_avatax_tax_calculation'))
+					{
+						$json['error'] = $this->session->data['previous_error_status'];
+					}
+					else
+					{
+						$json['success'] = $this->language->get('text_success');
+					}
 
 
 				}
@@ -732,14 +732,14 @@ if($this->config->get('config_avatax_tax_calculation'))	{
 
 			if ($order_info) {
 				$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify']);
-					if(isset($this->session->data['previous_error_status']) && ($this->session->data['previous_error_status'] <> 'Success'))
-					{
-						 $json['success'] = "<font color='red'>".$this->session->data['previous_error_status']."</font>";
-					}
-					else
-					{
-						$json['success'] = $this->language->get('text_success');
-					}
+				if(isset($this->session->data['previous_error_status']) && ($this->session->data['previous_error_status'] <> 'Success'))
+				{
+					 $json['success'] = "<font color='red'>".$this->session->data['previous_error_status']."</font>";
+				}
+				else
+				{
+					$json['success'] = $this->language->get('text_success');
+				}
 
 
 			} else {
