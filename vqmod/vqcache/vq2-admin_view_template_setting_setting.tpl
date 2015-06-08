@@ -119,7 +119,7 @@
 					</select>
 				</div>
 			  </div>
-			  
+	  
 			   <div class="form-group required">
 					<label class="col-sm-2 control-label" for="config_postal_code">Postal Code:</label>
 					<div class="col-sm-10">
@@ -129,7 +129,14 @@
 						<?php } ?>
 					</div>
 			  </div>
-						
+                        <?php if($config_avatax_tax_address_validation==1){?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="button" id="validateAddress" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input>  
+                                </div>
+                           </div>
+                        <?php }?>   
 			
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
@@ -1993,6 +2000,36 @@ $('select[name=\'config_country_id\']').trigger('change');
 					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 				
 					<script type="text/javascript"><!--
+                                                $('#validateAddress').click(function() { 
+                                                $.ajax({
+                                                            url: '../system/AvaTax4PHP/avatax_address_validation.php',
+                                                            type: 'post',
+                                                            data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val(),
+                                                            beforeSend: function() {
+                                                $('#validateAddress').button('loading');
+                                                },		complete: function() {
+                                                $('#validateAddress').button('reset');
+                                                },
+                                                            success:function(data){
+                                                            var json = JSON.parse(data);
+                                                            if(json.address!=""){
+                                                             var validaddress=JSON.parse(json.address);
+                                                                if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
+                                                                    $('#config_address').val(validaddress.Line1);
+                                                                    $('#config_address_line2').val(validaddress.Line2);
+                                                                    $('#config_city').val(validaddress.City);
+                                                                    $('#config_postal_code').val(validaddress.PostalCode);
+                                                                    $('#input-country').val(validaddress.Country);
+                                                                    $('#input-zone').val(validaddress.Region);
+                                                                }
+
+                                                            }
+                                                                else alert(json.msg);
+                                                                }
+                                                            });   
+
+                                                });           
+                                    
 						$('#config_avatax_tax_calculation_yes').click(function() {
 							
 							if($("#config_avatax_account").val()=="") {

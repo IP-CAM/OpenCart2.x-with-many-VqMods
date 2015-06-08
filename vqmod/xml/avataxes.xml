@@ -347,7 +347,7 @@
 					</select>
 				</div>
 			  </div>
-			  
+	  
 			   <div class="form-group required">
 					<label class="col-sm-2 control-label" for="config_postal_code">Postal Code:</label>
 					<div class="col-sm-10">
@@ -357,7 +357,14 @@
 						<?php } ?>
 					</div>
 			  </div>
-						
+                        <?php if($config_avatax_tax_address_validation==1){?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="button" id="validateAddress" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input>  
+                                </div>
+                           </div>
+                        <?php }?>   
 			]]></add>
 		</operation>
 		<operation>
@@ -667,6 +674,36 @@
 					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 				
 					<script type="text/javascript"><!--
+                                                $('#validateAddress').click(function() { 
+                                                $.ajax({
+                                                            url: '../system/AvaTax4PHP/avatax_address_validation.php',
+                                                            type: 'post',
+                                                            data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val(),
+                                                            beforeSend: function() {
+                                                $('#validateAddress').button('loading');
+                                                },		complete: function() {
+                                                $('#validateAddress').button('reset');
+                                                },
+                                                            success:function(data){
+                                                            var json = JSON.parse(data);
+                                                            if(json.address!=""){
+                                                             var validaddress=JSON.parse(json.address);
+                                                                if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
+                                                                    $('#config_address').val(validaddress.Line1);
+                                                                    $('#config_address_line2').val(validaddress.Line2);
+                                                                    $('#config_city').val(validaddress.City);
+                                                                    $('#config_postal_code').val(validaddress.PostalCode);
+                                                                    $('#input-country').val(validaddress.Country);
+                                                                    $('#input-zone').val(validaddress.Region);
+                                                                }
+
+                                                            }
+                                                                else alert(json.msg);
+                                                                }
+                                                            });   
+
+                                                });           
+                                    
 						$('#config_avatax_tax_calculation_yes').click(function() {
 							
 							if($("#config_avatax_account").val()=="") {
@@ -5119,5 +5156,79 @@
 		<add><![CDATA[$('#button-refresh').trigger('click');]]></add>
 	</operation>
 	</file>
+         <!--***************************************************************************
+	 *   Last Updated On	:	06/05/2015			                            *
+	 *   Description        :   This code adds avalara address validation for customers         *
+	 ***************************************************************************-->
+        <file name="admin/controller/sale/customer.php">
+            <operation>
+                    <search position="after"><![CDATA[protected function getForm() {]]></search>
+                    <add><![CDATA[$data['avatax_service_url'] = $this->config->get('config_avatax_service_url');
+            $data["avatax_account"]=$this->config->get('config_avatax_account');
+            $data["avatax_license"]=$this->config->get('config_avatax_license_key');
+            $data["avatax_client"]=$this->config->get('config_avatax_client');
+            $data["avatax_address_validation"]=$this->config->get('config_avatax_tax_address_validation');
+            ]]></add>
+            </operation>
+        </file>
+    <file name="admin/view/template/sale/customer_form.tpl">
+            <operation>
+                    <search position="after"><![CDATA[var address_row = <?php echo $address_row; ?>;]]></search>
+                    <add><![CDATA[function validateAddress(rowId){
+        var avatax_service_url = '<?php echo $avatax_service_url; ?>';
+        var avatax_account = '<?php echo $avatax_account; ?>';
+        var avatax_license = '<?php echo $avatax_license; ?>';
+        var avatax_client = '<?php echo $avatax_client; ?>';
+         $.ajax({
+                                        url: '../system/AvaTax4PHP/avatax_address_validation.php',
+                                        type: 'post',
+                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'',
+                                        beforeSend: function() {
+                            $('#validateAddress'+rowId+'').button('loading');
+                    },		complete: function() {
+                            $('#validateAddress'+rowId+'').button('reset');
+                    },
+                                        success:function(data){
+                                        var json = JSON.parse(data);
+                                        if(json.address!=""){
+                                         var validaddress=JSON.parse(json.address);
+                                            if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
+                                                $('#input-address-1'+rowId+'').val(validaddress.Line1);
+                                                $('#input-address-2'+rowId+'').val(validaddress.Line2);
+                                                $('#input-city'+rowId+'').val(validaddress.City);
+                                                $('#input-postcode'+rowId+'').val(validaddress.PostalCode);
+                                                $('#input-zone'+rowId+'').val(validaddress.Region);
+                                                $('#input-country'+rowId+'').val(validaddress.Country);
+                                            }
+
+                                        }
+                                            else alert(json.msg);
+                                            }
+                                        });  
+
+    }
+    ]]></add>
+            </operation>
+            <operation>
+                    <search position="after" offset="4"><![CDATA[<?php if (isset($error_address[$address_row]['zone'])) { ?>]]></search>
+                    <add><![CDATA[<?php if($avatax_address_validation==1){?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10"><input type="button" id="validateAddress<?php echo $address_row;?>" onClick="javascript:validateAddress('<?php echo $address_row;?>');" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input></div>
+                            </div>
+                            <?php }?>
+     ]]></add>
+            </operation>
+            <operation>
+                    <search position="after" offset="1"><![CDATA[	html += '    <div class="col-sm-10"><select name="address[' + address_row + '][zone_id]" id="input-zone' + address_row + '" class="form-control"><option value=""><?php echo $text_none; ?></option></select></div>';
+    ]]></search>
+                    <add><![CDATA[html += '<div class="form-group">';
+            html += '<label class="col-sm-2 control-label"></label>';
+            html += '<div class="col-sm-10"><input type="button" id="validateAddress<?php echo $address_row;?>" onClick="javascript:validateAddress(<?php echo $address_row;?>)" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input></div>';
+            html += '</div>';
+     ]]></add>
+            </operation>
+    </file>
+        
 
 </modification>

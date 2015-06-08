@@ -26,28 +26,56 @@ function AddressValidation($address_data)
 		$coordinates = 1;
 
 		$request = new ValidateRequest($address, ($textCase ? $textCase : TextCase::$Default), $coordinates);
-		
-		//print_r($request);
 		//echo "<br/>";
-		
 		$result = $client->Validate($request);
-		   
+                $response= array();
 		//echo "\n".'Validate ResultCode is: '. $result->getResultCode()."\n";
 		if($result->getResultCode() != SeverityLevel::$Success)
 		{
-			$return_message .= "<b>AvaTax - Address Validation - Error Mesasge</b><br/>";
+			$return_message .= "Error - AvaTax Address Validation Mesasge\n";
 			
 			foreach($result->getMessages() as $msg)
 			{
 				//$return_message .= $msg->getName().": ".$msg->getSummary()."<br/>";
-				$return_message .= $msg->getSummary()."<br/>";
-			}		
+				$return_message .= $msg->getSummary();
+			}	
+                        $response["msg"]=$return_message;
+                        $response["address"]="";
 		}
-		else
+		else if($result->getResultCode() == SeverityLevel::$Success && $result->getValidAddresses() != "")
 		{
+                       $arr=array();
+                       $validatedAddresses=array();
+                       $validatedAddresses=$result->getValidAddresses();
+                       foreach ($validatedAddresses as $obj) {
+                        $arr["Line1"]=$obj->getLine1();
+                        $arr["Line2"]=$obj->getLine2();
+                        $arr["Line3"]=$obj->getLine3();
+                        $arr["AddressCode"]=$obj->getAddressCode();
+                        $arr["City"]=$obj->getCity();
+                        $arrCountryCode=getFieldValue('country','country_id','iso_code_2',$obj->getCountry());
+                        $arr["Country"]=$arrCountryCode[0];
+                        $arr["Country_txt"]=$obj->getCountry();
+
+                        $arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
+                        $arr["Region"]=$arrRegion[0];
+                        $arr["Region_txt"]=$obj->getRegion();
+                        $arr["PostalCode"]=$obj->getPostalCode();
+}
 			$return_message .= "Success";
+			$return_message .= json_encode($arr);
+                        $response["msg"]="Success";
+                        $response["address"]=json_encode($arr);
+
+                        
 		}   
-		return $return_message;
+               else {
+                        $return_message .= "Success";
+                        $response["msg"]="Success";
+                        $response["address"]="";
+                    }
+		//return $return_message;
+		return json_encode($response);
 	}
 	catch(SoapFault $exception)
 	{
@@ -62,5 +90,32 @@ function AddressValidation($address_data)
 		return $return_message;
 	} 
 }  
+
+/*Function to fetch  in numeric format*/
+function getFieldValue($table,$fieldName,$conditionField,$conditionValue,$condition=NULL){
+if (file_exists('../../config.php')) {
+	require_once('../../config.php');
+}
+    $resArr=array();
+    $dbpreFix=DB_PREFIX;
+    
+     $qry="select $fieldName from $dbpreFix$table where $conditionField='$conditionValue' $condition";
+    $con = mysqli_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+    if(!$con) echo "Failed to connect : " . mysqli_connect_error();
+    
+   $result=mysqli_query($con,$qry);
+    return $resArr=getSimpleArray($result,$fieldName);
+    
+    
+}
+ function getSimpleArray($result,$field){
+                $arr=array();
+		while($row=mysqli_fetch_array($result))
+		{
+			$arr[]=$row["$field"];
+			
+		}
+		return $arr; 
+	}
 //}
 ?>
