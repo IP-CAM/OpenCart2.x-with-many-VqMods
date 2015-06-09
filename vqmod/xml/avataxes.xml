@@ -135,7 +135,7 @@
 					if ((utf8_strlen($this->request->post['config_city']) < 3) || (utf8_strlen($this->request->post['config_city']) > 64)) {
 					$this->error['city'] = $this->language->get('error_city');
 					}
-					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 5)) {
+					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 10)) {
 					$this->error['postal_code'] = $this->language->get('error_postal_code');
 					}
 	
@@ -688,7 +688,12 @@
                                                             var json = JSON.parse(data);
                                                             if(json.address!=""){
                                                              var validaddress=JSON.parse(json.address);
-                                                                if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
+                                                             if($('#config_address').val()=== validaddress.Line1 && $('#config_address_line2').val()=== validaddress.Line2 && $('#config_city').val()=== validaddress.City && $('#config_postal_code').val()=== validaddress.PostalCode && $('#input-country').val()=== validaddress.Country && $('#input-zone').val()=== validaddress.Region){
+                                                                alert("Entered Address is Valid address");
+                                                             }
+                                                             else{   
+                                                             
+                                                                if(confirm(" Do you want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
                                                                     $('#config_address').val(validaddress.Line1);
                                                                     $('#config_address_line2').val(validaddress.Line2);
                                                                     $('#config_city').val(validaddress.City);
@@ -696,6 +701,7 @@
                                                                     $('#input-country').val(validaddress.Country);
                                                                     $('#input-zone').val(validaddress.Region);
                                                                 }
+                                                                }//end of else 
 
                                                             }
                                                                 else alert(json.msg);
@@ -1376,7 +1382,7 @@
 					//if (!empty($DestAddress)) {
 					
 					$latency = round(microtime(true) * 1000);
-						$getTaxResult = $client->getTax($request);
+					$getTaxResult = $client->getTax($request);
 					$latency = round(microtime(true) * 1000)-$latency;
 					$this->session->data['latency'] = "" ;
 					$this->session->data['latency'] = $latency ;
@@ -1402,7 +1408,6 @@
 
 							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
 							$application_log->WriteSystemLogToFile();			// Log info goes to log file
-
 
 							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
 							// 	System Logger ends here
@@ -1474,7 +1479,6 @@
 							else
 							{
 								//$amount = $this->AvaTaxAmount($value);
-
 
 								
 								$tax_result = $this->AvaTaxAmount($value);
@@ -1729,7 +1733,6 @@
 
 						//2. PostTax with GUID
 						//5. Completed, 15. Processed, 3. Shipped
-
 
 							if(is_array($GetTaxReturnValue))
 							{
@@ -2399,7 +2402,6 @@
 						$order_data["DocCode"] = $GetTaxReturnValue['GetTaxDocCode'];
 						$order_data["DocDate"] = $GetTaxReturnValue['GetTaxDocDate'];
 
-
 						$order_data["TotalAmount"] = $GetTaxReturnValue['GetTaxTotalAmount'];
 						$order_data["TotalTax"] = $GetTaxReturnValue['GetTaxTotalTax'];
 						$order_data["Commit"] = 1;
@@ -2594,7 +2596,6 @@
 							$DestPostalCode = $order_query->row["payment_postcode"];
 							$DestCountry = $dest_country_details["iso_code_2"];
 						}
-
 
 						$CompanyCode = $this->config->get('config_avatax_company_code');
 						$DocType = $this->config->get('config_avatax_transaction_calculation');
@@ -4468,7 +4469,6 @@
 				}
 			}
 
-
 			/****************************************************************************
 			*   Last Updated On		:	05/14/2015			                           	*
 			*   Description			:  	This function serves as the wrapper function	*
@@ -5046,7 +5046,7 @@
 
 	<file name="catalog/controller/api/order.php">
 		<operation>
-			<!--Error message or success message is set after addOrderHistory function updates the order-->
+			<!--Error message or success message is set after addOrderHistory function updates the order. This will be called while updating status in view order screen-->
 			<search position="replace" offset='2'><![CDATA[$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify']);]]></search>
 			<add><![CDATA[$this->model_checkout_order->addOrderHistory($order_id, $this->request->post['order_status_id'], $this->request->post['comment'], $this->request->post['notify']);
 				if(isset($this->session->data['previous_error_status']) && ($this->session->data['previous_error_status'] <> 'Success'))
@@ -5192,6 +5192,10 @@
                                         var json = JSON.parse(data);
                                         if(json.address!=""){
                                          var validaddress=JSON.parse(json.address);
+                                            if($('#input-address-1'+rowId+'').val()=== validaddress.Line1 && $('#input-address-2'+rowId+'').val()=== validaddress.Line2 && $('#input-city'+rowId+'').val()=== validaddress.City && $('#input-postcode'+rowId+'').val()=== validaddress.PostalCode && $('#input-country'+rowId+'').val()=== validaddress.Country && $('#input-zone'+rowId+'').val()=== validaddress.Region){
+                                            alert("Entered Address is Valid address");
+                                            }
+                                        else{        
                                             if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
                                                 $('#input-address-1'+rowId+'').val(validaddress.Line1);
                                                 $('#input-address-2'+rowId+'').val(validaddress.Line2);
@@ -5200,7 +5204,7 @@
                                                 $('#input-zone'+rowId+'').val(validaddress.Region);
                                                 $('#input-country'+rowId+'').val(validaddress.Country);
                                             }
-
+                                            }//end of else
                                         }
                                             else alert(json.msg);
                                             }

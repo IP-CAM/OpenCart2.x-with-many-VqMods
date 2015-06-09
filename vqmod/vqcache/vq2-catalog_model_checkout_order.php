@@ -466,7 +466,6 @@ class ModelCheckoutOrder extends Model {
 				}
 			}
 
-
 			/****************************************************************************
 			*   Last Updated On		:	05/14/2015			                           	*
 			*   Description			:  	This function serves as the wrapper function	*
@@ -1727,7 +1726,6 @@ class ModelCheckoutOrder extends Model {
 						$order_data["DocCode"] = $GetTaxReturnValue['GetTaxDocCode'];
 						$order_data["DocDate"] = $GetTaxReturnValue['GetTaxDocDate'];
 
-
 						$order_data["TotalAmount"] = $GetTaxReturnValue['GetTaxTotalAmount'];
 						$order_data["TotalTax"] = $GetTaxReturnValue['GetTaxTotalTax'];
 						$order_data["Commit"] = 1;
@@ -1929,7 +1927,6 @@ class ModelCheckoutOrder extends Model {
 
 						//2. PostTax with GUID
 						//5. Completed, 15. Processed, 3. Shipped
-
 
 							if(is_array($GetTaxReturnValue))
 							{

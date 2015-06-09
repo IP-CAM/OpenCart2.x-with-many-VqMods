@@ -600,7 +600,7 @@ $this->shipping_address = array(
 					//if (!empty($DestAddress)) {
 					
 					$latency = round(microtime(true) * 1000);
-						$getTaxResult = $client->getTax($request);
+					$getTaxResult = $client->getTax($request);
 					$latency = round(microtime(true) * 1000)-$latency;
 					$this->session->data['latency'] = "" ;
 					$this->session->data['latency'] = $latency ;
@@ -626,7 +626,6 @@ $this->shipping_address = array(
 
 							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
 							$application_log->WriteSystemLogToFile();			// Log info goes to log file
-
 
 							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
 							// 	System Logger ends here
@@ -700,7 +699,6 @@ $this->shipping_address = array(
 							else
 							{
 								//$amount = $this->AvaTaxAmount($value);
-
 
 								
 								$tax_result = $this->AvaTaxAmount($value);

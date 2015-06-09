@@ -694,6 +694,10 @@ function validateAddress(rowId){
                                         var json = JSON.parse(data);
                                         if(json.address!=""){
                                          var validaddress=JSON.parse(json.address);
+                                            if($('#input-address-1'+rowId+'').val()=== validaddress.Line1 && $('#input-address-2'+rowId+'').val()=== validaddress.Line2 && $('#input-city'+rowId+'').val()=== validaddress.City && $('#input-postcode'+rowId+'').val()=== validaddress.PostalCode && $('#input-country'+rowId+'').val()=== validaddress.Country && $('#input-zone'+rowId+'').val()=== validaddress.Region){
+                                            alert("Entered Address is Valid address");
+                                            }
+                                        else{        
                                             if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
                                                 $('#input-address-1'+rowId+'').val(validaddress.Line1);
                                                 $('#input-address-2'+rowId+'').val(validaddress.Line2);
@@ -702,7 +706,7 @@ function validateAddress(rowId){
                                                 $('#input-zone'+rowId+'').val(validaddress.Region);
                                                 $('#input-country'+rowId+'').val(validaddress.Country);
                                             }
-
+                                            }//end of else
                                         }
                                             else alert(json.msg);
                                             }

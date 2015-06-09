@@ -1396,7 +1396,7 @@ class ControllerSettingSetting extends Controller {
 					if ((utf8_strlen($this->request->post['config_city']) < 3) || (utf8_strlen($this->request->post['config_city']) > 64)) {
 					$this->error['city'] = $this->language->get('error_city');
 					}
-					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 5)) {
+					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 10)) {
 					$this->error['postal_code'] = $this->language->get('error_postal_code');
 					}
 	

@@ -2014,7 +2014,12 @@ $('select[name=\'config_country_id\']').trigger('change');
                                                             var json = JSON.parse(data);
                                                             if(json.address!=""){
                                                              var validaddress=JSON.parse(json.address);
-                                                                if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
+                                                             if($('#config_address').val()=== validaddress.Line1 && $('#config_address_line2').val()=== validaddress.Line2 && $('#config_city').val()=== validaddress.City && $('#config_postal_code').val()=== validaddress.PostalCode && $('#input-country').val()=== validaddress.Country && $('#input-zone').val()=== validaddress.Region){
+                                                                alert("Entered Address is Valid address");
+                                                             }
+                                                             else{   
+                                                             
+                                                                if(confirm(" Do you want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
                                                                     $('#config_address').val(validaddress.Line1);
                                                                     $('#config_address_line2').val(validaddress.Line2);
                                                                     $('#config_city').val(validaddress.City);
@@ -2022,6 +2027,7 @@ $('select[name=\'config_country_id\']').trigger('change');
                                                                     $('#input-country').val(validaddress.Country);
                                                                     $('#input-zone').val(validaddress.Region);
                                                                 }
+                                                                }//end of else 
 
                                                             }
                                                                 else alert(json.msg);

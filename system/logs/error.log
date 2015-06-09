@@ -50,3 +50,11 @@
 2015-06-04 17:16:04 - PHP Notice:  Undefined variable: errormsg in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_tax.php on line 767
 2015-06-04 17:42:02 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
 2015-06-05 12:14:36 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:10:01 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:11:17 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:17:01 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:18:23 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:19:26 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:20:27 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-08 18:21:11 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-09 9:54:15 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
