@@ -1,3 +1,4 @@
+
 <?php
 
 	if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
@@ -21,7 +22,12 @@
 		{
 			$result = $client->isAuthorized("");
 			
-			if($result->getResultCode() != SeverityLevel::$Success)	// call failed
+			/*************************************************************************************************
+			*   Last Updated On	:	07/07/2015			                            							*
+			*   Description        :   Added Ok button to test connection window	  	*
+			**************************************************************************************************/
+
+			 if($result->getResultCode() != SeverityLevel::$Success)	// call failed
 			{
 				foreach($result->Messages() as $msg)
 				{					
@@ -38,6 +44,7 @@
                 $successMsg .= "Welcome to the Ava Tax Service.<br/>";
 				$successMsg .= "Connection Test Status: <span style='color:green;'>".$result->getResultCode()."</span><br/>";
 				$successMsg .= "Expiry Date : <span style='color:green;'>".$dateTime."</span><br/>";
+				$successMsg .= "<p style='text-align:center;padding-top:10px;'><input type='button'  onClick='closeDialog()' value='OK' ></p>";
 			}
 			echo "<div style='text-align:center;padding-top:10px;'>".$successMsg."</div>"; 
 			//echo $successMsg; 
@@ -51,6 +58,7 @@
 			$successMsg .= "Welcome to the Ava Tax Service.<br/>";
 			$successMsg .= "Connection Test Status: <span style='color:red;'>Failed</span><br/>";
 			$successMsg .= $msg."<br/>";
+			$successMsg .= "<p style='text-align:center;padding-top:20px;'><input type='button'  onClick='closeDialog()' value='OK' ></p>";
 			echo "<div style='text-align:center;padding-top:10px;'>".$successMsg."</div>"; 
 			//$successMsg .= $client->__getLastRequest()."<br/>";
 			//$successMsg .= $client->__getLastResponse()."<br/>"; 

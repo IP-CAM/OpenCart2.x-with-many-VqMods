@@ -58,3 +58,18 @@
 2015-06-08 18:20:27 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
 2015-06-08 18:21:11 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
 2015-06-09 9:54:15 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 190
+2015-06-15 16:58:58 - PHP Notice:  Undefined index: return_reason_id in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 6
+2015-06-15 16:59:00 - PHP Notice:  Undefined index: return_reason_id in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 424
+2015-06-15 16:59:00 - PHP Notice:  Undefined index: name in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 430
+2015-06-15 16:59:00 - PHP Notice:  Undefined variable: time_start in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 440
+2015-06-15 17:00:32 - PHP Notice:  Undefined variable: time_start in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 440
+2015-06-15 17:02:45 - PHP Notice:  Undefined property: stdClass::$BaseAddress in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxRequest.class.php on line 448
+2015-06-15 17:02:45 - PHP Notice:  Undefined index:  in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxRequest.class.php on line 112
+2015-06-15 17:02:45 - PHP Notice:  Undefined index:  in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\GetTaxRequest.class.php on line 113
+2015-06-15 17:02:45 - PHP Warning:  Illegal string offset 'DocDate' in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 429
+2015-06-15 17:02:45 - PHP Notice:  Undefined variable: time_start in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 440
+2015-06-15 17:14:29 - PHP Notice:  Undefined variable: time_start in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 440
+2015-06-19 14:21:32 - PHP Notice:  unserialize(): Error at offset 0 of 1 bytes in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_cart.php on line 23
+2015-06-19 14:21:32 - PHP Notice:  Undefined index: tax_class_id in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-system_library_cart.php on line 46
+2015-07-08 12:10:42 - PHP Notice:  Undefined variable: config_avatax_return_address_result in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1155
+2015-07-08 12:10:42 - PHP Notice:  Undefined variable: config_avatax_return_address_result in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1165

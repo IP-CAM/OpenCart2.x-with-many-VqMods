@@ -9,7 +9,7 @@
  * {@link AddressServiceSoap} and {@link TaxServiceSoap} read this file during initialization.
  *
  * @author    Avalara
- * @copyright © 2004 - 2011 Avalara, Inc.  All rights reserved.
+ * @copyright ï¿½ 2004 - 2011 Avalara, Inc.  All rights reserved.
  * @package   Base
  */
 
@@ -60,11 +60,11 @@ new ATConfig('Default', array(
     'taxWSDL'  => 'file://'.$__wsdldir.'/Tax.wsdl',
 	'batchWSDL'  => 'file://'.$__wsdldir.'/BatchSvc.wsdl',
 	'avacert2WSDL'  => 'file://'.$__wsdldir.'/AvaCert2Svc.wsdl',
-    'account'   => '<your account number here>',
-    'license'   => '<your license key here>',
-    'adapter'   => 'avatax4php,13.4.0.0',
+    'account'   => '',
+    'license'   => '',
+    'adapter'   => 'avatax4php,14.2.0.0',
     'client'    => 'AvalaraPHPInterface,1.0',
-	'name'    => 'PHPAdapter',
+	'name'    => '13.7.0.0',
     'trace'     => true) // change to false for production
 );
 

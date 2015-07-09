@@ -44,30 +44,28 @@ function AddressValidation($address_data)
 		}
 		else if($result->getResultCode() == SeverityLevel::$Success && $result->getValidAddresses() != "")
 		{
-                       $arr=array();
-                       $validatedAddresses=array();
-                       $validatedAddresses=$result->getValidAddresses();
-                       foreach ($validatedAddresses as $obj) {
-                        $arr["Line1"]=$obj->getLine1();
-                        $arr["Line2"]=$obj->getLine2();
-                        $arr["Line3"]=$obj->getLine3();
-                        $arr["AddressCode"]=$obj->getAddressCode();
-                        $arr["City"]=$obj->getCity();
-                        $arrCountryCode=getFieldValue('country','country_id','iso_code_2',$obj->getCountry());
-                        $arr["Country"]=$arrCountryCode[0];
-                        $arr["Country_txt"]=$obj->getCountry();
+				$arr=array();
+				$validatedAddresses=array();
+				$validatedAddresses=$result->getValidAddresses();
+				foreach ($validatedAddresses as $obj) {
+					$arr["Line1"]=$obj->getLine1();
+					$arr["Line2"]=$obj->getLine2();
+					$arr["Line3"]=$obj->getLine3();
+					$arr["AddressCode"]=$obj->getAddressCode();
+					$arr["City"]=$obj->getCity();
+					$arrCountryCode=getFieldValue('country','country_id','iso_code_2',$obj->getCountry());
+					$arr["Country"]=$arrCountryCode[0];
+					$arr["Country_txt"]=$obj->getCountry();
 
-                        $arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
-                        $arr["Region"]=$arrRegion[0];
-                        $arr["Region_txt"]=$obj->getRegion();
-                        $arr["PostalCode"]=$obj->getPostalCode();
-}
-			$return_message .= "Success";
-			$return_message .= json_encode($arr);
-                        $response["msg"]="Success";
-                        $response["address"]=json_encode($arr);
-
-                        
+					$arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
+					$arr["Region"]=$arrRegion[0];
+					$arr["Region_txt"]=$obj->getRegion();
+					$arr["PostalCode"]=$obj->getPostalCode();
+				}
+				$return_message .= "Success";
+				$return_message .= json_encode($arr);
+                $response["msg"]="Success";
+                $response["address"]=json_encode($arr);
 		}   
                else {
                         $return_message .= "Success";

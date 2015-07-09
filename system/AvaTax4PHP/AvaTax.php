@@ -8,9 +8,10 @@
 /**
  * Defines class loading search path.
  */
-
+ 
 spl_autoload_register(function ($class_name)
 { 	
+	
 	$path=dirname(__FILE__).'/classes/'.$class_name . '.class.php';
 	
 	if(!file_exists($path))

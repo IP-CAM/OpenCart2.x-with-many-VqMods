@@ -1,0 +1,4 @@
+2015-06-15 05:00:37 pm - INFO --> CONNECTOR METRICS  Type - GetTax ReturnInvoice    Line Count - 1   DOCNO - 13   Connector Latency - 4489
+2015-06-15 05:00:37 pm - INFO --> CONNECTOR METRICS  Type - GetTax ReturnInvoice    Line Count - 1   DOCNO - 13   Connector - 77
+2015-06-15 05:14:31 pm - INFO --> CONNECTOR METRICS  Type - GetTax ReturnInvoice    Line Count - 1   DOCNO - 15   Connector Latency - 1371
+2015-06-15 05:14:31 pm - INFO --> CONNECTOR METRICS  Type - GetTax ReturnInvoice    Line Count - 1   DOCNO - 15   Connector - 74
