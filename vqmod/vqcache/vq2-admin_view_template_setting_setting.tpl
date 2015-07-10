@@ -133,10 +133,22 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input type="button" id="validateAddress" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input>  
+                                    <input type="button" id="validateAddress" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input> 
+									<input type='hidden' id='validAddressData' name='validAddressData'>									
                                 </div>
                            </div>
-                        <?php }?>   
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	07/09/2015			                            							*
+						 *   Description        :   Instead of windows dialog box, showing address validation message in jquery window   	*
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
+							<div class="col-sm-10">
+								<div id="AvaTaxStoreAddressValidateDialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;"></div>
+							</div>
+						</div>
+						   <?php }?>   
 			
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
@@ -1183,8 +1195,7 @@
 							<label class="col-sm-2 control-label">Return results in upper case:</label>
 							<div class="col-sm-10">
 							<label class="radio-inline">
-							  <?php $config_avatax_return_address_result = 1;
-							  if ($config_avatax_return_address_result) { ?>
+							  <?php if ($config_avatax_return_address_result) { ?>
 							  <input type="radio" name="config_avatax_return_address_result"  value="1" checked="checked" />
 							  <?php echo $text_yes; ?>
 							  <?php } else { ?>
@@ -2038,41 +2049,67 @@ $('select[name=\'config_country_id\']').trigger('change');
 					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 				
 					<script type="text/javascript"><!--
-                                                $('#validateAddress').click(function() { 
-                                                $.ajax({
-                                                            url: '../system/AvaTax4PHP/avatax_address_validation.php',
-                                                            type: 'post',
-                                                            data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val(),
-                                                            beforeSend: function() {
-                                                $('#validateAddress').button('loading');
-                                                },		complete: function() {
-                                                $('#validateAddress').button('reset');
-                                                },
-                                                            success:function(data){
-                                                            var json = JSON.parse(data);
-                                                            if(json.address!=""){
-                                                             var validaddress=JSON.parse(json.address);
-                                                             if($('#config_address').val()=== validaddress.Line1 && $('#config_address_line2').val()=== validaddress.Line2 && $('#config_city').val()=== validaddress.City && $('#config_postal_code').val()=== validaddress.PostalCode && $('#input-country').val()=== validaddress.Country && $('#input-zone').val()=== validaddress.Region){
-                                                                alert("Entered Address is Valid address");
-                                                             }
-                                                             else{   
-                                                             
-                                                                if(confirm("Validated Address - \nLine 1 - "+validaddress.Line1+"\nLine 2 -"+validaddress.Line2+"\nCity -"+validaddress.City+"\nPostal Code - "+validaddress.PostalCode+"\nRegion -"+validaddress.Region_txt+"\nCountry -"+validaddress.Country_txt+"\n\nDo you want to update this address?")){
-                                                                    $('#config_address').val(validaddress.Line1);
-                                                                    $('#config_address_line2').val(validaddress.Line2);
-                                                                    $('#config_city').val(validaddress.City);
-                                                                    $('#config_postal_code').val(validaddress.PostalCode);
-                                                                    $('#input-country').val(validaddress.Country);
-                                                                    $('#input-zone').val(validaddress.Region);
-																}
-                                                                }//end of else 
+					$('#validateAddress').click(function() { 
+						$.ajax({
+							url: '../system/AvaTax4PHP/avatax_address_validation.php',
+							type: 'post',
+							data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val()+'&text_case='+$('input[name=config_avatax_return_address_result]:checked').val(),
+							beforeSend: function() {
+								$('#validateAddress').button('loading');
+							},		complete: function() {
+								$('#validateAddress').button('reset');
+							},
+							success:function(data)	{
+								var json = JSON.parse(data);
+								if(json.address!=""){
+									var validaddress=JSON.parse(json.address);
+									//alert(validaddress);
+									//document.getElementById('validAddressData').value=json.address;
+									validatedAddress = "<p>Do you want to update this address?</p><p><div style='align:left; float:left;'>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"<br><br></div><div style='align:right; float:right;margin-left:40px;'>Validated Address - <br><strong>Line 1 </strong>-  "+validaddress.Line1+"<br><strong>Line 2 </strong>- "+validaddress.Line2+"<br><strong>City </strong>- "+validaddress.City+"<br><strong>Postal Code </strong>-  "+validaddress.PostalCode+"<br><strong>Region </strong>- "+validaddress.Region_name+"<br><strong>Country </strong>- "+validaddress.Country_name+"<br><br></div></p>";
+									
+									jQuery_1_8_16("#AvaTaxStoreAddressValidateDialog").html(validatedAddress).dialog({
+										title: "<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation",
+										resizable: true,
+										modal: true,
+										width: 'auto',
+										buttons: {
+											"Apply": function() 
+											{
+												$('#config_address').val(validaddress.Line1);
+												$('#config_address_line2').val(validaddress.Line2);
+												$('#config_city').val(validaddress.City);
+												$('#config_postal_code').val(validaddress.PostalCode);
+												$('#input-country').val(validaddress.Country);
+												$('#input-zone').val(validaddress.Region);
+												//jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').dialog('close');
+												jQuery_1_8_16( this ).dialog( "close" );
+											},
+											"Cancel": function() 
+											{
+												jQuery_1_8_16( this ).dialog( "close" );
+											}
+										}												
+										});
+									}
+									else 
+									{
+										invalidStoreAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"</div>";
 
-                                                            }
-                                                                else alert(json.msg);
-                                                                }
-                                                            });   
-
-                                                });           
+										jQuery_1_8_16("<div></div>").html(invalidStoreAddress+"<br>"+json.msg).dialog({
+											title: "AvaTax Address Validation",
+											resizable: true,
+											modal: true,
+											buttons: {
+												"Ok": function() 
+												{
+													jQuery_1_8_16( this ).dialog( "close" );
+												}
+											}
+										});								
+									}
+								}
+							});
+						});
                                     
 						$('#config_avatax_tax_calculation_yes').click(function() {
 							
@@ -2105,13 +2142,10 @@ $('select[name=\'config_country_id\']').trigger('change');
 							}
 						});
 
-						function closeDialog()
+						function closeTestConnection()
 						{
-							//alert('hello');
 							jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog('close');
 						}
-
-
 						$('#AvaTaxTestConnection').click(function() {
 							if($("#config_avatax_account").val()=="") {
 								alert("Please enter AvaTax Account Number!");

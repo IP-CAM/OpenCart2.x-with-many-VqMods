@@ -20,9 +20,12 @@ function AddressValidation($address_data)
 		$address->setCity($address_data["city"]);
 		$address->setRegion($address_data["region"]);
 		$address->setPostalCode($address_data["postalcode"]);
-
-
-		$textCase = TextCase::$Mixed;
+		
+		if(isset($address_data["text_case"]) && ($address_data["text_case"]==1))
+			$textCase = "Upper";
+		else
+			$textCase = TextCase::$Mixed;
+		
 		$coordinates = 1;
 
 		$request = new ValidateRequest($address, ($textCase ? $textCase : TextCase::$Default), $coordinates);
@@ -56,10 +59,14 @@ function AddressValidation($address_data)
 					$arrCountryCode=getFieldValue('country','country_id','iso_code_2',$obj->getCountry());
 					$arr["Country"]=$arrCountryCode[0];
 					$arr["Country_txt"]=$obj->getCountry();
+					$arrCountryName=getFieldValue('country','name','iso_code_2',$obj->getCountry());
+					$arr["Country_name"]=$arrCountryName[0];
 
 					$arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
 					$arr["Region"]=$arrRegion[0];
 					$arr["Region_txt"]=$obj->getRegion();
+					$arrRegionName=getFieldValue('zone','name','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
+					$arr["Region_name"]=$arrRegionName[0];
 					$arr["PostalCode"]=$obj->getPostalCode();
 				}
 				$return_message .= "Success";

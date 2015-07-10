@@ -206,82 +206,75 @@
 			<search position="before"><![CDATA[if (isset($this->request->post['config_tax_customer'])) {]]></search>
 				<add><![CDATA[
 					if (isset($this->request->post['config_avatax_account'])) {
-						$data['config_avatax_account'] = $this->request->post['config_avatax_account'];
+					$data['config_avatax_account'] = $this->request->post['config_avatax_account'];
 					} else {
-						$data['config_avatax_account'] = $this->config->get('config_avatax_account');
+					$data['config_avatax_account'] = $this->config->get('config_avatax_account');
 					}
 
 					if (isset($this->request->post['config_avatax_license_key'])) {
-						$data['config_avatax_license_key'] = $this->request->post['config_avatax_license_key'];
+					$data['config_avatax_license_key'] = $this->request->post['config_avatax_license_key'];
 					} else {
-						$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
+					$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
 					}
 
 					if (isset($this->request->post['config_avatax_client'])) {
-						$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
+					$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
 					} else {
-						$data['config_avatax_client'] = $this->config->get('config_avatax_client');
+					$data['config_avatax_client'] = $this->config->get('config_avatax_client');
 					}
 
 					if (isset($this->request->post['config_avatax_service_url'])) {
-						$data['config_avatax_service_url'] = $this->request->post['config_avatax_service_url'];
+					$data['config_avatax_service_url'] = $this->request->post['config_avatax_service_url'];
 					} else {
-						$data['config_avatax_service_url'] = $this->config->get('config_avatax_service_url');
+					$data['config_avatax_service_url'] = $this->config->get('config_avatax_service_url');
 					}
 
 					if (isset($this->request->post['config_avatax_taxcall_flag'])) {
-						$data['config_avatax_taxcall_flag'] = $this->request->post['config_avatax_taxcall_flag'];
+					$data['config_avatax_taxcall_flag'] = $this->request->post['config_avatax_taxcall_flag'];
 					} else {
-						$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
+					$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
 					}
 					
 					if (isset($this->request->post['config_avatax_transaction_calculation'])) {
-						$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
+					$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
 					} else {
-						$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
+					$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
 					}
 		
 					if (isset($this->request->post['config_avatax_log'])) {
-						$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
+					$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
 					} else {
-						$data['config_avatax_log'] = $this->config->get('config_avatax_log');
+					$data['config_avatax_log'] = $this->config->get('config_avatax_log');
 					}
 
 					//UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number
 					if (isset($this->request->post['config_avatax_product_code'])) {
-						$data['config_avatax_product_code'] = $this->request->post['config_avatax_product_code'];
+					$data['config_avatax_product_code'] = $this->request->post['config_avatax_product_code'];
 					} else {
-						$data['config_avatax_product_code'] = $this->config->get('config_avatax_product_code');
+					$data['config_avatax_product_code'] = $this->config->get('config_avatax_product_code');
 					}
 
 					if (isset($this->request->post['config_avatax_company_code'])) {
-						$data['config_avatax_company_code'] = $this->request->post['config_avatax_company_code'];
+					$data['config_avatax_company_code'] = $this->request->post['config_avatax_company_code'];
 					} else {
-						$data['config_avatax_company_code'] = $this->config->get('config_avatax_company_code');
+					$data['config_avatax_company_code'] = $this->config->get('config_avatax_company_code');
 					}
 
 					if (isset($this->request->post['config_avatax_tax_calculation'])) {
-						$data['config_avatax_tax_calculation'] = $this->request->post['config_avatax_tax_calculation'];
+					$data['config_avatax_tax_calculation'] = $this->request->post['config_avatax_tax_calculation'];
 					} else {
-						$data['config_avatax_tax_calculation'] = $this->config->get('config_avatax_tax_calculation');
+					$data['config_avatax_tax_calculation'] = $this->config->get('config_avatax_tax_calculation');
 					}
 
 					if (isset($this->request->post['config_avatax_tax_address_validation'])) {
-						$data['config_avatax_tax_address_validation'] = $this->request->post['config_avatax_tax_address_validation'];
+					$data['config_avatax_tax_address_validation'] = $this->request->post['config_avatax_tax_address_validation'];
 					} else {
-						$data['config_avatax_tax_address_validation'] = $this->config->get('config_avatax_tax_address_validation');
+					$data['config_avatax_tax_address_validation'] = $this->config->get('config_avatax_tax_address_validation');
 					}
-
 					if (isset($this->request->post['config_avatax_validate_address_in'])) {
-						$data['config_avatax_validate_address_in'] = $this->request->post['config_avatax_validate_address_in'];
+					$data['config_avatax_validate_address_in'] = $this->request->post['config_avatax_validate_address_in'];
 					} else {
-						$data['config_avatax_validate_address_in'] = $this->config->get('config_avatax_validate_address_in');
-					}
-
-					if (isset($this->request->post['config_avatax_return_address_result'])) {
-						$data['config_avatax_return_address_result'] = $this->request->post['config_avatax_return_address_result'];
-					} else {
-						$data['config_avatax_return_address_result'] = $this->config->get('config_avatax_return_address_result');
+					$data['config_avatax_validate_address_in'] = $this->config->get('config_avatax_validate_address_in');
 					}
 				]]></add>
 		</operation>
@@ -511,7 +504,8 @@
 							<label class="col-sm-2 control-label">Return results in upper case:</label>
 							<div class="col-sm-10">
 							<label class="radio-inline">
-							  <?php if ($config_avatax_return_address_result) { ?>
+							  <?php $config_avatax_return_address_result = 1;
+							  if ($config_avatax_return_address_result) { ?>
 							  <input type="radio" name="config_avatax_return_address_result"  value="1" checked="checked" />
 							  <?php echo $text_yes; ?>
 							  <?php } else { ?>
@@ -730,64 +724,27 @@
 					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 				
 					<script type="text/javascript"><!--
-					$('#validateAddress').click(function() { 
-						$.ajax({
-							url: '../system/AvaTax4PHP/avatax_address_validation.php',
-							type: 'post',
-							data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val()+'&text_case='+$('input[name=config_avatax_return_address_result]:checked').val(),
-							beforeSend: function() {
-								$('#validateAddress').button('loading');
-							},		complete: function() {
-								$('#validateAddress').button('reset');
-							},
-							success:function(data)	{
-								var json = JSON.parse(data);
-								if(json.address!=""){
-									var validaddress=JSON.parse(json.address);
-									//alert(validaddress);
-									//document.getElementById('validAddressData').value=json.address;
-									validatedAddress = "<p>Do you want to update this address?</p><p><div style='align:left; float:left;'>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"<br><br></div><div style='align:right; float:right;margin-left:40px;'>Validated Address - <br><strong>Line 1 </strong>-  "+validaddress.Line1+"<br><strong>Line 2 </strong>- "+validaddress.Line2+"<br><strong>City </strong>- "+validaddress.City+"<br><strong>Postal Code </strong>-  "+validaddress.PostalCode+"<br><strong>Region </strong>- "+validaddress.Region_name+"<br><strong>Country </strong>- "+validaddress.Country_name+"<br><br></div></p>";
-									
-									jQuery_1_8_16("#AvaTaxStoreAddressValidateDialog").html(validatedAddress).dialog({
-										title: "<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation",
-										resizable: true,
-										modal: true,
-										width: 'auto',
-										buttons: {
-											"Apply": function() 
-											{
-												$('#config_address').val(validaddress.Line1);
-												$('#config_address_line2').val(validaddress.Line2);
-												$('#config_city').val(validaddress.City);
-												$('#config_postal_code').val(validaddress.PostalCode);
-												$('#input-country').val(validaddress.Country);
-												$('#input-zone').val(validaddress.Region);
-												//jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').dialog('close');
-												jQuery_1_8_16( this ).dialog( "close" );
-											},
-											"Cancel": function() 
-											{
-												jQuery_1_8_16( this ).dialog( "close" );
-											}
-										}												
-										});
-									}
-									else 
-									{
-										invalidStoreAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"</div>";
+						$('#validateAddress').click(function() { 
+							jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
+							
+							jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').dialog({ width: 'auto' });
+							/**/$.post("../system/AvaTax4PHP/avatax_address_validation.php?postalcode="+$('#config_postal_code').val()+"&line1="+$('#config_address').val()+"&line2="+$('#config_address_line2').val()+"&line3=&city="+$('#config_city').val()+"&region="+$('#input-zone').val()+"&account="+$('#config_avatax_account').val()+"&license="+$('#config_avatax_license_key').val()+"&service_url="+$('#config_avatax_service_url').val()+"&client="+$('#config_avatax_client').val(), {q: ""}, function(data) {
 
-										jQuery_1_8_16("<div></div>").html(invalidStoreAddress+"<br>"+json.msg).dialog({
-											title: "AvaTax Address Validation",
-											resizable: true,
-											modal: true,
-											buttons: {
-												"Ok": function() 
-												{
-													jQuery_1_8_16( this ).dialog( "close" );
-												}
-											}
-										});								
+								if(data.length >0) {
+									var json = JSON.parse(data);
+									var validatedAddress;
+									if(json.address!=""){
+										var validaddress=JSON.parse(json.address);
+										//alert(validaddress);
+										document.getElementById('validAddressData').value=json.address;
+										validatedAddress = "<p>Do you want to update this address?</p><p><div style='align:left; float:left;'>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"<br><br></div><div style='align:right; float:right;margin-left:40px;'>Validated Address - <br><strong>Line 1 </strong>-  "+validaddress.Line1+"<br><strong>Line 2 </strong>- "+validaddress.Line2+"<br><strong>City </strong>- "+validaddress.City+"<br><strong>Postal Code </strong>-  "+validaddress.PostalCode+"<br><strong>Region </strong>- "+validaddress.Region_name+"<br><strong>Country </strong>- "+validaddress.Country_name+"<br><br></div></p><p>&nbsp;</p><p><div class='ui-dialog-buttonpane ui-widget-content ui-helper-clearfix'><div class='ui-dialog-buttonset'><input type='button' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' value='Apply' onClick='saveStoreAddress()'><input type='button' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' value='Cancel' onClick='closeStoreAddress()'></div></div></p>";
 									}
+									else {
+										//alert(json.msg);
+										validatedAddress = json.msg;
+									}
+											
+									jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').html(validatedAddress);
 								}
 							});
 						});
@@ -827,6 +784,28 @@
 						{
 							jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog('close');
 						}
+						function closeStoreAddress()
+						{
+							jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').dialog('close');
+						}
+						function saveStoreAddress()
+						{
+							//alert(document.getElementById('validAddressData').value);
+							var validAddressString = document.getElementById('validAddressData').value;
+							if(validAddressString != '')
+							{
+								var validaddress=JSON.parse(validAddressString);
+								//alert(validaddress.Line1);
+								$('#config_address').val(validaddress.Line1);
+								$('#config_address_line2').val(validaddress.Line2);
+								$('#config_city').val(validaddress.City);
+								$('#config_postal_code').val(validaddress.PostalCode);
+								$('#input-country').val(validaddress.Country);
+								$('#input-zone').val(validaddress.Region);
+								jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').dialog('close');
+							}
+						}
+
 						$('#AvaTaxTestConnection').click(function() {
 							if($("#config_avatax_account").val()=="") {
 								alert("Please enter AvaTax Account Number!");
@@ -5254,7 +5233,6 @@
             $data["avatax_license"]=$this->config->get('config_avatax_license_key');
             $data["avatax_client"]=$this->config->get('config_avatax_client');
             $data["avatax_address_validation"]=$this->config->get('config_avatax_tax_address_validation');
-			$data["avatax_return_address_result"]=$this->config->get('config_avatax_return_address_result');
             ]]></add>
             </operation>
         </file>
@@ -5268,11 +5246,10 @@
         var avatax_account = '<?php echo $avatax_account; ?>';
         var avatax_license = '<?php echo $avatax_license; ?>';
         var avatax_client = '<?php echo $avatax_client; ?>';
-        var return_result = '<?php echo $avatax_return_address_result; ?>';
          $.ajax({
                                         url: '../system/AvaTax4PHP/avatax_address_validation.php',
                                         type: 'post',
-                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'&text_case='+return_result,
+                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'',
                                         beforeSend: function() {
                             $('#validateAddress'+rowId+'').button('loading');
                     },		complete: function() {

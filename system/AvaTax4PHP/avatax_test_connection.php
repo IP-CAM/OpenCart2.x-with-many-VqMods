@@ -44,7 +44,7 @@
                 $successMsg .= "Welcome to the Ava Tax Service.<br/>";
 				$successMsg .= "Connection Test Status: <span style='color:green;'>".$result->getResultCode()."</span><br/>";
 				$successMsg .= "Expiry Date : <span style='color:green;'>".$dateTime."</span><br/>";
-				$successMsg .= "<p style='text-align:center;padding-top:10px;'><input type='button'  onClick='closeDialog()' value='OK' ></p>";
+				$successMsg .= "<p style='text-align:center;padding-top:10px;'><input type='button'  onClick='closeTestConnection()' value='OK' ></p>";
 			}
 			echo "<div style='text-align:center;padding-top:10px;'>".$successMsg."</div>"; 
 			//echo $successMsg; 
@@ -58,7 +58,7 @@
 			$successMsg .= "Welcome to the Ava Tax Service.<br/>";
 			$successMsg .= "Connection Test Status: <span style='color:red;'>Failed</span><br/>";
 			$successMsg .= $msg."<br/>";
-			$successMsg .= "<p style='text-align:center;padding-top:20px;'><input type='button'  onClick='closeDialog()' value='OK' ></p>";
+			$successMsg .= "<p style='text-align:center;padding-top:20px;'><input type='button'  onClick='closeTestConnection()' value='OK' ></p>";
 			echo "<div style='text-align:center;padding-top:10px;'>".$successMsg."</div>"; 
 			//$successMsg .= $client->__getLastRequest()."<br/>";
 			//$successMsg .= $client->__getLastResponse()."<br/>"; 

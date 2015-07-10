@@ -764,75 +764,82 @@ class ControllerSettingSetting extends Controller {
 
 
 					if (isset($this->request->post['config_avatax_account'])) {
-					$data['config_avatax_account'] = $this->request->post['config_avatax_account'];
+						$data['config_avatax_account'] = $this->request->post['config_avatax_account'];
 					} else {
-					$data['config_avatax_account'] = $this->config->get('config_avatax_account');
+						$data['config_avatax_account'] = $this->config->get('config_avatax_account');
 					}
 
 					if (isset($this->request->post['config_avatax_license_key'])) {
-					$data['config_avatax_license_key'] = $this->request->post['config_avatax_license_key'];
+						$data['config_avatax_license_key'] = $this->request->post['config_avatax_license_key'];
 					} else {
-					$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
+						$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
 					}
 
 					if (isset($this->request->post['config_avatax_client'])) {
-					$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
+						$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
 					} else {
-					$data['config_avatax_client'] = $this->config->get('config_avatax_client');
+						$data['config_avatax_client'] = $this->config->get('config_avatax_client');
 					}
 
 					if (isset($this->request->post['config_avatax_service_url'])) {
-					$data['config_avatax_service_url'] = $this->request->post['config_avatax_service_url'];
+						$data['config_avatax_service_url'] = $this->request->post['config_avatax_service_url'];
 					} else {
-					$data['config_avatax_service_url'] = $this->config->get('config_avatax_service_url');
+						$data['config_avatax_service_url'] = $this->config->get('config_avatax_service_url');
 					}
 
 					if (isset($this->request->post['config_avatax_taxcall_flag'])) {
-					$data['config_avatax_taxcall_flag'] = $this->request->post['config_avatax_taxcall_flag'];
+						$data['config_avatax_taxcall_flag'] = $this->request->post['config_avatax_taxcall_flag'];
 					} else {
-					$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
+						$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
 					}
 					
 					if (isset($this->request->post['config_avatax_transaction_calculation'])) {
-					$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
+						$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
 					} else {
-					$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
+						$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
 					}
 		
 					if (isset($this->request->post['config_avatax_log'])) {
-					$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
+						$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
 					} else {
-					$data['config_avatax_log'] = $this->config->get('config_avatax_log');
+						$data['config_avatax_log'] = $this->config->get('config_avatax_log');
 					}
 
 					//UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number
 					if (isset($this->request->post['config_avatax_product_code'])) {
-					$data['config_avatax_product_code'] = $this->request->post['config_avatax_product_code'];
+						$data['config_avatax_product_code'] = $this->request->post['config_avatax_product_code'];
 					} else {
-					$data['config_avatax_product_code'] = $this->config->get('config_avatax_product_code');
+						$data['config_avatax_product_code'] = $this->config->get('config_avatax_product_code');
 					}
 
 					if (isset($this->request->post['config_avatax_company_code'])) {
-					$data['config_avatax_company_code'] = $this->request->post['config_avatax_company_code'];
+						$data['config_avatax_company_code'] = $this->request->post['config_avatax_company_code'];
 					} else {
-					$data['config_avatax_company_code'] = $this->config->get('config_avatax_company_code');
+						$data['config_avatax_company_code'] = $this->config->get('config_avatax_company_code');
 					}
 
 					if (isset($this->request->post['config_avatax_tax_calculation'])) {
-					$data['config_avatax_tax_calculation'] = $this->request->post['config_avatax_tax_calculation'];
+						$data['config_avatax_tax_calculation'] = $this->request->post['config_avatax_tax_calculation'];
 					} else {
-					$data['config_avatax_tax_calculation'] = $this->config->get('config_avatax_tax_calculation');
+						$data['config_avatax_tax_calculation'] = $this->config->get('config_avatax_tax_calculation');
 					}
 
 					if (isset($this->request->post['config_avatax_tax_address_validation'])) {
-					$data['config_avatax_tax_address_validation'] = $this->request->post['config_avatax_tax_address_validation'];
+						$data['config_avatax_tax_address_validation'] = $this->request->post['config_avatax_tax_address_validation'];
 					} else {
-					$data['config_avatax_tax_address_validation'] = $this->config->get('config_avatax_tax_address_validation');
+						$data['config_avatax_tax_address_validation'] = $this->config->get('config_avatax_tax_address_validation');
 					}
+
 					if (isset($this->request->post['config_avatax_validate_address_in'])) {
-					$data['config_avatax_validate_address_in'] = $this->request->post['config_avatax_validate_address_in'];
+						$data['config_avatax_validate_address_in'] = $this->request->post['config_avatax_validate_address_in'];
 					} else {
-					$data['config_avatax_validate_address_in'] = $this->config->get('config_avatax_validate_address_in');
+						$data['config_avatax_validate_address_in'] = $this->config->get('config_avatax_validate_address_in');
+					}
+
+					if (isset($this->request->post['config_avatax_return_address_result'])) {
+						$data['config_avatax_return_address_result'] = $this->request->post['config_avatax_return_address_result'];
+					} else {
+						$data['config_avatax_return_address_result'] = $this->config->get('config_avatax_return_address_result');
 					}
 				
 		if (isset($this->request->post['config_tax_customer'])) {

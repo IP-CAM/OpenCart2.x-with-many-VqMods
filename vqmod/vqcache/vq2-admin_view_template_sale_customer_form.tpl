@@ -408,10 +408,16 @@
                         </div>
                       </div>
 <?php if($avatax_address_validation==1){?>
-                            <div class="form-group">
+					<div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10"><input type="button" id="validateAddress<?php echo $address_row;?>" onClick="javascript:validateAddress('<?php echo $address_row;?>');" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input></div>
                             </div>
+							
+							<div class="form-group">
+								<div class="col-sm-10">
+									<div id="AvaTaxCustomerAddressValidateDialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;"></div>
+								</div>
+							</div>
                             <?php }?>
      
                       <?php foreach ($custom_fields as $custom_field) { ?>
@@ -677,42 +683,73 @@ $('select[name=\'customer_group_id\']').trigger('change');
   <script type="text/javascript"><!--
 var address_row = <?php echo $address_row; ?>;
 function validateAddress(rowId){
+					//var jQuery_1_8_16 = $.noConflict(true);
+					
         var avatax_service_url = '<?php echo $avatax_service_url; ?>';
         var avatax_account = '<?php echo $avatax_account; ?>';
         var avatax_license = '<?php echo $avatax_license; ?>';
         var avatax_client = '<?php echo $avatax_client; ?>';
+        var return_result = '<?php echo $avatax_return_address_result; ?>';
          $.ajax({
                                         url: '../system/AvaTax4PHP/avatax_address_validation.php',
                                         type: 'post',
-                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'',
+                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'&text_case='+return_result,
                                         beforeSend: function() {
                             $('#validateAddress'+rowId+'').button('loading');
                     },		complete: function() {
                             $('#validateAddress'+rowId+'').button('reset');
                     },
                                         success:function(data){
-                                        var json = JSON.parse(data);
-                                        if(json.address!=""){
-                                         var validaddress=JSON.parse(json.address);
-                                            if($('#input-address-1'+rowId+'').val()=== validaddress.Line1 && $('#input-address-2'+rowId+'').val()=== validaddress.Line2 && $('#input-city'+rowId+'').val()=== validaddress.City && $('#input-postcode'+rowId+'').val()=== validaddress.PostalCode && $('#input-country'+rowId+'').val()=== validaddress.Country && $('#input-zone'+rowId+'').val()=== validaddress.Region){
-                                            alert("Entered Address is Valid address");
-                                            }
-                                        else{        
-                                            if(confirm("You want to update this address to " + validaddress.Line1+","+validaddress.Line2+","+validaddress.City+","+validaddress.PostalCode+","+validaddress.Region_txt+","+validaddress.Country_txt)){
-                                                $('#input-address-1'+rowId+'').val(validaddress.Line1);
-                                                $('#input-address-2'+rowId+'').val(validaddress.Line2);
-                                                $('#input-city'+rowId+'').val(validaddress.City);
-                                                $('#input-postcode'+rowId+'').val(validaddress.PostalCode);
-                                                $('#input-zone'+rowId+'').val(validaddress.Region);
-                                                $('#input-country'+rowId+'').val(validaddress.Country);
-                                            }
-                                            }//end of else
-                                        }
-                                            else alert(json.msg);
-                                            }
-                                        });  
+											var json = JSON.parse(data);
+											if(json.address!="")	{
+												var validaddress=JSON.parse(json.address);
+												validatedCustomerAddress = "<p>Do you want to update this address?</p><p><div style='align:left; float:left;'>Current Address - <br><strong>Line 1 </strong>-  "+$('#input-address-1'+rowId+'').val()+"<br><strong>Line 2 </strong>- "+$('#input-address-2'+rowId+'').val()+"<br><strong>City </strong>- "+$('#input-city'+rowId+'').val()+"<br><strong>Postal Code </strong>-  "+$('#input-postcode'+rowId+'').val()+"<br><strong>Region </strong>- "+$('#input-zone'+rowId+' option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country'+rowId+' option:selected').text()+"<br><br></div><div style='align:right; float:right;margin-left:40px;'>Validated Address - <br><strong>Line 1 </strong>-  "+validaddress.Line1+"<br><strong>Line 2 </strong>- "+validaddress.Line2+"<br><strong>City </strong>- "+validaddress.City+"<br><strong>Postal Code </strong>-  "+validaddress.PostalCode+"<br><strong>Region </strong>- "+validaddress.Region_name+"<br><strong>Country </strong>- "+validaddress.Country_name+"<br><br></div></p>";
 
-    }
+												jQuery_1_8_16("#AvaTaxCustomerAddressValidateDialog").html(validatedCustomerAddress).dialog({
+													title: "<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation",
+													resizable: true,
+													modal: true,
+													width: 'auto',
+													buttons: {
+														"Apply": function() 
+														{
+															//jQuery_1_8_16( this ).dialog( "Replace With Validated Address" );
+															$('#input-address-1'+rowId+'').val(validaddress.Line1);
+															$('#input-address-2'+rowId+'').val(validaddress.Line2);
+															$('#input-city'+rowId+'').val(validaddress.City);
+															$('#input-postcode'+rowId+'').val(validaddress.PostalCode);
+															$('#input-zone'+rowId+'').val(validaddress.Region);
+															$('#input-country'+rowId+'').val(validaddress.Country);
+															jQuery_1_8_16( this ).dialog( "close" );
+														},
+														"Cancel": function() 
+														{
+															jQuery_1_8_16( this ).dialog( "close" );
+														}
+													}												
+												});
+											}
+											else 
+											{
+												//alert(json.msg);
+
+												invalidCustomerAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#input-address-1'+rowId+'').val()+"<br><strong>Line 2 </strong>- "+$('#input-address-2'+rowId+'').val()+"<br><strong>City </strong>- "+$('#input-city'+rowId+'').val()+"<br><strong>Postal Code </strong>-  "+$('#input-postcode'+rowId+'').val()+"<br><strong>Region </strong>- "+$('#input-zone'+rowId+' option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country'+rowId+' option:selected').text()+"</div></p>";
+
+												jQuery_1_8_16("<div></div>").html(invalidCustomerAddress+"<br>"+json.msg).dialog({
+													title: "AvaTax Address Validation",
+													resizable: true,
+													modal: true,
+													buttons: {
+														"Ok": function() 
+														{
+															jQuery_1_8_16( this ).dialog( "close" );
+														}
+													}
+												});
+											}
+										}
+							});  
+		}
     
 
 function addAddress() {
@@ -1192,3 +1229,15 @@ $('.time').datetimepicker({
 });	
 //--></script></div>
 <?php echo $footer; ?>
+<?php if($avatax_address_validation==1)	{?>
+					<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+					<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+
+					<script type="text/javascript">
+					var jQuery_1_8_16 = $.noConflict(true);
+					</script>
+
+					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+					<?php	}	?>
+					
+					
