@@ -600,6 +600,7 @@ $data['avatax_service_url'] = $this->config->get('config_avatax_service_url');
             $data["avatax_client"]=$this->config->get('config_avatax_client');
             $data["avatax_address_validation"]=$this->config->get('config_avatax_tax_address_validation');
 			$data["avatax_return_address_result"]=$this->config->get('config_avatax_return_address_result');
+			$data["avatax_avatax_log"]=$this->config->get('config_avatax_log');
             
 		$data['heading_title'] = $this->language->get('heading_title');
 

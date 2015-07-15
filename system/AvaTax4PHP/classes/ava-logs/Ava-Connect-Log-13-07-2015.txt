@@ -1,0 +1,20 @@
+AT : 2015-07-13 15:08:03
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://avatax.avalara.com/services"><SOAP-ENV:Header><wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" SOAP-ENV:mustUnderstand="1"><wsse:UsernameToken><wsse:Username>1100119845</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">99405F4E3CEF1737</wsse:Password></wsse:UsernameToken></wsse:Security><Profile xmlns="http://avatax.avalara.com/services" SOAP-ENV:actor="http://schemas.xmlsoap.org/soap/actor/next" SOAP-ENV:mustUnderstand="0"><Name>13.7.0.0</Name><Client>OpenCart||2.0.0.0||02.00.02.00</Client><Adapter>avatax4php,14.2.0.0</Adapter></Profile></SOAP-ENV:Header><SOAP-ENV:Body><ns1:Validate><ns1:ValidateRequest><ns1:Address><ns1:Line1>123456</ns1:Line1><ns1:Line2></ns1:Line2><ns1:Line3></ns1:Line3><ns1:City>asdfgh</ns1:City><ns1:Region>3674</ns1:Region><ns1:PostalCode></ns1:PostalCode><ns1:Country>USA</ns1:Country><ns1:TaxRegionId>0</ns1:TaxRegionId></ns1:Address><ns1:TextCase>Upper</ns1:TextCase><ns1:Coordinates>true</ns1:Coordinates><ns1:Taxability>false</ns1:Taxability></ns1:ValidateRequest></ns1:Validate></SOAP-ENV:Body></SOAP-ENV:Envelope>
+
+------------------------
+AT : 2015-07-13 15:08:03
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><ValidateResponse xmlns="http://avatax.avalara.com/services"><ValidateResult><TransactionId>1194912302</TransactionId><ResultCode>Error</ResultCode><Messages><Message Name="AddressUnknownStreetError"><Summary>An exact street name match could not be found</Summary><Details>An exact street name match could not be found and phonetically matching the street name resulted in either no matches or matches to more than one street name.</Details><HelpLink>http://www.avalara.com</HelpLink><RefersTo>Address.Line1</RefersTo><Severity>Error</Severity><Source>Avalara.AvaTax.Services.Address</Source></Message></Messages><ValidAddresses><ValidAddress><AddressCode/><Line1>123456</Line1><Line2/><Line3/><City>asdfgh</City><Region>3674</Region><PostalCode/><Country/><TaxRegionId>0</TaxRegionId><Latitude/><Longitude/><Line4/><County/><FipsCode/><CarrierRoute/><PostNet/><AddressType/><ValidateStatus/><GeocodeType/></ValidAddress></ValidAddresses><Taxable>false</Taxable></ValidateResult></ValidateResponse></s:Body></s:Envelope>
+------------------------

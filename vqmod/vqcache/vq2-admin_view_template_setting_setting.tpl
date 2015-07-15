@@ -129,7 +129,7 @@
 						<?php } ?>
 					</div>
 			  </div>
-                        <?php if($config_avatax_tax_address_validation==1){?>
+                        <?php if($config_avatax_tax_address_validation==1)	{?>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -148,7 +148,14 @@
 								<div id="AvaTaxStoreAddressValidateDialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;"></div>
 							</div>
 						</div>
-						   <?php }?>   
+						   <?php }		else	{?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input> 
+                                </div>
+                           </div>
+					<?php	}	?>
 			
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
@@ -2053,7 +2060,7 @@ $('select[name=\'config_country_id\']').trigger('change');
 						$.ajax({
 							url: '../system/AvaTax4PHP/avatax_address_validation.php',
 							type: 'post',
-							data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val()+'&text_case='+$('input[name=config_avatax_return_address_result]:checked').val(),
+							data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val()+'&log='+$('input[name=config_avatax_log]:checked').val()+'&text_case='+$('input[name=config_avatax_return_address_result]:checked').val(),
 							beforeSend: function() {
 								$('#validateAddress').button('loading');
 							},		complete: function() {

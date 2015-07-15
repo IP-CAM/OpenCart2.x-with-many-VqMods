@@ -35,7 +35,7 @@ function AddressValidation($address_data)
 		//echo "\n".'Validate ResultCode is: '. $result->getResultCode()."\n";
 		if($result->getResultCode() != SeverityLevel::$Success)
 		{
-			$return_message .= "Error - AvaTax Address Validation Mesasge\n";
+			$return_message .= "Error - AvaTax Address Validation Message\n";
 			
 			foreach($result->getMessages() as $msg)
 			{
@@ -47,39 +47,58 @@ function AddressValidation($address_data)
 		}
 		else if($result->getResultCode() == SeverityLevel::$Success && $result->getValidAddresses() != "")
 		{
-				$arr=array();
-				$validatedAddresses=array();
-				$validatedAddresses=$result->getValidAddresses();
-				foreach ($validatedAddresses as $obj) {
-					$arr["Line1"]=$obj->getLine1();
-					$arr["Line2"]=$obj->getLine2();
-					$arr["Line3"]=$obj->getLine3();
-					$arr["AddressCode"]=$obj->getAddressCode();
-					$arr["City"]=$obj->getCity();
-					$arrCountryCode=getFieldValue('country','country_id','iso_code_2',$obj->getCountry());
-					$arr["Country"]=$arrCountryCode[0];
-					$arr["Country_txt"]=$obj->getCountry();
-					$arrCountryName=getFieldValue('country','name','iso_code_2',$obj->getCountry());
-					$arr["Country_name"]=$arrCountryName[0];
+			$arr=array();
+			$validatedAddresses=array();
+			$validatedAddresses=$result->getValidAddresses();
+			foreach ($validatedAddresses as $obj) {
+				$arr["Line1"]=$obj->getLine1();
+				$arr["Line2"]=$obj->getLine2();
+				$arr["Line3"]=$obj->getLine3();
+				$arr["AddressCode"]=$obj->getAddressCode();
+				$arr["City"]=$obj->getCity();
+				$arrCountryCode=getFieldValue('country','country_id','iso_code_2',$obj->getCountry());
+				$arr["Country"]=$arrCountryCode[0];
+				$arr["Country_txt"]=$obj->getCountry();
+				$arrCountryName=getFieldValue('country','name','iso_code_2',$obj->getCountry());
+				$arr["Country_name"]=$arrCountryName[0];
 
-					$arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
-					$arr["Region"]=$arrRegion[0];
-					$arr["Region_txt"]=$obj->getRegion();
-					$arrRegionName=getFieldValue('zone','name','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
-					$arr["Region_name"]=$arrRegionName[0];
-					$arr["PostalCode"]=$obj->getPostalCode();
-				}
-				$return_message .= "Success";
-				$return_message .= json_encode($arr);
-                $response["msg"]="Success";
-                $response["address"]=json_encode($arr);
+				$arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
+				$arr["Region"]=$arrRegion[0];
+				$arr["Region_txt"]=$obj->getRegion();
+				$arrRegionName=getFieldValue('zone','name','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
+				$arr["Region_name"]=$arrRegionName[0];
+				$arr["PostalCode"]=$obj->getPostalCode();
+			}
+			$return_message .= "Success";
+			$return_message .= json_encode($arr);
+			$response["msg"]="Success";
+			$response["address"]=json_encode($arr);
 		}   
-               else {
-                        $return_message .= "Success";
-                        $response["msg"]="Success";
-                        $response["address"]="";
-                    }
+		else 
+		{
+			$return_message .= "Success";
+			$response["msg"]="Success";
+			$response["address"]="";
+		}
 		//return $return_message;
+		
+		if($address_data["log"] == 1)
+		{
+			require_once('classes/SystemLogger.class.php');
+			$timeStamp 			= 	new DateTime();						// Create Time Stamp
+			$params				=   '[Input: ' . ']';		// Create Param List
+			$u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+			// Creating the System Logger Object
+			$application_log 	= 	new SystemLogger;
+
+			$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
+			$application_log->WriteSystemLogToFile();			// Log info goes to log file
+
+			$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
+			$application_log->WriteSystemLogToFile();			// Log info goes to log file
+		}
+
 		return json_encode($response);
 	}
 	catch(SoapFault $exception)

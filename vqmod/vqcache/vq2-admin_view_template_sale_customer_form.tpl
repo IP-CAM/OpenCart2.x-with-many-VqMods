@@ -407,7 +407,7 @@
                           <?php } ?>
                         </div>
                       </div>
-<?php if($avatax_address_validation==1){?>
+<?php if($avatax_address_validation==1)	{?>
 					<div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10"><input type="button" id="validateAddress<?php echo $address_row;?>" onClick="javascript:validateAddress('<?php echo $address_row;?>');" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input></div>
@@ -418,8 +418,15 @@
 									<div id="AvaTaxCustomerAddressValidateDialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;"></div>
 								</div>
 							</div>
-                            <?php }?>
-     
+						   <?php }		else	{?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input> 
+                                </div>
+                           </div>
+					<?php	}	?>
+							
                       <?php foreach ($custom_fields as $custom_field) { ?>
                       <?php if ($custom_field['location'] == 'address') { ?>
                       <?php if ($custom_field['type'] == 'select') { ?>
@@ -689,11 +696,12 @@ function validateAddress(rowId){
         var avatax_account = '<?php echo $avatax_account; ?>';
         var avatax_license = '<?php echo $avatax_license; ?>';
         var avatax_client = '<?php echo $avatax_client; ?>';
+		var avatax_log = '<?php echo $avatax_avatax_log; ?>';
         var return_result = '<?php echo $avatax_return_address_result; ?>';
          $.ajax({
                                         url: '../system/AvaTax4PHP/avatax_address_validation.php',
                                         type: 'post',
-                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'&text_case='+return_result,
+                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'&log='+avatax_log+'&text_case='+return_result,
                                         beforeSend: function() {
                             $('#validateAddress'+rowId+'').button('loading');
                     },		complete: function() {

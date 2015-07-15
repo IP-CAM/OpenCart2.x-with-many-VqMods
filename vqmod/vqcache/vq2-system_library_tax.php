@@ -612,8 +612,6 @@ $this->shipping_address = array(
 						$log_mode = $this->config->get('config_avatax_log');
 					
 						if($log_mode==1){
-						   
-
 							$timeStamp 			= 	new DateTime();						// Create Time Stamp
 							$params				=   '[Input: ' . ']';		// Create Param List
 							$u_name				=	'';							// Eventually will come from $_SESSION[] object
@@ -631,8 +629,7 @@ $this->shipping_address = array(
 							// 	System Logger ends here
 							//	Logging code snippet (optional) ends here
 						}
-						
-						
+					
 						// Error Trapping
 						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 						

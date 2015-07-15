@@ -12,7 +12,7 @@
 	</file>
 	<file name="catalog/model/total/tax.php">				
 		<operation>
-			<!--Added a variable for avalara taxcount-->
+			<!--Added a variable for avalara taxcount. We've initialised taxCount to 0 in getTotal function -->
 			<search position="after" ><![CDATA[public function getTotal(&$total_data, &$total, &$taxes) {]]></search>
 			<add><![CDATA[        $taxCount=0;
 			]]></add>
@@ -51,7 +51,7 @@
 	</file>
 	<file name="catalog/controller/checkout/cart.php">				
 		<operation>
-			<!--Added Address error if any after calling getTax-->
+			<!--Added Address error if any after calling getTax function-->
 			<search position="after" ><![CDATA[$taxes = $this->cart->getTaxes();]]></search>
 				<add><![CDATA[$data['ERROR_STATUS'] = $this->tax->tax_address_error;]]></add>
 		</operation>
@@ -90,11 +90,9 @@
 			<!--Added AvaTax fields to order, order status and return table-->
 			<search position="before" ><![CDATA[public function deleteSetting(]]></search>
 			<add><![CDATA[
-			
-			
 				/***************************************************************************
-				*   Last Updated On	   :	05/14/2015			                           *
-				*   Description        :   This function adds AvaTax fields in database    * 
+				*   Last Updated On	   :	05/14/2015			                           				*
+				*   Description        :   avataxAddFields() function adds AvaTax fields in database.    * 
 				****************************************************************************/
 			
 				public function avataxAddFields() {
@@ -123,7 +121,6 @@
 	</file>
 	<file name="admin/controller/setting/setting.php">
 		<operation>
-		    <!---->
 			<search position="replace"><![CDATA[if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 256))]]></search>
 				<add><![CDATA[
 					if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 64))
@@ -133,10 +130,10 @@
 			<search position="after" offset="1" ><![CDATA[$this->error['address'] = $this->language->get('error_address');]]></search>
 				<add><![CDATA[
 					if ((utf8_strlen($this->request->post['config_city']) < 3) || (utf8_strlen($this->request->post['config_city']) > 64)) {
-					$this->error['city'] = $this->language->get('error_city');
+						$this->error['city'] = $this->language->get('error_city');
 					}
 					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 10)) {
-					$this->error['postal_code'] = $this->language->get('error_postal_code');
+						$this->error['postal_code'] = $this->language->get('error_postal_code');
 					}
 	
 					if(isset($this->request->post['config_zone_id']) && !($this->request->post['config_zone_id']>0))
@@ -150,19 +147,19 @@
 			<search position="before" offset="1" ><![CDATA[if (isset($this->error['telephone'])) {]]></search>
 				<add><![CDATA[
 					if (isset($this->error['city'])) {
-					$data['error_city'] = $this->error['city'];
+						$data['error_city'] = $this->error['city'];
 					} else {
-					$data['error_city'] = '';
+						$data['error_city'] = '';
 					}
 					if (isset($this->error['postal_code'])) {
-					$data['error_postal_code'] = $this->error['postal_code'];
+						$data['error_postal_code'] = $this->error['postal_code'];
 					} else {
-					$data['error_postal_code'] = '';
+						$data['error_postal_code'] = '';
 					}
 					if (isset($this->error['zone_id'])) {
-					$data['error_zone_id'] = $this->error['zone_id'];
+						$data['error_zone_id'] = $this->error['zone_id'];
 					} else {
-					$data['error_zone_id'] = '';
+						$data['error_zone_id'] = '';
 					}
 		]]></add>
 		</operation>
@@ -364,7 +361,7 @@
 						<?php } ?>
 					</div>
 			  </div>
-                        <?php if($config_avatax_tax_address_validation==1){?>
+                        <?php if($config_avatax_tax_address_validation==1)	{?>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -383,7 +380,14 @@
 								<div id="AvaTaxStoreAddressValidateDialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;"></div>
 							</div>
 						</div>
-						   <?php }?>   
+						   <?php }		else	{?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input> 
+                                </div>
+                           </div>
+					<?php	}	?>
 			]]></add>
 		</operation>
 		<operation>
@@ -399,21 +403,36 @@
 						<fieldset>
 						<legend>Avalara Credentials</legend>
 			
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Added account number option in Avalara tab   								* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_account" value="<?php echo $config_avatax_account; ?>" placeholder="Account Number" id="config_avatax_account" class="form-control" />
 							</div>
 						</div>
 			
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Added License Key option in Avalara tab   								* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_license_key">License Key:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_license_key" value="<?php echo $config_avatax_license_key; ?>" placeholder="License Key" id="config_avatax_license_key" class="form-control" />
 							</div>
 						</div>
-			
-						<?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Assigned unique client key of connector.    								* 
+						 *****************************************************************************************************-->
+
+						 <?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
 						<input type="hidden" name="config_avatax_client" value="<?=$version?>" id="config_avatax_client" />
 			
 						<div class="form-group">
@@ -431,14 +450,24 @@
 							</div>
 						</div>
 	
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Enter AvaTax admin console company code here. 								* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Code:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
 							</div>
 						</div>
-					
-						<div class="form-group">
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Option added to Avalara tab. Clicking on test connection button, avatax_test_connection.php page will be called to test the connection. Service URL, account number, license key will be passed to check whether user has enetered proper credentials.      																* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
 							<div class="col-sm-10"><br>
 								<a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
@@ -451,7 +480,12 @@
 					<fieldset>
 						<legend>Tax Calculation Settings</legend>
 
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, AvaTax functions will be calculated & tax will be calculated.	* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 						  <label class="col-sm-2 control-label">Enable AvaTax tax calculation:</label>
 						  <div class="col-sm-10">
 							<label class="radio-inline">
@@ -482,7 +516,12 @@
 					<fieldset>
 						<legend>Address Validation Settings</legend>
 
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, AddressValidation() service will be called to validate the address. Address validation button will be available on store address & customer address in admin panel					* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label">Enable AvaTax address validation:</label>
 							<div class="col-sm-10">
 							<label class="radio-inline">
@@ -507,6 +546,12 @@
 							</div>
 						</div>
 
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	07/13/2015			                            							*
+						 *   Description        :   Added an option to return results in upper case.   							* 
+						 *   AddressValidation() service will return results in Upper case if this option is enabled else deafult case	*
+						 *****************************************************************************************************-->
+						 
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Return results in upper case:</label>
 							<div class="col-sm-10">
@@ -562,7 +607,13 @@
 
 						<fieldset>
 						<legend>Customer Specific Settings</legend>
-						<div class="form-group">
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If this option is disabled but tax claculation is enabled, tax will be calculated in checkout page at store front					*
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label">Do you want save transaction on AvaTax:</label>
 							<div class="col-sm-10">
 								<label class="radio-inline">
@@ -587,7 +638,12 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If this option is disabled but tax claculation is enabled, tax will be calculated in checkout page at store front					*
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label">Enable Log:</label>
 							<div class="col-sm-10">
 								<label class="radio-inline">
@@ -669,7 +725,8 @@
 					
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	07/07/2015			                            							*
-						 *   Description        :   Added logo button to test connection window as per ticket - CONNECT-2717  	*
+						 *   Description        :   Added logo button to test connection window as per ticket - CONNECT-2717.   * 
+						 *  Called AvaTaxTestConnectionDialog() jquery function on click event to handle dialog box. 			*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -734,7 +791,7 @@
 						$.ajax({
 							url: '../system/AvaTax4PHP/avatax_address_validation.php',
 							type: 'post',
-							data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val()+'&text_case='+$('input[name=config_avatax_return_address_result]:checked').val(),
+							data:'postalcode='+$('#config_postal_code').val()+'&line1='+$('#config_address').val()+'&line2='+$('#config_address_line2').val()+'&line3=&city='+$('#config_city').val()+'&region='+$('#input-zone').val()+'&account='+$('#config_avatax_account').val()+'&license='+$('#config_avatax_license_key').val()+'&service_url='+$('#config_avatax_service_url').val()+'&client='+$('#config_avatax_client').val()+'&log='+$('input[name=config_avatax_log]:checked').val()+'&text_case='+$('input[name=config_avatax_return_address_result]:checked').val(),
 							beforeSend: function() {
 								$('#validateAddress').button('loading');
 							},		complete: function() {
@@ -1480,8 +1537,6 @@
 						$log_mode = $this->config->get('config_avatax_log');
 					
 						if($log_mode==1){
-						   
-
 							$timeStamp 			= 	new DateTime();						// Create Time Stamp
 							$params				=   '[Input: ' . ']';		// Create Param List
 							$u_name				=	'';							// Eventually will come from $_SESSION[] object
@@ -1499,8 +1554,7 @@
 							// 	System Logger ends here
 							//	Logging code snippet (optional) ends here
 						}
-						
-						
+					
 						// Error Trapping
 						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 						
@@ -1914,7 +1968,7 @@
 					 *   Description        :   This function returns the discount amount of	* 
 					 *							product by product ID							*
 					 ***************************************************************************/
-								
+
 					public function getProductDiscountsForGivenRange($product_id, $quantity, $date, $customer_group_id) {
 
 						$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$customer_group_id . "' AND quantity <= '" . (int)$quantity . "' AND ((date_start = '0000-00-00' OR date_start < '" . $date . "') AND (date_end = '0000-00-00' OR date_end > '" . $date . "')) ORDER BY quantity ASC, priority ASC, price ASC");
@@ -5255,6 +5309,7 @@
             $data["avatax_client"]=$this->config->get('config_avatax_client');
             $data["avatax_address_validation"]=$this->config->get('config_avatax_tax_address_validation');
 			$data["avatax_return_address_result"]=$this->config->get('config_avatax_return_address_result');
+			$data["avatax_avatax_log"]=$this->config->get('config_avatax_log');
             ]]></add>
             </operation>
         </file>
@@ -5268,11 +5323,12 @@
         var avatax_account = '<?php echo $avatax_account; ?>';
         var avatax_license = '<?php echo $avatax_license; ?>';
         var avatax_client = '<?php echo $avatax_client; ?>';
+		var avatax_log = '<?php echo $avatax_avatax_log; ?>';
         var return_result = '<?php echo $avatax_return_address_result; ?>';
          $.ajax({
                                         url: '../system/AvaTax4PHP/avatax_address_validation.php',
                                         type: 'post',
-                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'&text_case='+return_result,
+                                        data:'postalcode='+$('#input-postcode'+rowId+'').val()+'&line1='+$('#input-address-1'+rowId+'').val()+'&line2='+$('#input-address-2'+rowId+'').val()+'&line3=&city='+$('#input-city'+rowId+'').val()+'&region='+$('#input-zone'+rowId+'').val()+'&account='+avatax_account+'&license='+avatax_license+'&service_url='+avatax_service_url+'&client='+avatax_client+'&log='+avatax_log+'&text_case='+return_result,
                                         beforeSend: function() {
                             $('#validateAddress'+rowId+'').button('loading');
                     },		complete: function() {
@@ -5333,7 +5389,7 @@
             </operation>
             <operation>
                     <search position="after" offset="4"><![CDATA[<?php if (isset($error_address[$address_row]['zone'])) { ?>]]></search>
-                    <add><![CDATA[<?php if($avatax_address_validation==1){?>
+                    <add><![CDATA[<?php if($avatax_address_validation==1)	{?>
 					<div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10"><input type="button" id="validateAddress<?php echo $address_row;?>" onClick="javascript:validateAddress('<?php echo $address_row;?>');" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input></div>
@@ -5344,8 +5400,15 @@
 									<div id="AvaTaxCustomerAddressValidateDialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;"></div>
 								</div>
 							</div>
-                            <?php }?>
-     ]]></add>
+						   <?php }		else	{?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input> 
+                                </div>
+                           </div>
+					<?php	}	?>
+							]]></add>
             </operation>
             <operation>
                     <search position="after"><![CDATA[<?php echo $footer; ?>]]></search>
