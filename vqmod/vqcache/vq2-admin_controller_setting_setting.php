@@ -262,19 +262,19 @@ class ControllerSettingSetting extends Controller {
 		}
 
 					if (isset($this->error['city'])) {
-					$data['error_city'] = $this->error['city'];
+						$data['error_city'] = $this->error['city'];
 					} else {
-					$data['error_city'] = '';
+						$data['error_city'] = '';
 					}
 					if (isset($this->error['postal_code'])) {
-					$data['error_postal_code'] = $this->error['postal_code'];
+						$data['error_postal_code'] = $this->error['postal_code'];
 					} else {
-					$data['error_postal_code'] = '';
+						$data['error_postal_code'] = '';
 					}
 					if (isset($this->error['zone_id'])) {
-					$data['error_zone_id'] = $this->error['zone_id'];
+						$data['error_zone_id'] = $this->error['zone_id'];
 					} else {
-					$data['error_zone_id'] = '';
+						$data['error_zone_id'] = '';
 					}
 		
 		if (isset($this->error['telephone'])) {
@@ -1401,10 +1401,10 @@ class ControllerSettingSetting extends Controller {
 		}
 
 					if ((utf8_strlen($this->request->post['config_city']) < 3) || (utf8_strlen($this->request->post['config_city']) > 64)) {
-					$this->error['city'] = $this->language->get('error_city');
+						$this->error['city'] = $this->language->get('error_city');
 					}
 					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 10)) {
-					$this->error['postal_code'] = $this->language->get('error_postal_code');
+						$this->error['postal_code'] = $this->language->get('error_postal_code');
 					}
 	
 					if(isset($this->request->post['config_zone_id']) && !($this->request->post['config_zone_id']>0))

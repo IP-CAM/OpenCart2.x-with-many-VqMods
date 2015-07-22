@@ -1,0 +1,60 @@
+AT : 2015-07-22 09:44:04
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\testAddressValidation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://avatax.avalara.com/services"><SOAP-ENV:Header><wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" SOAP-ENV:mustUnderstand="1"><wsse:UsernameToken><wsse:Username>1100119845</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">99405F4E3CEF1737</wsse:Password></wsse:UsernameToken></wsse:Security><Profile xmlns="http://avatax.avalara.com/services" SOAP-ENV:actor="http://schemas.xmlsoap.org/soap/actor/next" SOAP-ENV:mustUnderstand="0"><Name>13.7.0.0</Name><Client>OpenCart</Client><Adapter>avatax4php,14.2.0.0</Adapter></Profile></SOAP-ENV:Header><SOAP-ENV:Body><ns1:Validate><ns1:ValidateRequest><ns1:Address><ns1:Line1>900 winslow way e</ns1:Line1><ns1:Line2></ns1:Line2><ns1:Line3></ns1:Line3><ns1:City>Seattle</ns1:City><ns1:Region>WA</ns1:Region><ns1:PostalCode>98104</ns1:PostalCode><ns1:Country>USA</ns1:Country><ns1:TaxRegionId>0</ns1:TaxRegionId></ns1:Address><ns1:TextCase>Mixed</ns1:TextCase><ns1:Coordinates>true</ns1:Coordinates><ns1:Taxability>false</ns1:Taxability></ns1:ValidateRequest></ns1:Validate></SOAP-ENV:Body></SOAP-ENV:Envelope>
+
+------------------------
+AT : 2015-07-22 09:44:04
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\testAddressValidation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><ValidateResponse xmlns="http://avatax.avalara.com/services"><ValidateResult><TransactionId>1207863104</TransactionId><ResultCode>Success</ResultCode><ValidAddresses><ValidAddress><AddressCode/><Line1>900 Winslow Way E</Line1><Line2/><Line3/><City>Seattle</City><Region>WA</Region><PostalCode>98110-2450</PostalCode><Country>US</Country><TaxRegionId>0</TaxRegionId><Latitude>47.624915</Latitude><Longitude>-122.510310</Longitude><Line4>Seattle WA 98110-2450</Line4><County>Kitsap</County><FipsCode>5303500000</FipsCode><CarrierRoute>C051</CarrierRoute><PostNet>981102450992</PostNet><AddressType>H</AddressType><ValidateStatus/><GeocodeType/></ValidAddress></ValidAddresses><Taxable>false</Taxable></ValidateResult></ValidateResponse></s:Body></s:Envelope>
+------------------------
+AT : 2015-07-22 12:07:10
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://avatax.avalara.com/services"><SOAP-ENV:Header><wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" SOAP-ENV:mustUnderstand="1"><wsse:UsernameToken><wsse:Username>1100119845</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">99405F4E3CEF1737</wsse:Password></wsse:UsernameToken></wsse:Security><Profile xmlns="http://avatax.avalara.com/services" SOAP-ENV:actor="http://schemas.xmlsoap.org/soap/actor/next" SOAP-ENV:mustUnderstand="0"><Name>13.7.0.0</Name><Client>OpenCart||2.0.0.0||02.00.02.00</Client><Adapter>avatax4php,14.2.0.0</Adapter></Profile></SOAP-ENV:Header><SOAP-ENV:Body><ns1:Validate><ns1:ValidateRequest><ns1:Address><ns1:Line1>ADDRESS LINE 2</ns1:Line1><ns1:Line2>1000 2ND AVE</ns1:Line2><ns1:Line3></ns1:Line3><ns1:City>SEATTLE</ns1:City><ns1:Region>3674</ns1:Region><ns1:PostalCode>98104-1094</ns1:PostalCode><ns1:Country>USA</ns1:Country><ns1:TaxRegionId>0</ns1:TaxRegionId></ns1:Address><ns1:TextCase>Upper</ns1:TextCase><ns1:Coordinates>true</ns1:Coordinates><ns1:Taxability>false</ns1:Taxability></ns1:ValidateRequest></ns1:Validate></SOAP-ENV:Body></SOAP-ENV:Envelope>
+
+------------------------
+AT : 2015-07-22 12:07:10
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><ValidateResponse xmlns="http://avatax.avalara.com/services"><ValidateResult><TransactionId>1208024441</TransactionId><ResultCode>Success</ResultCode><ValidAddresses><ValidAddress><AddressCode/><Line1>ADDRESS LINE 2</Line1><Line2>1000 2ND AVE</Line2><Line3/><City>SEATTLE</City><Region>WA</Region><PostalCode>98104-1094</PostalCode><Country>US</Country><TaxRegionId>0</TaxRegionId><Latitude>47.605205</Latitude><Longitude>-122.335081</Longitude><Line4>SEATTLE WA 98104-1094</Line4><County>KING</County><FipsCode>5303300000</FipsCode><CarrierRoute>C030</CarrierRoute><PostNet>981041094996</PostNet><AddressType>H</AddressType><ValidateStatus/><GeocodeType/></ValidAddress></ValidAddresses><Taxable>false</Taxable></ValidateResult></ValidateResponse></s:Body></s:Envelope>
+------------------------
+AT : 2015-07-22 12:08:13
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://avatax.avalara.com/services"><SOAP-ENV:Header><wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" SOAP-ENV:mustUnderstand="1"><wsse:UsernameToken><wsse:Username>1100119845</wsse:Username><wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">99405F4E3CEF1737</wsse:Password></wsse:UsernameToken></wsse:Security><Profile xmlns="http://avatax.avalara.com/services" SOAP-ENV:actor="http://schemas.xmlsoap.org/soap/actor/next" SOAP-ENV:mustUnderstand="0"><Name>13.7.0.0</Name><Client>OpenCart||2.0.0.0||02.00.02.00</Client><Adapter>avatax4php,14.2.0.0</Adapter></Profile></SOAP-ENV:Header><SOAP-ENV:Body><ns1:Validate><ns1:ValidateRequest><ns1:Address><ns1:Line1>#3100</ns1:Line1><ns1:Line2>1000 2nd Ave</ns1:Line2><ns1:Line3></ns1:Line3><ns1:City>Seattle</ns1:City><ns1:Region>3674</ns1:Region><ns1:PostalCode>98104-1094</ns1:PostalCode><ns1:Country>USA</ns1:Country><ns1:TaxRegionId>0</ns1:TaxRegionId></ns1:Address><ns1:TextCase>Upper</ns1:TextCase><ns1:Coordinates>true</ns1:Coordinates><ns1:Taxability>false</ns1:Taxability></ns1:ValidateRequest></ns1:Validate></SOAP-ENV:Body></SOAP-ENV:Envelope>
+
+------------------------
+AT : 2015-07-22 12:08:13
+Function() : AddressValidation
+Class : 
+Class::Method() : AddressValidation
+File : D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\address_validation.php
+Invoker : 
+Param Passed : [Input: ]
+Ret Val : <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><ValidateResponse xmlns="http://avatax.avalara.com/services"><ValidateResult><TransactionId>1208025493</TransactionId><ResultCode>Success</ResultCode><ValidAddresses><ValidAddress><AddressCode/><Line1>#3100</Line1><Line2>1000 2ND AVE</Line2><Line3/><City>SEATTLE</City><Region>WA</Region><PostalCode>98104-1094</PostalCode><Country>US</Country><TaxRegionId>0</TaxRegionId><Latitude>47.605205</Latitude><Longitude>-122.335081</Longitude><Line4>SEATTLE WA 98104-1094</Line4><County>KING</County><FipsCode>5303300000</FipsCode><CarrierRoute>C030</CarrierRoute><PostNet>981041094996</PostNet><AddressType>H</AddressType><ValidateStatus/><GeocodeType/></ValidAddress></ValidAddresses><Taxable>false</Taxable></ValidateResult></ValidateResponse></s:Body></s:Envelope>
+------------------------

@@ -1,27 +1,9 @@
 <?php
 /**
- * ValidateResult.class.php
+ * CompanyFetchResult.class.php
  */
  
 /**
- * Contains an array of {@link ValidAddress} objects returned by {@link AddressServiceSoap#validate} 
- *
- * <pre>
- *  $port = new AddressServiceSoap();
- *
- *  $address = new Address();
- *  $address->setLine1("900 Winslow Way");
- *  $address->setLine2("Suite 130");
- *  $address->setCity("Bainbridge Is");
- *  $address->setRegion("WA");
- *  $address->setPostalCode("98110-2450");
- *
- *  $result = $port->validate($address,TextCase::$Upper);
- *  $addresses = $result->ValidAddresses;
- *  print("Number of addresses returned is ". sizeoof($addresses));
- *
- * </pre>
- * 
  * @see ValidAddress
  * 
  * @author    Avalara
@@ -30,20 +12,20 @@
  */
 
 
-class ValidateResult// extends BaseResult
+class CompanyFetchResult// extends BaseResult
 {
 /**
  * Array of matching {@link ValidAddress}'s.
  * @var array
  */
-    private $ValidAddresses;
+    private $Companies;
     
 /**
  * Method returning array of matching {@link ValidAddress}'s.
  * @return array
  */
-    public function getValidAddresses() { return EnsureIsArray($this->ValidAddresses->ValidAddress); }
-	
+
+
 	/**
  * @var string
  */

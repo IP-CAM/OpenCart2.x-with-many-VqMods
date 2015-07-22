@@ -38,11 +38,9 @@ class ModelSettingSetting extends Model {
 	}
 
 
-			
-			
 				/***************************************************************************
-				*   Last Updated On	   :	05/14/2015			                           *
-				*   Description        :   This function adds AvaTax fields in database    * 
+				*   Last Updated On	   :	05/14/2015			                           				*
+				*   Description        :   avataxAddFields() function adds AvaTax fields in database.    * 
 				****************************************************************************/
 			
 				public function avataxAddFields() {

@@ -52,10 +52,12 @@ $__wsdldir = dirname(__FILE__)."/wsdl";
 /* This is the default configuration - it is used if no other configuration is specified */
 new ATConfig('Default', array(
     'url'       => 'no url specified',
+    'accountService' => '/Account/AccountSvc.asmx',
     'addressService' => '/Address/AddressSvc.asmx',
     'taxService' => '/Tax/TaxSvc.asmx',
 	'batchService'=> '/Batch/BatchSvc.asmx',
 	'avacert2Service'=> '/AvaCert2/AvaCert2Svc.asmx',
+    'accountWSDL' => 'file://'.$__wsdldir.'/Account.wsdl',
     'addressWSDL' => 'file://'.$__wsdldir.'/Address.wsdl',
     'taxWSDL'  => 'file://'.$__wsdldir.'/Tax.wsdl',
 	'batchWSDL'  => 'file://'.$__wsdldir.'/BatchSvc.wsdl',

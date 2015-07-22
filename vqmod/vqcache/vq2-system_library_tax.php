@@ -632,6 +632,11 @@ $this->shipping_address = array(
 					
 						// Error Trapping
 						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+							/*$included_files = get_included_files();
+
+							foreach ($included_files as $filename) {
+								echo "<br>Name: ".$filename."\n";
+							}*/
 						
 							return $getTaxResult;
 

@@ -35,6 +35,8 @@ class BaseResult
  * @return array
  */
     public function getMessages() { return EnsureIsArray($this->Messages->Message); }
+	
+	public function getValidCompanies() { return EnsureIsArray($this->Companies->Company); }
 
 }
 

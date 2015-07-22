@@ -1090,21 +1090,36 @@
 						<fieldset>
 						<legend>Avalara Credentials</legend>
 			
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Added account number option in Avalara tab   								* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_account" value="<?php echo $config_avatax_account; ?>" placeholder="Account Number" id="config_avatax_account" class="form-control" />
 							</div>
 						</div>
 			
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Added License Key option in Avalara tab   								* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_license_key">License Key:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_license_key" value="<?php echo $config_avatax_license_key; ?>" placeholder="License Key" id="config_avatax_license_key" class="form-control" />
 							</div>
 						</div>
-			
-						<?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Assigned unique client key of connector.    								* 
+						 *****************************************************************************************************-->
+
+						 <?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
 						<input type="hidden" name="config_avatax_client" value="<?=$version?>" id="config_avatax_client" />
 			
 						<div class="form-group">
@@ -1122,14 +1137,24 @@
 							</div>
 						</div>
 	
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Enter AvaTax admin console company code here. 								* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Code:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
 							</div>
 						</div>
-					
-						<div class="form-group">
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Option added to Avalara tab. Clicking on test connection button, avatax_test_connection.php page will be called to test the connection. Service URL, account number, license key will be passed to check whether user has enetered proper credentials.      																* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_service_url">Make a test call to the AvaTax Service:</label>
 							<div class="col-sm-10"><br>
 								<a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
@@ -1142,7 +1167,12 @@
 					<fieldset>
 						<legend>Tax Calculation Settings</legend>
 
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, AvaTax functions will be calculated & tax will be calculated.	* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 						  <label class="col-sm-2 control-label">Enable AvaTax tax calculation:</label>
 						  <div class="col-sm-10">
 							<label class="radio-inline">
@@ -1173,7 +1203,12 @@
 					<fieldset>
 						<legend>Address Validation Settings</legend>
 
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, AddressValidation() service will be called to validate the address. Address validation button will be available on store address & customer address in admin panel					* 
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label">Enable AvaTax address validation:</label>
 							<div class="col-sm-10">
 							<label class="radio-inline">
@@ -1198,6 +1233,12 @@
 							</div>
 						</div>
 
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	07/13/2015			                            							*
+						 *   Description        :   Added an option to return results in upper case.   							* 
+						 *   AddressValidation() service will return results in Upper case if this option is enabled else deafult case	*
+						 *****************************************************************************************************-->
+						 
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Return results in upper case:</label>
 							<div class="col-sm-10">
@@ -1253,7 +1294,13 @@
 
 						<fieldset>
 						<legend>Customer Specific Settings</legend>
-						<div class="form-group">
+
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If this option is disabled but tax claculation is enabled, tax will be calculated in checkout page at store front					*
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label">Do you want save transaction on AvaTax:</label>
 							<div class="col-sm-10">
 								<label class="radio-inline">
@@ -1278,7 +1325,12 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If this option is disabled but tax claculation is enabled, tax will be calculated in checkout page at store front					*
+						 *****************************************************************************************************-->
+
+						 <div class="form-group">
 							<label class="col-sm-2 control-label">Enable Log:</label>
 							<div class="col-sm-10">
 								<label class="radio-inline">
@@ -1360,7 +1412,8 @@
 					
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	07/07/2015			                            							*
-						 *   Description        :   Added logo button to test connection window as per ticket - CONNECT-2717  	*
+						 *   Description        :   Added logo button to test connection window as per ticket - CONNECT-2717.   * 
+						 *  Called AvaTaxTestConnectionDialog() jquery function on click event to handle dialog box. 			*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
