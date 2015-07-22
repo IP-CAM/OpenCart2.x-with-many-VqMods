@@ -277,10 +277,10 @@
   </wsdl:binding>
   <wsdl:service name="AddressSvc">
     <wsdl:port name="AddressSvcSoap" binding="tns:AddressSvcSoap">
-      <soap:address location=""/>
+      <soap:address location="http://localhost/avatax.services/Address/AddressSvc.asmx"/>
     </wsdl:port>
     <wsdl:port name="AddressSvcSoap12" binding="tns:AddressSvcSoap12">
-      <soap12:address location=""/>
+      <soap12:address location="http://localhost/avatax.services/Address/AddressSvc.asmx"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

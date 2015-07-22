@@ -23,11 +23,6 @@ class DynamicSoapClient extends SoapClient
     private $config;
     public function __construct($wsdl,$options,&$config)
     {
-		echo "<br>WSDL: ";
-		print_r($wsdl);
-		echo "<br>Options: ";
-		print_r($options);
-		echo "<p>&nbsp;</p>";
         parent::__construct($wsdl,$options);
         $this->config = $config; 
     }

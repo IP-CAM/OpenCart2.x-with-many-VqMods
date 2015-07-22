@@ -35,9 +35,13 @@ class BaseResult
  * @return array
  */
     public function getMessages() { return EnsureIsArray($this->Messages->Message); }
-	
-	public function getValidCompanies() { return EnsureIsArray($this->Companies->Company); }
 
+/**
+ * Added by Vijay on 22-July-2015
+ * return valid companies for Accounts Service
+ * @return array
+ */
+	public function getValidCompanies() { return EnsureIsArray($this->Companies->Company); }
 }
 
 ?>
