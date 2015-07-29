@@ -1,4 +1,0 @@
-Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:47:05:97541) - End Time: (12:47:07:48056) Time Difference: 1.505
-
-Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (12:48:04:80229) - End Time: (12:48:06:24443) Time Difference: 1.442
-
