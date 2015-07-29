@@ -86,8 +86,7 @@
 						<input type="text" name="config_address_line2" value="<?php echo $config_address_line2; ?>" placeholder="Address Line 2" id="config_address_line2" class="form-control" />
 					</div>
 			    </div>
-			
-			  
+  
 				<div class="form-group required">
 					<label class="col-sm-2 control-label" for="config_city">City:</label>
 					<div class="col-sm-10">
@@ -1096,7 +1095,7 @@
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_account">Account Number:</label>
+							<label class="col-sm-2 control-label" for="config_avatax_account">Account ID:</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_account" value="<?php echo $config_avatax_account; ?>" placeholder="Account Number" id="config_avatax_account" class="form-control" />
 							</div>
@@ -1139,18 +1138,6 @@
 	
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   Enter AvaTax admin console company code here. 								* 
-						 *****************************************************************************************************-->
-
-						 <div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Code:</label>
-							<div class="col-sm-10">
-								<input type="text" name="config_avatax_company_code" value="<?php echo $config_avatax_company_code; ?>" placeholder="Company Code:" id="config_avatax_company_code" class="form-control" />
-							</div>
-						</div>
-
-						 <!--****************************************************************************************************
-						 *   Last Updated On	:	06/02/2015			                            							*
 						 *   Description        :   Option added to Avalara tab. Clicking on test connection button, avatax_test_connection.php page will be called to test the connection. Service URL, account number, license key will be passed to check whether user has enetered proper credentials.      																* 
 						 *****************************************************************************************************-->
 
@@ -1161,6 +1148,21 @@
 							</div>
 						</div>
 					
+						 <!--****************************************************************************************************
+						 *   Last Updated On	:	06/02/2015			                            							*
+						 *   Description        :   Enter AvaTax admin console company name here. 								* 
+						 *****************************************************************************************************-->
+
+						<div class="form-group" style="display:none;" id="config_avatax_company_code_div">
+							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Name:</label>
+							<div class="col-sm-10">
+								<select name="config_avatax_company_code" id="config_avatax_company_code" class="form-control">
+								<option>Select One</option>
+								</select>
+								<input type="hidden" id="config_avatax_company_code_value" name="config_avatax_company_code_value" value="<?=$config_avatax_company_code?>">
+							</div>
+						</div>
+
 						<div class="form-group">&nbsp;</div>
 					</fieldset>
 
@@ -2189,7 +2191,7 @@ $('select[name=\'config_country_id\']').trigger('change');
 								$("#config_avatax_service_url").focus();
 							}
 							else if($("#config_avatax_company_code").val()=="") {
-								alert("AvaTax Company Code should not empty.");
+								alert("AvaTax Company Name should not empty.");
 								$("#config_avatax_tax_calculation_no").prop("checked", true);
 								$("#config_avatax_company_code").focus();
 							}	
@@ -2224,23 +2226,52 @@ $('select[name=\'config_country_id\']').trigger('change');
 								jQuery_1_8_16('#AvaTaxTestConnectionDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
 								
 								jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog();
-								
-								
+
 								var accountVal = $("#config_avatax_account").val();
 								var licenseVal = $("#config_avatax_license_key").val();
 								var serviceURLVal = $("#config_avatax_service_url").val();
 								var environment = "Development";
 								var client = '<?="OpenCart||".VERSION."||02.00.02.00";?>';
+								var log = $('input[name=config_avatax_log]:checked').val();
 
 								if($("#config_avatax_service_url").val()=="https://development.avalara.net")
 									environment = "Development";
 								else 
 									environment = "Production";
 
+								/****************************************************************************************************
+								*   Last Updated On	:	07/27/2015			                            							*
+								* 	 Ticket - https://avalara.atlassian.net/browse/CONNECT-2717
+								*   Description        :   Removed service URL to be passed from query string. When we pass URL with https, customer is not able to get success/fail message in test connection dialog box. 
+								*****************************************************************************************************/
+
 								/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_test_connection.php?from=AvaTaxConnectionTest&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&client="+ client, {q: ""}, function(data){
 
+								$("#config_avatax_company_code").empty();
 									if(data.length >0) {
 										jQuery_1_8_16('#AvaTaxTestConnectionDialog').html(data);
+										
+										if(data.indexOf("Success")>0)
+										{
+											//alert('in if');
+											$('#config_avatax_company_code_div').show();
+
+											/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_accounts.php?from=AvaTaxFetchCompanies&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&log="+ log+"&client="+ client, {q: ""}, function(data){
+												if(data.length >0) {
+													var accountsData = JSON.parse(data);
+													var _select = $('<select>');
+													$.each(accountsData, function(index, value) {
+														_select.append(
+																$('<option></option>').val(index).html(value)
+															);
+													});	
+
+													$('#config_avatax_company_code').append(_select.html());
+													var company_code = document.getElementById("config_avatax_company_code_value").value;
+													$("#config_avatax_company_code").val(company_code);
+												}
+											});
+										}
 									}
 								});
 

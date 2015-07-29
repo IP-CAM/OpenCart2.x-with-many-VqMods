@@ -497,33 +497,33 @@ class ControllerSettingSetting extends Controller {
 
 
 					if (isset($this->request->post['config_address_line2'])) {
-					$data['config_address_line2'] = $this->request->post['config_address_line2'];
+						$data['config_address_line2'] = $this->request->post['config_address_line2'];
 					} else {
-					$data['config_address_line2'] = $this->config->get('config_address_line2');
+						$data['config_address_line2'] = $this->config->get('config_address_line2');
 					}
 
 					if (isset($this->request->post['config_city'])) {
-					$data['config_city'] = $this->request->post['config_city'];
+						$data['config_city'] = $this->request->post['config_city'];
 					} else {
-					$data['config_city'] = $this->config->get('config_city');
+						$data['config_city'] = $this->config->get('config_city');
 					}
 
 					if (isset($this->request->post['config_state'])) {
-					$data['config_state'] = $this->request->post['config_state'];
+						$data['config_state'] = $this->request->post['config_state'];
 					} else {
-					$data['config_state'] = $this->config->get('config_state');
+						$data['config_state'] = $this->config->get('config_state');
 					}
 
 					if (isset($this->request->post['config_country'])) {
-					$data['config_country'] = $this->request->post['config_country'];
+						$data['config_country'] = $this->request->post['config_country'];
 					} else {
-					$data['config_country'] = $this->config->get('config_country');
+						$data['config_country'] = $this->config->get('config_country');
 					}
 
 					if (isset($this->request->post['config_postal_code'])) {
-					$data['config_postal_code'] = $this->request->post['config_postal_code'];
+						$data['config_postal_code'] = $this->request->post['config_postal_code'];
 					} else {
-					$data['config_postal_code'] = $this->config->get('config_postal_code');
+						$data['config_postal_code'] = $this->config->get('config_postal_code');
 					}
 				
 		if (isset($this->request->post['config_email'])) {

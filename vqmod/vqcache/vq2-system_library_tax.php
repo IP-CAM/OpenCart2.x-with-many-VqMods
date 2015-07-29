@@ -444,7 +444,7 @@ $this->shipping_address = array(
 						$line1->setQty($product["quantity"]);
 						$line1->setAmount($total_amount);
 
-					   //Added to handle coupon scenario regarding multiple products or order
+						//Added to handle coupon scenario regarding multiple products or order
 						if(isset($this->session->data['coupon_amount']) && !empty($this->session->data['coupon_amount']))
 						{
 							if(isset($this->session->data['coupon_info']) && !empty($this->session->data['coupon_info']))
@@ -632,11 +632,6 @@ $this->shipping_address = array(
 					
 						// Error Trapping
 						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-							/*$included_files = get_included_files();
-
-							foreach ($included_files as $filename) {
-								echo "<br>Name: ".$filename."\n";
-							}*/
 						
 							return $getTaxResult;
 

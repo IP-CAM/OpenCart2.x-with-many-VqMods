@@ -108,8 +108,6 @@ function AddressValidation()
 		$return_message .= "Exception: ";
 		if($exception)
 			$return_message .= $exception->faultstring;
-
-			$return_message .= $msg . "<br/>";
 			$return_message .= $client->__getLastRequest() . "<br/>";
 			$return_message .= $client->__getLastResponse() . "<br/>";
 			

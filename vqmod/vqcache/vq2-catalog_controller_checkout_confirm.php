@@ -471,7 +471,7 @@ public $tax_address_error;
 					$this->load->model('localisation/zone');
 								$zone_info = $this->model_localisation_zone->getZone($data['shipping_zone_id']);
 
-						$address_data = array();
+					$address_data = array();
 					$address_data["service_url"] = $this->config->get('config_avatax_service_url');
 					$address_data["account"] = $this->config->get('config_avatax_account');
 					$address_data["license"] = $this->config->get('config_avatax_license_key');

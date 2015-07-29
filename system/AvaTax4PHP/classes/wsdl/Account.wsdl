@@ -3195,7 +3195,7 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:element name="IsAuthorized123">
+      <s:element name="IsAuthorized">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Operations" type="s:string" />
@@ -4665,7 +4665,7 @@
       <wsdl:input message="tns:PingSoapIn" />
       <wsdl:output message="tns:PingSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="IsAuthorized123">
+    <wsdl:operation name="IsAuthorized">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Checks authentication and authorization to one or more operations on the service.</wsdl:documentation>
       <wsdl:input message="tns:IsAuthorizedSoapIn" />
       <wsdl:output message="tns:IsAuthorizedSoapOut" />
@@ -5632,7 +5632,7 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="IsAuthorized123">
+    <wsdl:operation name="IsAuthorized">
       <soap:operation soapAction="http://avatax.avalara.com/services/IsAuthorized" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -6559,7 +6559,7 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="IsAuthorized123">
+    <wsdl:operation name="IsAuthorized">
       <soap12:operation soapAction="http://avatax.avalara.com/services/IsAuthorized" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
