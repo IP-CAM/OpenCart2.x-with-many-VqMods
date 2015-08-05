@@ -105,12 +105,12 @@ class ModelCheckoutOrder extends Model {
 	}
 
 
-			
+
 			/***************************************************************************
 			*   Last Updated On	   :   05/14/2015			                           *
 			*   Description        :   This function fetches document Status		   *
 			***************************************************************************/
-						
+
 			public function getAvaTaxDocumentStatus() {
 
 				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_status");
@@ -122,8 +122,8 @@ class ModelCheckoutOrder extends Model {
 				}
 				return $avatax_document_status;
 			}
-			
-	
+
+
 			/***************************************************************************
 			*   Last Updated On	   :   05/14/2015			                           *
 			*   Description        :   This function sets Document State = void	       *
@@ -132,7 +132,7 @@ class ModelCheckoutOrder extends Model {
 			public function DocumentStateVoided($order_query, $new_product_list)
 			{
 				$time_start = round(microtime(true) * 1000);
-				
+
 				//$AvaTaxDocumentStatus = array(1=>"Uncommitted", 2=>"Uncommitted", 3=>"Committed", 5=>"Committed", 7=>"Voided", 8=>"Voided", 9=>"Voided", 10=>"Voided", 11=>"Voided", 12=>"Voided", 13=>"Voided", 14=>"Voided", 15=>"Committed", 16=>"Voided");
 				$AvaTaxDocumentStatus = $this->getAvaTaxDocumentStatus();
 
@@ -142,40 +142,7 @@ class ModelCheckoutOrder extends Model {
 					//1. Call CancelTax with CancelCode = DocVoided
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-					
-					$time_start = round(microtime(true) * 1000);
-					$time_start = $time_start + $connectortime;	
-					//2. Call GetTax with Commit = False
-					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
-					
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					//3. Call CancelTax with CancelCode = DocVoided
-					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-					
-				}
-				else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Voided")
-				{
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					//1. Call CancelTax with CancelCode = DocDeleted
-					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-					
-					$time_start = round(microtime(true) * 1000);
-					$time_start = $time_start + $connectortime;	
-					//2. Call GetTax with Commit = False
-					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					//3. Call CancelTax with CancelCode = DocVoided
-					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-					
-				}
-				else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Uncommitted")
-				{
-					$connectortime = round(microtime(true) * 1000)-$time_start;
-					//1. Call CancelTax with CancelCode = DocVoided
-					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-					
 					$time_start = round(microtime(true) * 1000);
 					$time_start = $time_start + $connectortime;
 					//2. Call GetTax with Commit = False
@@ -184,62 +151,80 @@ class ModelCheckoutOrder extends Model {
 					$connectortime = round(microtime(true) * 1000)-$time_start;
 					//3. Call CancelTax with CancelCode = DocVoided
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
-					
+
+				}
+				else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Voided")
+				{
+					$connectortime = round(microtime(true) * 1000)-$time_start;
+					//1. Call CancelTax with CancelCode = DocDeleted
+					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
+
+					$time_start = round(microtime(true) * 1000);
+					$time_start = $time_start + $connectortime;
+					//2. Call GetTax with Commit = False
+					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
+
+					$connectortime = round(microtime(true) * 1000)-$time_start;
+					//3. Call CancelTax with CancelCode = DocVoided
+					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
+
+				}
+				else if(trim($AvaTaxDocumentStatus[$order_query->row["order_status_id"]])=="Uncommitted")
+				{
+					$connectortime = round(microtime(true) * 1000)-$time_start;
+					//1. Call CancelTax with CancelCode = DocVoided
+					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
+					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
+
+					$time_start = round(microtime(true) * 1000);
+					$time_start = $time_start + $connectortime;
+					//2. Call GetTax with Commit = False
+					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
+
+					$connectortime = round(microtime(true) * 1000)-$time_start;
+					//3. Call CancelTax with CancelCode = DocVoided
+					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
+
 				}
 				 if(is_array($DocCommittedReturn))
 				{
-				
-		
-				/************* Logging code snippet (optional) starts here *******************/
-							// System Logger starts here:
-							
-							$log_mode = $this->config->get('config_avatax_log');
-							
-							
-							if($log_mode==1){
-							   
-										
-								$timeStamp 			= 	new DateTime();						// Create Time Stamp
-								$params				=   '[Input: ' . ']';		// Create Param List
-								$u_name				=	'';							// Eventually will come from $_SESSION[] object
-							
-							
-							// Creating the System Logger Object
-							$application_log 	= 	new SystemLogger;
-							//$connectortime = round(microtime(true) * 1000)-$time_start;
-							$latency = $this->session->data['latency'];
-							$connectortime = $connectortime - $latency;
-							
-							$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-							
-							
-								$latency =""  ;
-								$this->session->data['latency'] ="";							
-								$this->session->data['getTaxLines'] ="";							
-								$this->session->data['getDocType'] ="";							
-								$this->session->data['getDocCode'] ="";
+					/************* Logging code snippet (optional) starts here *******************/
+					// System Logger starts here:
+					$log_mode = $this->config->get('config_avatax_log');
 
-								//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-								// 	System Logger ends here
-								//	Logging code snippet (optional) ends here
-				
-						}
-				
-				
-				
-			
+					if($log_mode==1){
+						$timeStamp 			= 	new DateTime();						// Create Time Stamp
+						$params				=   '[Input: ' . ']';		// Create Param List
+						$u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+						// Creating the System Logger Object
+						$application_log 	= 	new SystemLogger;
+						//$connectortime = round(microtime(true) * 1000)-$time_start;
+						$latency = $this->session->data['latency'];
+						$connectortime = $connectortime - $latency;
+
+						$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+
+						$latency =""  ;
+						$this->session->data['latency'] ="";
+						$this->session->data['getTaxLines'] ="";
+						$this->session->data['getDocType'] ="";
+						$this->session->data['getDocCode'] ="";
+
+						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+						// 	System Logger ends here
+						//	Logging code snippet (optional) ends here
+					}
 				}
 			}
-			
+
 			/***************************************************************************
 			*   Last Updated On	   :   05/14/2015			                            *
 			*   Description        :   This function changes 							*
 			*						   Document State = Uncommitted	    			    *
 			****************************************************************************/
-			 
 
 			public function DocumentStateUncommitted($order_query, $new_product_list){
-
 				$time_start = round(microtime(true) * 1000);
 				$AvaTaxDocumentStatus = $this->getAvaTaxDocumentStatus();
 
@@ -250,9 +235,9 @@ class ModelCheckoutOrder extends Model {
 					$DocVoidedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocVoided");
 					//2. Call CancelTax with CancelCode = DocDeleted
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-					
+
 					$time_start = round(microtime(true) * 1000);
-					$time_start = $time_start + $connectortime;				
+					$time_start = $time_start + $connectortime;
 					//3. Call GetTax with Commit = False
 					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 				}
@@ -261,9 +246,9 @@ class ModelCheckoutOrder extends Model {
 					$connectortime = round(microtime(true) * 1000)-$time_start;
 					//1. Call CancelTax with CancelCode = DocDeleted
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-					
+
 					$time_start = round(microtime(true) * 1000);
-					$time_start = $time_start + $connectortime;	
+					$time_start = $time_start + $connectortime;
 					//2. Call GetTax with Commit = False
 					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 0);
 				}
@@ -275,48 +260,41 @@ class ModelCheckoutOrder extends Model {
 				 if(is_array($DocCommittedReturn))
 				{
 					$this->updateOrderForAvaTaxFields(0, 0, $DocCommittedReturn["GetTaxDocCode"], "Success", $order_query->row['order_id']);
-					
-					/************* Logging code snippet (optional) starts here *******************/
-							// System Logger starts here:
-							
-							$log_mode = $this->config->get('config_avatax_log');
-							
-							
-							if($log_mode==1){
-							   
-										
-								$timeStamp 			= 	new DateTime();						// Create Time Stamp
-								$params				=   '[Input: ' . ']';		// Create Param List
-								$u_name				=	'';							// Eventually will come from $_SESSION[] object
-							
-							
-							// Creating the System Logger Object
-							$application_log 	= 	new SystemLogger;
-							$connectortime = round(microtime(true) * 1000)-$time_start;
-							$latency = $this->session->data['latency'];
-							$connectortime = $connectortime - $latency;
-							
-							$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-							
-							
-								$latency =""  ;
-								$this->session->data['latency'] ="";							
-								$this->session->data['getTaxLines'] ="";							
-								$this->session->data['getDocType'] ="";							
-								$this->session->data['getDocCode'] ="";
 
-								//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-								// 	System Logger ends here
-								//	Logging code snippet (optional) ends here
-				
-						}
+					/************* Logging code snippet (optional) starts here *******************/
+					// System Logger starts here:
+					$log_mode = $this->config->get('config_avatax_log');
+
+					if($log_mode==1){
+						$timeStamp 			= 	new DateTime();						// Create Time Stamp
+						$params				=   '[Input: ' . ']';		// Create Param List
+						$u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+						// Creating the System Logger Object
+						$application_log 	= 	new SystemLogger;
+						$connectortime = round(microtime(true) * 1000)-$time_start;
+						$latency = $this->session->data['latency'];
+						$connectortime = $connectortime - $latency;
+
+						$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+
+						$latency =""  ;
+						$this->session->data['latency'] ="";
+						$this->session->data['getTaxLines'] ="";
+						$this->session->data['getDocType'] ="";
+						$this->session->data['getDocCode'] ="";
+
+						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+						// 	System Logger ends here
+						//	Logging code snippet (optional) ends here
+					}
 				}
 				else
 				{
 					$this->updateOrderForAvaTaxFields(0, 0, 0, $DocCommittedReturn, $order_query->row['order_id']);
 				}
 			}
-	
+
 			/****************************************************************************
 			*   Last Updated On		:	05/14/2015			                           	*
 			*   Description        	:   This function changes 							*
@@ -335,7 +313,7 @@ class ModelCheckoutOrder extends Model {
 					//2. Call CancelTax with CancelCode = DocDeleted
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
 					//3. Call GetTax with Commit = False
-					
+
 					$time_start = round(microtime(true) * 1000);
 					$time_start = $time_start + $connectortime;
 					$DocCommittedReturn = $this->AvaTaxGetTax($order_query, $new_product_list, 1);
@@ -345,7 +323,7 @@ class ModelCheckoutOrder extends Model {
 					$connectortime = round(microtime(true) * 1000)-$time_start;
 					//1. Call CancelTax with CancelCode = DocDeleted
 					$DocDeletedReturn = $this->AvaTaxCancelTax($order_query->row["avatax_paytax_document_code"], "DocDeleted");
-					
+
 					$time_start = round(microtime(true) * 1000);
 					$time_start = $time_start + $connectortime;
 					//2. Call GetTax with Commit = False
@@ -359,41 +337,34 @@ class ModelCheckoutOrder extends Model {
 				 if(is_array($DocCommittedReturn))
 				{
 					$this->updateOrderForAvaTaxFields(0, 0, $DocCommittedReturn["GetTaxDocCode"], "Success", $order_query->row['order_id']);
-					
-					/************* Logging code snippet (optional) starts here *******************/
-							// System Logger starts here:
-							
-							$log_mode = $this->config->get('config_avatax_log');
-							
-							
-							if($log_mode==1){
-							   
-										
-								$timeStamp 			= 	new DateTime();						// Create Time Stamp
-								$params				=   '[Input: ' . ']';		// Create Param List
-								$u_name				=	'';							// Eventually will come from $_SESSION[] object
-							
-							
-							// Creating the System Logger Object
-							$application_log 	= 	new SystemLogger;
-							$connectortime = round(microtime(true) * 1000)-$time_start;
-							$latency = $this->session->data['latency'];
-							$connectortime = $connectortime - $latency;
-							
-							$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-							
-							
-								$latency =""  ;
-								$this->session->data['latency'] ="";							
-								$this->session->data['getTaxLines'] ="";							
-								$this->session->data['getDocType'] ="";							
-								$this->session->data['getDocCode'] ="";
 
-								//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-								// 	System Logger ends here
-								//	Logging code snippet (optional) ends here
-				
-						}
+					/************* Logging code snippet (optional) starts here *******************/
+					// System Logger starts here:
+					$log_mode = $this->config->get('config_avatax_log');
+
+					if($log_mode==1){
+						$timeStamp 			= 	new DateTime();						// Create Time Stamp
+						$params				=   '[Input: ' . ']';		// Create Param List
+						$u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+						// Creating the System Logger Object
+						$application_log 	= 	new SystemLogger;
+						$connectortime = round(microtime(true) * 1000)-$time_start;
+						$latency = $this->session->data['latency'];
+						$connectortime = $connectortime - $latency;
+
+						$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+
+						$latency =""  ;
+						$this->session->data['latency'] ="";
+						$this->session->data['getTaxLines'] ="";
+						$this->session->data['getDocType'] ="";
+						$this->session->data['getDocCode'] ="";
+
+						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+						// 	System Logger ends here
+						//	Logging code snippet (optional) ends here
+					}
 				}
 				else
 				{
@@ -401,14 +372,12 @@ class ModelCheckoutOrder extends Model {
 				}
 			}
 
-	
-			/****************************************************************************
-			*   Last Updated On		:	05/14/2015			                           	*
-			*   Description			:  	This function changes 							*
-			*							Document State to the desired state as per the	*
-			*                           passed second parameter							*
-			****************************************************************************/
-				
+			/***************************************************************************************************
+			*   Last Updated On		:	05/14/2015			                           							*
+			*   Description			:  	This function changes Document State to the desired state as per the	*
+			*                           passed second parameter													*
+			*****************************************************************************************************/
+
 			public function AvaTaxChangeDocumentStatus($order_query, $data, $new_product_list) {
 				if($this->config->get('config_avatax_transaction_calculation')) {
 					Switch($data["order_status_id"]) {
@@ -471,10 +440,8 @@ class ModelCheckoutOrder extends Model {
 			*   Description			:  	This function serves as the wrapper function	*
 			*   						for AvaTax GetTax() Call						*
 			****************************************************************************/
-					
+
 			public function AvaTaxGetTax($order_info, $products, $commit_status) {
-				
-				
 				include_once(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php');
 
 				global $registry;
@@ -489,7 +456,7 @@ class ModelCheckoutOrder extends Model {
 
 				if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
 					$environment = "Development";
-				else 
+				else
 					$environment = "Production";
 
 				new ATConfig($environment, array('url'=>$service_url, 'account'=>$account,'license'=>$license, 'client'=>$client, 'trace'=> TRUE));
@@ -503,13 +470,6 @@ class ModelCheckoutOrder extends Model {
 					$CustomerCode = $order_info->row["customer_group_id"];
 				}
 
-				//$this->load->model('localisation/country');
-
-				//$this->load->model('localisation/zone');
-
-				//$country_details = $this->model_localisation_country->getCountry($data['shipping_country_id']);
-				//$zone_details = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
-
 				$country_details = $this->getCountry($this->config->get('config_country_id'));
 				$zone_details = $this->getZone($this->config->get('config_zone_id'));
 
@@ -519,8 +479,8 @@ class ModelCheckoutOrder extends Model {
 				$OrigPostalCode = $this->config->get('config_postal_code');
 				$OrigCountry = $country_details["iso_code_2"];
 
-					if(isset($this->request->request["shipping_address_1"]))
-					{
+				if(isset($this->request->request["shipping_address_1"]))
+				{
 					$dest_country_details =  $this->getCountry($this->request->request["shipping_country_id"]);
 					$dest_zone_details = $this->getZone($this->request->request["shipping_zone_id"]);
 
@@ -530,53 +490,38 @@ class ModelCheckoutOrder extends Model {
 					$DestRegion = $dest_zone_details["code"];
 					$DestCountry = $dest_country_details["iso_code_2"];
 				}
-				else{
-				
-				
-				if(isset($order_info->row["shipping_address_1"]) && $order_info->row["shipping_address_1"]!="")
+				else
 				{
-			
-					$DestAddress = $order_info->row["shipping_address_1"];
-					$DestCity = $order_info->row["shipping_city"];
-					$DestPostalCode = $order_info->row["shipping_postcode"];
-					$DestRegion = $order_info->row["shipping_zone"];
-					$DestCountry = $order_info->row["shipping_country"];
-				}
+					if(isset($order_info->row["shipping_address_1"]) && $order_info->row["shipping_address_1"]!="")
+					{
+						$DestAddress = $order_info->row["shipping_address_1"];
+						$DestCity = $order_info->row["shipping_city"];
+						$DestPostalCode = $order_info->row["shipping_postcode"];
+						$DestRegion = $order_info->row["shipping_zone"];
+						$DestCountry = $order_info->row["shipping_country"];
+					}
 					else
 					{
-					
-					if(isset($this->request->request["payment_address_1"]))
-					{
-					
-					$dest_country_details =  $this->getCountry($this->request->request["payment_country_id"]);
-					$dest_zone_details = $this->getZone($this->request->request["payment_zone_id"]);
-
-					$DestAddress = $this->request->request["payment_address_1"];
-					$DestCity =$this->request->request["payment_city"];
-					$DestPostalCode = $this->request->request["payment_postcode"];
-					$DestRegion = $dest_zone_details["code"];
-					$DestCountry = $dest_country_details["iso_code_2"];
-				}
-				else{
-			
-					$DestAddress = $order_info->row["payment_address_1"];
-					$DestCity = $order_info->row["payment_city"];
-					$DestPostalCode = $order_info->row["payment_postcode"];
-					$DestRegion = $order_info->row["payment_zone"];
-					$DestCountry = $order_info->row["payment_country"];
-				}
+						if(isset($this->request->request["payment_address_1"]))
+						{
+							$dest_country_details =  $this->getCountry($this->request->request["payment_country_id"]);
+							$dest_zone_details = $this->getZone($this->request->request["payment_zone_id"]);
+							$DestAddress = $this->request->request["payment_address_1"];
+							$DestCity =$this->request->request["payment_city"];
+							$DestPostalCode = $this->request->request["payment_postcode"];
+							$DestRegion = $dest_zone_details["code"];
+							$DestCountry = $dest_country_details["iso_code_2"];
+						}
+						else
+						{
+							$DestAddress = $order_info->row["payment_address_1"];
+							$DestCity = $order_info->row["payment_city"];
+							$DestPostalCode = $order_info->row["payment_postcode"];
+							$DestRegion = $order_info->row["payment_zone"];
+							$DestCountry = $order_info->row["payment_country"];
+						}
 					}
 				}
-				
-
-			//	$dest_country_details =  $this->getCountry($this->request->request["shipping_country_id"]);
-			//    $dest_zone_details = $this->getZone($this->request->request["shipping_zone_id"]);
-
-			//    $DestAddress = $this->request->request["shipping_address_1"];
-			 //   $DestCity =$this->request->request["shipping_city"];
-			 //   $DestRegion = $dest_zone_details["code"];
-			 //   $DestPostalCode = $this->request->request["shipping_postcode"];
-			  //  $DestCountry = $dest_country_details["iso_code_2"];
 
 				$CompanyCode = $this->config->get('config_avatax_company_code');
 				$DocType = $this->config->get('config_avatax_transaction_calculation');
@@ -637,7 +582,6 @@ class ModelCheckoutOrder extends Model {
 				$destination->setCountry($DestCountry);
 				$request->setDestinationAddress($destination);
 
-				//
 				// Line level processing
 				$Ref1 = '';
 				$Ref2 = '';
@@ -669,7 +613,7 @@ class ModelCheckoutOrder extends Model {
 							$coupon_id = $coupon_id_res->row['coupon_id'];
 							$coupon_info_obj = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "coupon WHERE coupon_id = '" . (int)$coupon_id . "'");
 							$coupon_info = $coupon_info_obj->row;
-						
+
 							$coupon_product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "coupon_product WHERE coupon_id = '" . (int)$coupon_id . "'");
 
 							foreach ($coupon_product_query->rows as $result) {
@@ -678,7 +622,7 @@ class ModelCheckoutOrder extends Model {
 						}
 					}
 				}
-			
+
 				foreach ($order_total_query->rows as $order_total) {
 					if($order_total['code']=="shipping") {
 						$code = $order_info->row['shipping_code'];
@@ -708,7 +652,7 @@ class ModelCheckoutOrder extends Model {
 						$line1->setQty(1);
 
 						//Added for coupon/discount on 05/05/2015
-						//If Coupon is applied & free shipping is enabled, we'll pass 0 to free shipping 
+						//If Coupon is applied & free shipping is enabled, we'll pass 0 to free shipping
 						$cost = $order_total['value'];
 						//exit;
 						if(isset($coupon_info) && !empty($coupon_info))
@@ -719,9 +663,9 @@ class ModelCheckoutOrder extends Model {
 								$cost = 0;
 							}
 						}
-						
+
 						$line1->setAmount($cost);
-					
+
 						//$line1->setAmount($order_total['value']);
 						$line1->setDiscounted(false);
 						$line1->setRevAcct($RevAcct);
@@ -849,15 +793,15 @@ class ModelCheckoutOrder extends Model {
 					//$line1->setAmount($product["price"]);
 					//$line1->setAmount($product["total"]);
 					$line1->setAmount($total_amount);
-					
+
 					//Added to handle coupon scenario regarding multiple products or order
 					if(isset($coupon_id) && ($coupon_id<>""))
 					{
-						if (!isset($coupon_product_data)) 
+						if (!isset($coupon_product_data))
 						{
 							$status = true;
 						}
-						else 
+						else
 						{
 							if (in_array($product['product_id'], $coupon_product_data)) {
 								$status = true;
@@ -868,7 +812,7 @@ class ModelCheckoutOrder extends Model {
 					}
 
 					$line1->setDiscounted($status);
-					
+
 					$line1->setRevAcct($RevAcct);
 					$line1->setRef1($Ref1);
 					$line1->setRef2($Ref2);
@@ -890,65 +834,63 @@ class ModelCheckoutOrder extends Model {
 				$GetTaxData = array();
 				$returnMessage = "";
 
-				
-
 				try {
-				
-				if (!empty($DestAddress)) {
-				$latency = round(microtime(true) * 1000);
-					$getTaxResult = $client->getTax($request);
-				$latency = round(microtime(true) * 1000)-$latency;
-				$this->session->data['latency'] = "" ;
-				$this->session->data['getTaxLines'] = "" ;
-				$this->session->data['getDocType'] = "" ;
-				$this->session->data['getDocCode'] = "" ;
-				$this->session->data['latency'] = $latency ;
-				$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
-				$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
-				$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
+					if (!empty($DestAddress))
+					{
+						$latency = round(microtime(true) * 1000);
+						$getTaxResult = $client->getTax($request);
+						$latency = round(microtime(true) * 1000)-$latency;
+						$this->session->data['latency'] = "" ;
+						$this->session->data['getTaxLines'] = "" ;
+						$this->session->data['getDocType'] = "" ;
+						$this->session->data['getDocCode'] = "" ;
+						$this->session->data['latency'] = $latency ;
+						$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
+						$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
+						$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
 
-				/************* Logging code snippet (optional) starts here *******************/
-				// System Logger starts here:
-				
-				$log_mode = $this->config->get('config_avatax_log');
-				if($log_mode==1){
-					   
+						/************* Logging code snippet (optional) starts here *******************/
+						// System Logger starts here:
 
-						$timeStamp 			= 	new DateTime();						// Create Time Stamp
-						$params				=   '[Input: ' . ']';		// Create Param List
-						$u_name				=	'';							// Eventually will come from $_SESSION[] object
+						$log_mode = $this->config->get('config_avatax_log');
 
-						// Creating the System Logger Object
-						$application_log 	= 	new SystemLogger;
+						if($log_mode==1)
+						{
+							$timeStamp 			= 	new DateTime();						// Create Time Stamp
+							$params				=   '[Input: ' . ']';		// Create Param List
+							$u_name				=	'';							// Eventually will come from $_SESSION[] object
 
-						$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
-						$application_log->WriteSystemLogToFile();			// Log info goes to log file
+							// Creating the System Logger Object
+							$application_log 	= 	new SystemLogger;
 
-						$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
-						$application_log->WriteSystemLogToFile();			// Log info goes to log file
+							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
+							$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-						// 	System Logger ends here
-						//	Logging code snippet (optional) ends here
-					}
-					// Error Trapping
-					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
+							$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-						$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-						$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-						$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-						$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
-						$this->session->data['previous_error_status'] = "Success";
-						//return $getTaxResult->getTotalTax();
-						
-						return $GetTaxData;
+							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+							// 	System Logger ends here
+							//	Logging code snippet (optional) ends here
+						}
+						// Error Trapping
+						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
 
-					} else {
-						$msg = $getTaxResult->getMessages();
-						$returnMessage .= $msg[0]->getName() . ": " . $msg[0]->getSummary() . "\n";
-						$this->session->data['previous_error_status'] = '<b>' ."AvaTax Error :" . '</b>' . $returnMessage;
-						return $returnMessage;
-					}
+							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+							$this->session->data['previous_error_status'] = "Success";
+							//return $getTaxResult->getTotalTax();
+
+							return $GetTaxData;
+
+						} else {
+							$msg = $getTaxResult->getMessages();
+							$returnMessage .= $msg[0]->getName() . ": " . $msg[0]->getSummary() . "\n";
+							$this->session->data['previous_error_status'] = '<b>' ."AvaTax Error :" . '</b>' . $returnMessage;
+							return $returnMessage;
+						}
 					}
 				} catch (SoapFault $exception) {
 					$msg = "Exception: ";
@@ -970,7 +912,6 @@ class ModelCheckoutOrder extends Model {
 				if($this->config->get('config_avatax_tax_calculation'))
 				{
 					//$order_query_delete = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND order_id = '" . (int)$order_id . "'");
-
 					$this->addOrderHistory($order_id, 7);
 				}
 				else
@@ -1002,40 +943,40 @@ class ModelCheckoutOrder extends Model {
 	}
 
 
-			
+
 			/****************************************************************************
 			*   Last Updated On		:	05/14/2015			                           	*
 			*   Description			:  	This function serves as the wrapper function	*
 			*   						for AvaTax CancelTax() Call						*
 			****************************************************************************/
-			
+
 			public function AvaTaxCancelTax($AvaTaxDocumentCode, $CancelCode) {
-			
-				$environment = 'Development';	
+
+				$environment = 'Development';
 				if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
 					$environment = "Development";
-				else 
-					$environment = "Production";				
-				
+				else
+					$environment = "Production";
+
 				$order_data = array();
-				$dateTime = new DateTime(); 
+				$dateTime = new DateTime();
 				$order_data["service_url"] = $this->config->get('config_avatax_service_url');
 				$order_data["account"] = $this->config->get('config_avatax_account');
 				$order_data["license"] = $this->config->get('config_avatax_license_key');
 				$order_data["client"] = $this->config->get('config_avatax_client');
 				$order_data["environment"] = $environment;
 				$order_data["CompanyCode"] = $this->config->get('config_avatax_company_code');
-				$order_data["DocType"] = "SalesInvoice";				
+				$order_data["DocType"] = "SalesInvoice";
 				//$order_data["DocCode"] = $OrderInformation->row['avatax_paytax_document_code'];
 				$order_data["DocCode"] = $AvaTaxDocumentCode;
 				//$order_data["CancelCode"] = "DocDeleted";
 				$order_data["CancelCode"] = $CancelCode;
 
-				include_once(DIR_SYSTEM . 'AvaTax4PHP/cancel_tax.php');				
+				include_once(DIR_SYSTEM . 'AvaTax4PHP/cancel_tax.php');
 				$return_message = CancelTax($order_data);
-				
+
 				return $return_message;
-			}			
+			}
 			
 	public function getOrder($order_id) {
 		$order_query = $this->db->query("SELECT *, (SELECT os.name FROM `" . DB_PREFIX . "order_status` os WHERE os.order_status_id = o.order_status_id AND os.language_id = o.language_id) AS order_status FROM `" . DB_PREFIX . "order` o WHERE o.order_id = '" . (int)$order_id . "'");
@@ -1170,9 +1111,9 @@ class ModelCheckoutOrder extends Model {
 
 				/***************************************************************************
 				*   Last Updated On	  :	 05/14/2015			                               *
-				*   Description       :  This function updates the AvaTax fields in order  * 
+				*   Description       :  This function updates the AvaTax fields in order  *
 				***************************************************************************/
-				
+
 				public function updateOrderForAvaTaxFields($avatax_document_id, $avatax_transaction_id, $avatax_document_code, $avatax_error_message, $order_id) {
 					$this->db->query("UPDATE `" . DB_PREFIX . "order` SET avatax_paytax_document_id = '" . (int)$avatax_document_id . "', avatax_paytax_transaction_id = '" . (int)$avatax_transaction_id . "', avatax_paytax_document_code = '" . (int)$avatax_document_code . "', avatax_paytax_error_message = '".$this->db->escape($avatax_error_message)."' WHERE order_id = '" . (int)$order_id . "'");
 				}
@@ -1202,13 +1143,13 @@ class ModelCheckoutOrder extends Model {
 					return $product_categories;
 				}
 
-	
+
 				 /***************************************************************************
 				 *   Last Updated On	:	05/14/2015			                            *
-				 *   Description        :   This function returns the original price of		* 
+				 *   Description        :   This function returns the original price of		*
 				 *							product by product ID							*
 				 ***************************************************************************/
-		 
+
 				 //Removed older getProductOriginalPrice function. Replaced with admin function
 					public function getProductOriginalPrice($product_id) {
 					$product_price_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
@@ -1228,10 +1169,9 @@ class ModelCheckoutOrder extends Model {
 											'tax_class_title'              => $taxcode,
 									   );
 					}
-
 					return $Product_price_taxcode;
 				}
-				
+
 
 				/****************************************************************************
 				*   Last Updated On		:	05/14/2015			                           	*
@@ -1240,7 +1180,7 @@ class ModelCheckoutOrder extends Model {
 				***************************************************************************/
 
 				public function AvaTaxGetTaxOrder($order_info, $products) {
-					
+
 					include_once(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php');
 
 					global $registry;
@@ -1255,7 +1195,7 @@ class ModelCheckoutOrder extends Model {
 
 					if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
 						$environment = "Development";
-					else 
+					else
 						$environment = "Production";
 
 					new ATConfig($environment, array('url'=>$service_url, 'account'=>$account,'license'=>$license, 'client'=>$client, 'trace'=> TRUE));
@@ -1282,7 +1222,7 @@ class ModelCheckoutOrder extends Model {
 
 					if(!empty($order_info["shipping_address_1"]))
 					{
-				
+
 						$DestAddress = $order_info["shipping_address_1"];
 						$DestCity = $order_info["shipping_city"];
 						$DestRegion = $order_info["shipping_zone_code"];
@@ -1291,7 +1231,7 @@ class ModelCheckoutOrder extends Model {
 					}
 					else
 					{
-				
+
 						$DestAddress = $order_info["payment_address_1"];
 						$DestCity = $order_info["payment_city"];
 						$DestRegion = $order_info["payment_zone_code"];
@@ -1335,7 +1275,7 @@ class ModelCheckoutOrder extends Model {
 					//Code for paypal status
 					if(isset($order_info["order_status_id"]) && $order_info["order_status_id"]==5 )
 						$request->setCommit(TRUE);
-					else 
+					else
 						$request->setCommit(FALSE);
 
 					//Add Origin Address
@@ -1360,7 +1300,6 @@ class ModelCheckoutOrder extends Model {
 					$destination->setCountry($DestCountry);
 					$request->setDestinationAddress($destination);
 
-					//
 					// Line level processing
 					$Ref1 = '';
 					$Ref2 = '';
@@ -1468,7 +1407,7 @@ class ModelCheckoutOrder extends Model {
 							$status = false;
 						}
 						$line1->setDiscounted($status);
-					
+
 						$line1->setRevAcct($RevAcct);
 						$line1->setRef1($Ref1);
 						$line1->setRef2($Ref2);
@@ -1495,30 +1434,30 @@ class ModelCheckoutOrder extends Model {
 							$Discount = abs($order_total['value']);
 						}
 					}
-				
+
 					foreach ($order_total_query->rows as $order_total) {
 						if($order_total['code']=="shipping") {
 							if(isset($this->session->data['shipping_method']))
 							{
-							$shipping_method = $this->session->data['shipping_method'];
-							if(isset($shipping_method["tax_class_id"]))
-							{
-								if($shipping_method["tax_class_id"] > 0){
-									$TaxClasses = $this->db->query("SELECT title FROM " . DB_PREFIX . "tax_class  WHERE tax_class_id ='" . $shipping_method["tax_class_id"] . "'");
-									if($TaxClasses->row['title'] == 'Non Taxable')
-									{
-										$TaxCode = 'NT';
+								$shipping_method = $this->session->data['shipping_method'];
+								if(isset($shipping_method["tax_class_id"]))
+								{
+									if($shipping_method["tax_class_id"] > 0){
+										$TaxClasses = $this->db->query("SELECT title FROM " . DB_PREFIX . "tax_class  WHERE tax_class_id ='" . $shipping_method["tax_class_id"] . "'");
+										if($TaxClasses->row['title'] == 'Non Taxable')
+										{
+											$TaxCode = 'NT';
+										}
+										else
+										{
+											$TaxCode = $TaxClasses->row['title'];
+										}
 									}
-									else
-									{
-										$TaxCode = $TaxClasses->row['title'];
+									else{
+									   // $TaxCode = 'FR';
+									   $TaxCode = '';
 									}
 								}
-								else{
-								   // $TaxCode = 'FR';
-								   $TaxCode = '';
-								}
-							}
 							}
 							//$TaxCode = $product["tax_class_id"];
 							$line1 = new Line();
@@ -1528,7 +1467,7 @@ class ModelCheckoutOrder extends Model {
 							$line1->setTaxCode($TaxCode);
 							$line1->setQty(1);
 
-							//If Coupon is applied & free shipping is enabled, we'll pass 0 to free shipping - 
+							//If Coupon is applied & free shipping is enabled, we'll pass 0 to free shipping -
 							$cost = $order_total['value'];
 							if(isset($this->session->data['coupon_info']) && !empty($this->session->data['coupon_info']))
 							{
@@ -1540,10 +1479,10 @@ class ModelCheckoutOrder extends Model {
 								}
 							}
 							$line1->setAmount($cost);
-							
+
 							$status = false;
 							$line1->setDiscounted($status);
-						
+
 							$line1->setRevAcct($RevAcct);
 							$line1->setRef1($Ref1);
 							$line1->setRef2($Ref2);
@@ -1593,10 +1532,10 @@ class ModelCheckoutOrder extends Model {
 							//$line1->setTaxCode($TaxCode);
 							$line1->setQty(1);
 							$line1->setAmount($order_total['value']);
-							
+
 							$status = false;
 							$line1->setDiscounted($status);
-						
+
 							$line1->setRevAcct($RevAcct);
 							$line1->setRef1($Ref1);
 							$line1->setRef2($Ref2);
@@ -1616,73 +1555,61 @@ class ModelCheckoutOrder extends Model {
 
 					$GetTaxData = array();
 					$returnMessage = "";
-
-					
-
 					try {
-					
-					if (!empty($DestAddress)) {
-					
-					//$connectortime = round(microtime(true) * 1000)-$time_start;
-					$latency = round(microtime(true) * 1000);
-						$getTaxResult = $client->getTax($request);
-					$latency = round(microtime(true) * 1000)-$latency;
-					$this->session->data['latency'] = "" ;
-					$this->session->data['getTaxLines'] = "" ;
-					$this->session->data['getDocType'] = "" ;
-					$this->session->data['getDocCode'] = "" ;
-					$this->session->data['latency'] = $latency ;
-					$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
-					$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
-					$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
-					
-					//Added for connector metrics
+						if (!empty($DestAddress)) {
+							//$connectortime = round(microtime(true) * 1000)-$time_start;
+							$latency = round(microtime(true) * 1000);
+							$getTaxResult = $client->getTax($request);
+							$latency = round(microtime(true) * 1000)-$latency;
+							$this->session->data['latency'] = "" ;
+							$this->session->data['getTaxLines'] = "" ;
+							$this->session->data['getDocType'] = "" ;
+							$this->session->data['getDocCode'] = "" ;
+							$this->session->data['latency'] = $latency ;
+							$this->session->data['getTaxLines'] = $getTaxResult->getTaxLines() ;
+							$this->session->data['getDocType'] = $getTaxResult->getDocType() ;
+							$this->session->data['getDocCode'] = $getTaxResult->getDocCode();
+
+							//Added for connector metrics
 							/************* Logging code snippet (optional) starts here *******************/
-						// System Logger starts here:
-						
-						$log_mode = $this->config->get('config_avatax_log');
-						
-						if($log_mode==1){
-						   
+							// System Logger starts here:
 
-							$timeStamp 			= 	new DateTime();						// Create Time Stamp
-							$params				=   '[Input: ' . ']';		// Create Param List
-							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+							$log_mode = $this->config->get('config_avatax_log');
 
-							// Creating the System Logger Object
-							$application_log 	= 	new SystemLogger;
+							if($log_mode==1){
+								$timeStamp 			= 	new DateTime();						// Create Time Stamp
+								$params				=   '[Input: ' . ']';		// Create Param List
+								$u_name				=	'';							// Eventually will come from $_SESSION[] object
 
-							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
-							$application_log->WriteSystemLogToFile();			// Log info goes to log file
+								// Creating the System Logger Object
+								$application_log 	= 	new SystemLogger;
 
-							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
-							$application_log->WriteSystemLogToFile();			// Log info goes to log file
+								$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
+								$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-							
+								$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
+								$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-							// 	System Logger ends here
-							//	Logging code snippet (optional) ends here
-						}
-
-						// Error Trapping
-						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-
-							$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
-							$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
-							$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
-							$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
-
-							return $GetTaxData;
-
-						} else {
-
-							foreach ($getTaxResult->getMessages() as $msg) {
-								//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
-								$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
+								//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+								// 	System Logger ends here
+								//	Logging code snippet (optional) ends here
 							}
-							return $returnMessage;
-						}
+
+							// Error Trapping
+							if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+								$GetTaxData['GetTaxDocCode'] = $getTaxResult->getDocCode();
+								$GetTaxData['GetTaxDocDate'] = $getTaxResult->getDocDate();
+								$GetTaxData['GetTaxTotalAmount'] = $getTaxResult->getTotalAmount();
+								$GetTaxData['GetTaxTotalTax'] = $getTaxResult->getTotalTax();
+
+								return $GetTaxData;
+							} else {
+								foreach ($getTaxResult->getMessages() as $msg) {
+									//echo $msg->getName() . ": " . $msg->getSummary() . "\n";
+									$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
+								}
+								return $returnMessage;
+							}
 						}
 					} catch (SoapFault $exception) {
 						$msg = "Exception: ";
@@ -1704,38 +1631,36 @@ class ModelCheckoutOrder extends Model {
 				*   Description			:  	This function serves as the wrapper function	*
 				*   						for AvaTax PostTax() Call						*
 				****************************************************************************/
+
+				public function AvaTaxPostTax($GetTaxReturnValue) {
+					$environment = 'Development';
+					if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
+						$environment = "Development";
+					else
+						$environment = "Production";
+
+					$order_data = array();
+					$dateTime = new DateTime();
+					$order_data["service_url"] = $this->config->get('config_avatax_service_url');
+					$order_data["account"] = $this->config->get('config_avatax_account');
+					$order_data["license"] = $this->config->get('config_avatax_license_key');
+					$order_data["client"] = $this->config->get('config_avatax_client');
+					$order_data["environment"] = $environment;
+					$order_data["CompanyCode"] = $this->config->get('config_avatax_company_code');
+					$order_data["DocType"] = "SalesInvoice";
+
+					$order_data["DocCode"] = $GetTaxReturnValue['GetTaxDocCode'];
+					$order_data["DocDate"] = $GetTaxReturnValue['GetTaxDocDate'];
+
+					$order_data["TotalAmount"] = $GetTaxReturnValue['GetTaxTotalAmount'];
+					$order_data["TotalTax"] = $GetTaxReturnValue['GetTaxTotalTax'];
+					$order_data["Commit"] = 1;
+
+					include_once(DIR_SYSTEM . 'AvaTax4PHP/post_tax.php');
+					$return_message = PostTax($order_data);
+					return $return_message;
+				}
 			
-					public function AvaTaxPostTax($GetTaxReturnValue) {
-
-						$environment = 'Development';
-						if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
-							$environment = "Development";
-						else 
-							$environment = "Production";
-
-						$order_data = array();
-						$dateTime = new DateTime();
-						$order_data["service_url"] = $this->config->get('config_avatax_service_url');
-						$order_data["account"] = $this->config->get('config_avatax_account');
-						$order_data["license"] = $this->config->get('config_avatax_license_key');
-						$order_data["client"] = $this->config->get('config_avatax_client');
-						$order_data["environment"] = $environment;
-						$order_data["CompanyCode"] = $this->config->get('config_avatax_company_code');
-						$order_data["DocType"] = "SalesInvoice";
-
-						$order_data["DocCode"] = $GetTaxReturnValue['GetTaxDocCode'];
-						$order_data["DocDate"] = $GetTaxReturnValue['GetTaxDocDate'];
-
-						$order_data["TotalAmount"] = $GetTaxReturnValue['GetTaxTotalAmount'];
-						$order_data["TotalTax"] = $GetTaxReturnValue['GetTaxTotalTax'];
-						$order_data["Commit"] = 1;
-
-						include_once(DIR_SYSTEM . 'AvaTax4PHP/post_tax.php');
-						$return_message = PostTax($order_data);
-						return $return_message;
-					}
-
-					
 	public function addOrderHistory($order_id, $order_status_id, $comment = '', $notify = false) {
 
 			if($this->config->get('config_avatax_tax_calculation')&& $this->config->get('config_avatax_transaction_calculation'))
@@ -1894,7 +1819,7 @@ class ModelCheckoutOrder extends Model {
 				{
 					$avatax_tax_country = "|".$this->config->get('config_avatax_validate_address_in')."|";
 				}
-					$avatax_tax_country_pos = strpos($avatax_tax_country, "|".$order_info["shipping_iso_code_2"]."|");
+				$avatax_tax_country_pos = strpos($avatax_tax_country, "|".$order_info["shipping_iso_code_2"]."|");
 
 				//if($this->config->get('config_avatax_tax_calculation') && ($avatax_tax_country_pos !== false))
 				if($this->config->get('config_avatax_tax_calculation'))
@@ -1903,7 +1828,7 @@ class ModelCheckoutOrder extends Model {
 					//Call 2 Methods
 					//1. GetTax with OrderType = SalesInvoice
 					$products = $this->cart->getProducts();
-					
+
 					//added for paypal checkout
 					if($order_status_id!=0)
 					{
@@ -1911,9 +1836,9 @@ class ModelCheckoutOrder extends Model {
 					}
 
 					$checkEmpty = array_filter($products);
-					if (!empty($checkEmpty)) 
+					if (!empty($checkEmpty))
 					{
-						require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');	
+						require_once(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php');
 						$GetTaxReturnValue = $this->AvaTaxGetTaxOrder($order_info, $products);
 
 						//3. Get the Document Id from PostTax Return Value and update it in the Order Table
@@ -1928,56 +1853,45 @@ class ModelCheckoutOrder extends Model {
 						//2. PostTax with GUID
 						//5. Completed, 15. Processed, 3. Shipped
 
-							if(is_array($GetTaxReturnValue))
-							{
-								$this->updateOrderForAvaTaxFields(0, 0, $GetTaxReturnValue["GetTaxDocCode"], "Success", $order_id);
-							
-						/************* Logging code snippet (optional) starts here *******************/
-						// System Logger starts here:
-						
-						$log_mode = $this->config->get('config_avatax_log');
-						
-						
-						if($log_mode==1){
-						   
-									
-							$timeStamp 			= 	new DateTime();						// Create Time Stamp
-							$params				=   '[Input: ' . ']';		// Create Param List
-							$u_name				=	'';							// Eventually will come from $_SESSION[] object
-						
-						
-						// Creating the System Logger Object
-						$application_log 	= 	new SystemLogger;
-						$connectortime = round(microtime(true) * 1000)-$time_start;
-						$latency = $this->session->data['latency'];
-						$connectortime= $connectortime- $latency;
-						
-						$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
-						
-						
-							$latency =""  ;
-							$this->session->data['latency'] ="";							
-							$this->session->data['getTaxLines'] ="";							
-							$this->session->data['getDocType'] ="";							
-							$this->session->data['getDocCode'] ="";
+						if(is_array($GetTaxReturnValue))
+						{
+							$this->updateOrderForAvaTaxFields(0, 0, $GetTaxReturnValue["GetTaxDocCode"], "Success", $order_id);
 
-							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-							// 	System Logger ends here
-							//	Logging code snippet (optional) ends here
-			
-					}
-			
-					
-		
-			
+							/************* Logging code snippet (optional) starts here *******************/
+							// System Logger starts here:
+
+							$log_mode = $this->config->get('config_avatax_log');
+							if($log_mode==1)
+							{
+								$timeStamp 			= 	new DateTime();						// Create Time Stamp
+								$params				=   '[Input: ' . ']';		// Create Param List
+								$u_name				=	'';							// Eventually will come from $_SESSION[] object
+
+								// Creating the System Logger Object
+								$application_log 	= 	new SystemLogger;
+								$connectortime = round(microtime(true) * 1000)-$time_start;
+								$latency = $this->session->data['latency'];
+								$connectortime= $connectortime- $latency;
+
+								$application_log->metric('GetTax '.$this->session->data['getDocType'],count($this->session->data['getTaxLines']),$this->session->data['getDocCode'],$connectortime,$latency);
+
+								$latency =""  ;
+								$this->session->data['latency'] ="";
+								$this->session->data['getTaxLines'] ="";
+								$this->session->data['getDocType'] ="";
+								$this->session->data['getDocCode'] ="";
+
+								//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+								// 	System Logger ends here
+								//	Logging code snippet (optional) ends here
 							}
+						}
 							else
 							{
 								if(strpos($GetTaxReturnValue,"urisdictionNotFoundError:"))
 								{
 									$this->updateOrderForAvaTaxFields(0, 0, 0, $GetTaxReturnValue, $order_id);
 								}
-
 							}
 						//}
 					}

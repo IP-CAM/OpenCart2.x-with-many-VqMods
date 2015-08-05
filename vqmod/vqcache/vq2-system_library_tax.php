@@ -31,7 +31,7 @@ public $tax_address_error;
 $this->shipping_address = array(
 							'country_id' => $country_id,
 							'zone_id'    => $zone_id
-					);		
+					);
 			
 		$tax_query = $this->db->query("SELECT tr1.tax_class_id, tr2.tax_rate_id, tr2.name, tr2.rate, tr2.type, tr1.priority FROM " . DB_PREFIX . "tax_rule tr1 LEFT JOIN " . DB_PREFIX . "tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) INNER JOIN " . DB_PREFIX . "tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) LEFT JOIN " . DB_PREFIX . "zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id) LEFT JOIN " . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id) WHERE tr1.based = 'shipping' AND tr2cg.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND z2gz.country_id = '" . (int)$country_id . "' AND (z2gz.zone_id = '0' OR z2gz.zone_id = '" . (int)$zone_id . "') ORDER BY tr1.priority ASC");
 
@@ -50,7 +50,7 @@ $this->shipping_address = array(
 	$this->payment_address = array(
 							'country_id' => $country_id,
 							'zone_id'    => $zone_id
-					);				
+					);
 			
 		$tax_query = $this->db->query("SELECT tr1.tax_class_id, tr2.tax_rate_id, tr2.name, tr2.rate, tr2.type, tr1.priority FROM " . DB_PREFIX . "tax_rule tr1 LEFT JOIN " . DB_PREFIX . "tax_rate tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) INNER JOIN " . DB_PREFIX . "tax_rate_to_customer_group tr2cg ON (tr2.tax_rate_id = tr2cg.tax_rate_id) LEFT JOIN " . DB_PREFIX . "zone_to_geo_zone z2gz ON (tr2.geo_zone_id = z2gz.geo_zone_id) LEFT JOIN " . DB_PREFIX . "geo_zone gz ON (tr2.geo_zone_id = gz.geo_zone_id) WHERE tr1.based = 'payment' AND tr2cg.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND z2gz.country_id = '" . (int)$country_id . "' AND (z2gz.zone_id = '0' OR z2gz.zone_id = '" . (int)$zone_id . "') ORDER BY tr1.priority ASC");
 
@@ -119,13 +119,11 @@ $this->shipping_address = array(
 
 				public function getCountry($country_id) {
 					$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "country WHERE country_id = '" . (int)$country_id . "'");
-
 					return $query->row;
 				}
 
 				public function getZone($zone_id) {
 					$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "zone WHERE zone_id = '" . (int)$zone_id . "'");
-
 					return $query->row;
 				}
 
@@ -140,13 +138,13 @@ $this->shipping_address = array(
 					return $product_categories;
 				}
 
-				
+
 			 /***************************************************************************
 			 *   Last Updated On	:	05/14/2015			                            *
-			 *   Description        :   This function returns the original price of		* 
+			 *   Description        :   This function returns the original price of		*
 			 *							product by product ID							*
 			 ***************************************************************************/
-			 
+
 				public function getProductOriginalPrice($product_id) {
 					$product_price_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
 
@@ -161,9 +159,8 @@ $this->shipping_address = array(
 			*   Last Updated On		:	05/14/2015			                           	*
 			*   Description			:  	This function calculate the Taxable Amount		*
 			****************************************************************************/
-				
+
 				public function AvaTaxAmount($price) {
-				
 					require_once(VQMod::modCheck(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php')));
 
 					global $registry;
@@ -178,11 +175,11 @@ $this->shipping_address = array(
 
 					if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
 						$environment = "Development";
-					else 
+					else
 						$environment = "Production";
 
 					new ATConfig($environment, array('url'=>$service_url, 'account'=>$account,'license'=>$license, 'client'=>$client, 'trace'=> TRUE));
-				
+
 					//Variable Mapping
 					if(!isset($this->session->data['guest']))
 					{
@@ -208,7 +205,7 @@ $this->shipping_address = array(
 						if(isset($guest['shipping']['country_id']))
 						{
 							$guest_address = $this->session->data['shipping_address'];
-							 $dest_country_details = $this->getCountry($guest_address['country_id']);
+							$dest_country_details = $this->getCountry($guest_address['country_id']);
 							$dest_zone_details = $this->getZone($guest_address['zone_id']);
 						}
 						else
@@ -226,12 +223,11 @@ $this->shipping_address = array(
 					$OrigPostalCode = $this->config->get('config_postal_code');
 					$OrigCountry = $country_details["iso_code_2"];
 
-					 if (($this->customer->isLogged()) && (isset($this->session->data['payment_address']['address_id']) || isset($this->session->data['shipping_address']['address_id']) || isset($this->customer->request->request['shipping_address_1']) || isset($this->customer->request->request['payment_address_1'])))  {
+					if (($this->customer->isLogged()) && (isset($this->session->data['payment_address']['address_id']) || isset($this->session->data['shipping_address']['address_id']) || isset($this->customer->request->request['shipping_address_1']) || isset($this->customer->request->request['payment_address_1'])))  {
 
 						//we will get shipping address only on admin side. during client side we will directly read the address
 						if(!isset($this->customer->request->request['shipping_address']) || !isset($this->customer->request->request['payment_address']))
 						{
-
 							if(isset($this->session->data['shipping_address']['address_id']))
 							{
 								$customer_address = $this->customer->getAddress($this->session->data['shipping_address']['address_id']);
@@ -243,7 +239,7 @@ $this->shipping_address = array(
 									$customer_address = $this->customer->getAddress($this->session->data['payment_address']['address_id']);
 								}
 							}
-							
+
 							if(isset($customer_address))
 							{
 								$DestAddress = $customer_address["address_1"];
@@ -279,19 +275,19 @@ $this->shipping_address = array(
 						{
 							if(isset($this->session->data['shipping_address']))
 							{
-							  $guest_address = $this->session->data['shipping_address'];
-							   $DestAddress = $guest_address['address_1'];
+								$guest_address = $this->session->data['shipping_address'];
+								$DestAddress = $guest_address['address_1'];
 								$DestCity = $guest_address['city'];
 								$DestPostalCode = $guest_address['postcode'];
 							}
 							else
 							{
-							if(isset($this->session->data['payment_address']))
-							{
-								$guest_address = $this->session->data['payment_address'];
-							   $DestAddress = $guest_address['address_1'];
-								$DestCity = $guest_address['city'];
-								$DestPostalCode = $guest_address['postcode'];
+								if(isset($this->session->data['payment_address']))
+								{
+									$guest_address = $this->session->data['payment_address'];
+									$DestAddress = $guest_address['address_1'];
+									$DestCity = $guest_address['city'];
+									$DestPostalCode = $guest_address['postcode'];
 								}
 							}
 							$DestRegion = $dest_zone_details["code"];
@@ -307,17 +303,14 @@ $this->shipping_address = array(
 							}
 							else
 							{
-							if(isset($this->session->data['payment_address']))
-							{
-								
-								$DestAddress = $this->customer->request->post['payment_address_1'];
-								$DestCity = $this->customer->request->post['payment_city'];
-								$DestPostalCode = $this->customer->request->post['payment_postcode'];
-							  }  
+								if(isset($this->session->data['payment_address']))
+								{
+									$DestAddress = $this->customer->request->post['payment_address_1'];
+									$DestCity = $this->customer->request->post['payment_city'];
+									$DestPostalCode = $this->customer->request->post['payment_postcode'];
+								}
 							}
-
 							$DestRegion = $dest_zone_details["code"];
-
 							$DestCountry = $dest_country_details["iso_code_2"];
 						}
 					}
@@ -399,7 +392,7 @@ $this->shipping_address = array(
 
 					$products = $this->cart->getProducts();		//getProducts function is executed from cart.php page
 					$lineCount = count($products);
-					
+
 					foreach ($products as $product)
 					{
 						$total_amount = $product["total"];
@@ -489,8 +482,8 @@ $this->shipping_address = array(
 					}
 					//Shipping Line Item
 					// Order Total
-					 if(isset($this->session->data['shipping_method']))
-					 {
+					if(isset($this->session->data['shipping_method']))
+					{
 						 $shipping_method = $this->session->data['shipping_method'];
 						 if(isset($shipping_method["tax_class_id"]) && $shipping_method["tax_class_id"] > 0)
 						 {
@@ -516,7 +509,7 @@ $this->shipping_address = array(
 						$line1->setDescription($shipping_method['title']);
 						$line1->setTaxCode($TaxCode);
 						$line1->setQty(1);
-						
+
 						//If Coupon is applied & free shipping is enabled, we'll pass 0 to free shipping - https://avalara.atlassian.net/wiki/display/CONNECTOR/Free+Shipping+option+in+Coupons
 						$cost = $shipping_method['cost'];
 						if(isset($this->session->data['coupon_info']) && !empty($this->session->data['coupon_info']))
@@ -596,64 +589,58 @@ $this->shipping_address = array(
 					$returnMessage = "";
 
 					try {
-					
 					//if (!empty($DestAddress)) {
-					
+
 					$latency = round(microtime(true) * 1000);
 					$getTaxResult = $client->getTax($request);
 					$latency = round(microtime(true) * 1000)-$latency;
 					$this->session->data['latency'] = "" ;
 					$this->session->data['latency'] = $latency ;
-						
-						
+
 					/************* Logging code snippet (optional) starts here *******************/
-						// System Logger starts here:
-						
-						$log_mode = $this->config->get('config_avatax_log');
-					
-						if($log_mode==1){
-							$timeStamp 			= 	new DateTime();						// Create Time Stamp
-							$params				=   '[Input: ' . ']';		// Create Param List
-							$u_name				=	'';							// Eventually will come from $_SESSION[] object
+					// System Logger starts here:
 
-							// Creating the System Logger Object
-							$application_log 	= 	new SystemLogger;
+					$log_mode = $this->config->get('config_avatax_log');
 
-							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
-							$application_log->WriteSystemLogToFile();			// Log info goes to log file
+					if($log_mode==1){
+						$timeStamp 			= 	new DateTime();						// Create Time Stamp
+						$params				=   '[Input: ' . ']';		// Create Param List
+						$u_name				=	'';							// Eventually will come from $_SESSION[] object
 
-							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
-							$application_log->WriteSystemLogToFile();			// Log info goes to log file
+						// Creating the System Logger Object
+						$application_log 	= 	new SystemLogger;
 
-							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
-							// 	System Logger ends here
-							//	Logging code snippet (optional) ends here
+						$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastRequest());		// Create System Log
+						$application_log->WriteSystemLogToFile();			// Log info goes to log file
+
+						$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
+						$application_log->WriteSystemLogToFile();			// Log info goes to log file
+
+						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
+						// 	System Logger ends here
+						//	Logging code snippet (optional) ends here
+					}
+
+					// Error Trapping
+					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
+						return $getTaxResult;
+						// If NOT success - display error messages to console
+						// it is important to itterate through the entire message class
+					} else {
+						foreach ($getTaxResult->getMessages() as $msg) {
+							$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
 						}
-					
-						// Error Trapping
-						if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-						
-							return $getTaxResult;
-
-							// If NOT success - display error messages to console
-							// it is important to itterate through the entire message class
-
-						} else {
-							foreach ($getTaxResult->getMessages() as $msg) {
-								$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
-							}
-							return $getTaxResult;
-						}
-						//}
-					} catch (SoapFault $exception) {
-						$returnMessage = "Exception: ";
-						if ($exception)
-							$returnMessage .= $exception->faultstring;
-						return 0;
-
-					}   //Comment this line to return SOAP XML
-				}
-				
+						return $getTaxResult;
+					}
+					//}
+				} catch (SoapFault $exception) {
+					$returnMessage = "Exception: ";
+					if ($exception)
+						$returnMessage .= $exception->faultstring;
+					return 0;
+				}   //Comment this line to return SOAP XML
+			}
+			
 	public function getRateName($tax_rate_id) {
 		$tax_query = $this->db->query("SELECT name FROM " . DB_PREFIX . "tax_rate WHERE tax_rate_id = '" . (int)$tax_rate_id . "'");
 
@@ -671,12 +658,9 @@ $this->shipping_address = array(
 					if ($this->customer->isLogged()) {
 						$customer_address = $this->customer->getAddress($this->customer->getAddressId());
 						$CountryCode = $customer_address["iso_code_2"];
-
 					} else {
-						
 						$country_details = $this->getCountry($this->config->get('config_country_id'));
 						$CountryCode = $country_details["iso_code_2"];
-					
 					}
 
 					$amount = 0;
@@ -696,12 +680,7 @@ $this->shipping_address = array(
 							else
 							{
 								//$amount = $this->AvaTaxAmount($value);
-
-								
 								$tax_result = $this->AvaTaxAmount($value);
-							
-								
-					
 								$tax_rate_data = array();
 								$tax_rate_count = 0;
 
@@ -740,15 +719,15 @@ $this->shipping_address = array(
 									$this->session->data['ava_taxrate']= 'T';
 								}
 								$this->config->set('config_avatax_taxcall_flag','0');
-								
+
 								/************* Logging code snippet (optional) starts here *******************/
 								// System Logger starts here:
-								
+
 								$log_mode = $this->config->get('config_avatax_log');
-								
+
 								if($log_mode==1){
-								   
-									require_once(VQMod::modCheck(VQMod::modCheck(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php'))));			
+
+									require_once(VQMod::modCheck(VQMod::modCheck(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/classes/SystemLogger.class.php'))));
 									$timeStamp 			= 	new DateTime();						// Create Time Stamp
 									$params				=   '[Input: ' . ']';		// Create Param List
 									$u_name				=	'';							// Eventually will come from $_SESSION[] object
@@ -758,7 +737,7 @@ $this->shipping_address = array(
 									$connectortime = round(microtime(true) * 1000)-$time_start;
 									$latency = $this->session->data['latency']  ;
 									$connectortime= $connectortime- $latency;
-									
+
 									if(isset($errormsg))
 									{
 										$lineCount = 0;
@@ -767,15 +746,14 @@ $this->shipping_address = array(
 									{
 										$lineCount = count($tax_result->getTaxLines());
 									}
-									
+
 									$application_log->metric('GetTax '.$tax_result->getDocType(),$lineCount,$tax_result->getDocCode(),$connectortime,$latency);
-									
+
 									$latency =""  ;
 									$this->session->data['latency'] ="";
 									//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
 									// 	System Logger ends here
 									//	Logging code snippet (optional) ends here
-								
 								}
 							}
 						}
@@ -809,7 +787,7 @@ $this->shipping_address = array(
 			}
 		}
 
-		}
+			}
 			
 
 		return $tax_rate_data;

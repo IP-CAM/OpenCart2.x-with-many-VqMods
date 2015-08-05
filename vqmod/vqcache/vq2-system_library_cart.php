@@ -313,11 +313,11 @@ class Cart {
 					$customer_group_id = $this->customer->getGroupId();
 				} else {
 					$customer_group_id = $this->config->get('config_customer_group_id');
-				}	
-				
+				}
+
 				//UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number. Added p.upc & p.sku in select field & return array.
 				$query = $this->db->query("SELECT pd.*, p.model, p.upc, p.sku, pdes.name FROM " . DB_PREFIX . "product_discount pd LEFT JOIN " . DB_PREFIX . "product p on p.product_id = '" . (int)$product_id . "' LEFT JOIN " . DB_PREFIX . "product_description pdes ON pdes.product_id = '" . (int)$product_id . "' WHERE pd.product_id = '" . (int)$product_id . "' AND pd.customer_group_id = '" . (int)$customer_group_id . "' AND pd.quantity <= '" . (int)$quantity . "' AND ((pd.date_start = '0000-00-00' OR pd.date_start < NOW()) AND (pd.date_end = '0000-00-00' OR pd.date_end > NOW())) ORDER BY pd.quantity ASC, pd.priority ASC, pd.price ASC");
-				
+
 				if ($query->num_rows) {
 					return array(
 						'product_id'       => $query->row['product_id'],
@@ -325,26 +325,26 @@ class Cart {
 						'model'            => $query->row['model'],
 						'upc'              => $query->row['upc'],
 						'sku'              => $query->row['sku'],
-						'quantity'         => $query->row['quantity'],				
+						'quantity'         => $query->row['quantity'],
 						'price'            => $query->row['price']
 					);
 				} else {
 					return false;
 				}
-				
-				return $query->rows;		
+
+				return $query->rows;
 			}
-			
+
 			public function getProduct($product_id) {
 				if ($this->customer->isLogged()) {
 					$customer_group_id = $this->customer->getGroupId();
 				} else {
 					$customer_group_id = $this->config->get('config_customer_group_id');
-				}	
+				}
 
 				//UPC/SKU Code Added by Vijay on 10th Dec 2014. If UPC/SKU code is selected & it is available for that product, it will be passed else Model number. Added p.upc & p.sku code in select field & return array
 				$query = $this->db->query("SELECT DISTINCT *, pd.name AS name, p.image, p.upc, p.sku, m.name AS manufacturer, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special, (SELECT points FROM " . DB_PREFIX . "product_reward pr WHERE pr.product_id = p.product_id AND customer_group_id = '" . (int)$customer_group_id . "') AS reward, (SELECT ss.name FROM " . DB_PREFIX . "stock_status ss WHERE ss.stock_status_id = p.stock_status_id AND ss.language_id = '" . (int)$this->config->get('config_language_id') . "') AS stock_status, (SELECT wcd.unit FROM " . DB_PREFIX . "weight_class_description wcd WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS weight_class, (SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS length_class, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id AND r2.status = '1' GROUP BY r2.product_id) AS reviews, p.sort_order FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
-				
+
 				if ($query->num_rows) {
 					return array(
 						'product_id'       => $query->row['product_id'],
@@ -358,153 +358,153 @@ class Cart {
 				} else {
 					return false;
 				}
-			}	
-			
+			}
+
 			public function getCountry($country_id) {
 				$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "country WHERE country_id = '" . (int)$country_id . "'");
-				
+
 				return $query->row;
 			}
 
 			public function getZone($zone_id) {
 				$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "zone WHERE zone_id = '" . (int)$zone_id . "'");
-				
+
 				return $query->row;
 			}
-			
+
 			/****************************************************************************
 			*   Last Updated On		:	05/14/2015			                           	*
 			*   Description			:  	This function calculate the Taxable Amount		*
 			****************************************************************************/
-			
+
 			public function AvaTaxAmount($price) {
-				require_once(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php'));	
-				
+				require_once(VQMod::modCheck(DIR_SYSTEM . 'AvaTax4PHP/AvaTax.php'));
+
 				global $registry;
-				$this->cart = $registry->get('cart');		
-				
+				$this->cart = $registry->get('cart');
+
 				$environment = 'Development';
-				
-				$service_url = $this->config->get('config_avatax_service_url');		
+
+				$service_url = $this->config->get('config_avatax_service_url');
 				$account = $this->config->get('config_avatax_account');
-				$license = $this->config->get('config_avatax_license_key');		
+				$license = $this->config->get('config_avatax_license_key');
 				$client = $this->config->get('config_avatax_client');
-				
+
 				if($this->config->get('config_avatax_service_url')=='https://development.avalara.net')
 					$environment = "Development";
-				else 
+				else
 					$environment = "Production";
 				new ATConfig($environment, array('url'=>$service_url, 'account'=>$account,'license'=>$license, 'client'=>$client, 'trace'=> TRUE));
-				
+
 				//Variable Mapping
-				if ($this->customer->isLogged()) {			
-					
+				if ($this->customer->isLogged()) {
+
 					$customer_address = $this->customer->getAddress($this->customer->getAddressId());
-					
+
 					$CustomerCode = $customer_address["customer_id"];
 					$OrigAddress = $customer_address["address_1"];
 					$OrigCity = $customer_address["city"];
 					$OrigRegion = $customer_address["zone_code"];
 					$OrigPostalCode = $customer_address["postcode"];
 					$OrigCountry = $customer_address["iso_code_2"];
-					
+
 					$DestAddress = $customer_address["address_1"];
 					$DestCity = $customer_address["city"];
 					$DestRegion = $customer_address["zone_code"];
 					$DestPostalCode = $customer_address["postcode"];
 					$DestCountry = $customer_address["iso_code_2"];
-					
+
 				} else {
 					$customer_group_id = $this->config->get('config_customer_group_id');
-					
-					$country_details = $this->getCountry($this->config->get('config_country_id'));		
+
+					$country_details = $this->getCountry($this->config->get('config_country_id'));
 					$zone_details = $this->getZone($this->config->get('config_zone_id'));
-					
+
 					$CustomerCode = $this->config->get('config_account_id');
 					$OrigAddress = $this->config->get('config_address');
 					$OrigCity = $this->config->get('config_city');
 					$OrigRegion = $zone_details["code"];
 					$OrigPostalCode = $this->config->get('config_postal_code');
 					$OrigCountry = $country_details["iso_code_2"];
-					
+
 					$DestAddress = $this->config->get('config_address');
 					$DestCity = $this->config->get('config_city');
 					$DestRegion = $zone_details["code"];
 					$DestPostalCode = $this->config->get('config_postal_code');
 					$DestCountry = $country_details["iso_code_2"];
 				}
-				
+
 				$CompanyCode = $this->config->get('config_avatax_company_code');
 				$DocType = "SalesOrder";
-				//$DocCode = $this->config->get('config_invoice_prefix').$this->config->get('config_account_id'); 
+				//$DocCode = $this->config->get('config_invoice_prefix').$this->config->get('config_account_id');
 				$a = session_id();
 				if(empty($a)) session_start();
-				
-				//$DocCode = session_id(); 
-				$DocCode = "cartphp"; 
-				$SalesPersonCode = "";		
+
+				//$DocCode = session_id();
+				$DocCode = "cartphp";
+				$SalesPersonCode = "";
 				$EntityUseCode = "";
 				$Discount = 0;
 				$PurchaseOrderNo = '';
 				$ExemptionNo = "";
-				$LocationCode = '';		
+				$LocationCode = '';
 				$LineNo = 1;
-				
+
 				$client = new TaxServiceSoap($environment);
 				$request = new GetTaxRequest();
-				$dateTime = new DateTime();                                  
-				//$request->setDocDate($DocDate);               
-				$request->setCompanyCode($CompanyCode);                    
-				$request->setDocType($DocType);                           
-				$request->setDocCode($DocCode);                          
-				$request->setDocDate(date_format($dateTime, "Y-m-d"));  
-				$request->setSalespersonCode($SalesPersonCode);        
-				$request->setCustomerCode($CustomerCode);             
-				$request->setCustomerUsageType($EntityUseCode);      
-				$request->setDiscount($Discount);                	
-				$request->setPurchaseOrderNo($PurchaseOrderNo);    
-				$request->setExemptionNo($ExemptionNo);           
-				$request->setDetailLevel(DetailLevel::$Tax);     
-				$request->setLocationCode($LocationCode);       
-				$request->setCommit(FALSE);                    
+				$dateTime = new DateTime();
+				//$request->setDocDate($DocDate);
+				$request->setCompanyCode($CompanyCode);
+				$request->setDocType($DocType);
+				$request->setDocCode($DocCode);
+				$request->setDocDate(date_format($dateTime, "Y-m-d"));
+				$request->setSalespersonCode($SalesPersonCode);
+				$request->setCustomerCode($CustomerCode);
+				$request->setCustomerUsageType($EntityUseCode);
+				$request->setDiscount($Discount);
+				$request->setPurchaseOrderNo($PurchaseOrderNo);
+				$request->setExemptionNo($ExemptionNo);
+				$request->setDetailLevel(DetailLevel::$Tax);
+				$request->setLocationCode($LocationCode);
+				$request->setCommit(FALSE);
 
 				//Add Origin Address
-				$origin = new Address();                      
-				$origin->setLine1($OrigAddress);              
-				$origin->setLine2("");                        
-				$origin->setCity($OrigCity);                  
-				$origin->setRegion($OrigRegion);              
-				$origin->setPostalCode($OrigPostalCode);      
-				$origin->setCountry($OrigCountry);            
-				$request->setOriginAddress($origin);          
+				$origin = new Address();
+				$origin->setLine1($OrigAddress);
+				$origin->setLine2("");
+				$origin->setCity($OrigCity);
+				$origin->setRegion($OrigRegion);
+				$origin->setPostalCode($OrigPostalCode);
+				$origin->setCountry($OrigCountry);
+				$request->setOriginAddress($origin);
 
 				// Add Destination Address
-				$destination = new Address();                 
-				$destination->setLine1($DestAddress);         
-				$destination->setLine2("");                   
-				$destination->setCity($DestCity);             
-				$destination->setRegion($DestRegion);         
-				$destination->setPostalCode($DestPostalCode); 
-				$destination->setCountry($DestCountry);       
+				$destination = new Address();
+				$destination->setLine1($DestAddress);
+				$destination->setLine2("");
+				$destination->setCity($DestCity);
+				$destination->setRegion($DestRegion);
+				$destination->setPostalCode($DestPostalCode);
+				$destination->setCountry($DestCountry);
 				$request->setDestinationAddress($destination);
-				
+
 				//
-				// Line level processing		
+				// Line level processing
 				$Ref1 = '';
 				$Ref2 = '';
 				$ExemptionNo = '';
-				$RevAcct = '';		
+				$RevAcct = '';
 				$EntityUseCode = '';
-				
-				$lines = array();		
-				$product_total = 0;			
+
+				$lines = array();
+				$product_total = 0;
 				$i = 0;
-				//$products = $this->cart->getProducts();	
+				//$products = $this->cart->getProducts();
 				//foreach ($products as $product) {
-				
+
 					//$TaxCode = $product["model"];
 					$TaxCode = "Product1";
-					$line1 = new Line();                                
+					$line1 = new Line();
 					$line1->setNo(1);//$product["product_id"]
 					$line1->setItemCode("Product1");
 					$line1->setDescription("ProductName1");
@@ -522,7 +522,7 @@ class Cart {
 					$i++;
 					//$product_total += $product['quantity'];
 				//}
-				
+
 				//$request->setLines(array($lines));
 				$request->setLines($lines);
 				$returnMessage = "";
@@ -534,14 +534,14 @@ class Cart {
 				$latency = round(microtime(true) * 1000)-$latency;
 				$this->session->data['latency'] = "" ;
 				$this->session->data['latency'] = $latency ;
-					
+
 				/************* Logging code snippet (optional) starts here *******************/
 					// System Logger starts here:
-					
+
 					$log_mode = $this->config->get('config_avatax_log');
-					
+
 					if($log_mode==1){
-					   
+
 
 						$timeStamp 			= 	new DateTime();						// Create Time Stamp
 						$params				=   '[Input: ' . ']';		// Create Param List
@@ -556,22 +556,19 @@ class Cart {
 						$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
 						$application_log->WriteSystemLogToFile();			// Log info goes to log file
 
-						
-
 						//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
 						// 	System Logger ends here
 						//	Logging code snippet (optional) ends here
 					}
-					else{}
-					
+
 					// Error Trapping
 					if ($getTaxResult->getResultCode() == SeverityLevel::$Success) {
-					
+
 						return $getTaxResult;
-						
+
 						// If NOT success - display error messages to console
-						// it is important to itterate through the entire message class        
-								  
+						// it is important to itterate through the entire message class
+
 					} else {
 						foreach ($getTaxResult->getMessages() as $msg) {
 							$returnMessage .= $msg->getName() . ": " . $msg->getSummary() . "\n";
@@ -584,9 +581,9 @@ class Cart {
 					if ($exception)
 						$returnMessage .= $exception->faultstring;
 					return 0;
-						
-				}   //Comment this line to return SOAP XML		
-			}	
+
+				}   //Comment this line to return SOAP XML
+			}
 			
 	public function add($product_id, $qty = 1, $option = array(), $recurring_id = 0) {
 		$this->data = array();

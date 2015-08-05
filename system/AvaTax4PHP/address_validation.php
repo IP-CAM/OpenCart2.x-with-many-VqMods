@@ -1,14 +1,11 @@
 <?php
-
 function AddressValidation($address_data)
 {
 	require_once('AvaTax.php');
-	
-	//new ATConfig($address_data["environment"], array('url'=>$address_data["service_url"], 'account'=>$address_data["account"],'license'=>$address_data["license"], 'trace'=> TRUE));
+
 	new ATConfig($address_data["environment"], array('url'=>$address_data["service_url"], 'account'=>$address_data["account"],'license'=>$address_data["license"],'client'=>$address_data["client"], 'trace'=> TRUE));
 
 	$client = new AddressServiceSoap($address_data["environment"]);
-	
 	$return_message = "";
 	
 	try
@@ -41,9 +38,9 @@ function AddressValidation($address_data)
 			{
 				//$return_message .= $msg->getName().": ".$msg->getSummary()."<br/>";
 				$return_message .= $msg->getSummary();
-			}	
-                        $response["msg"]=$return_message;
-                        $response["address"]="";
+			}
+			$response["msg"]=$return_message;
+			$response["address"]="";
 		}
 		else if($result->getResultCode() == SeverityLevel::$Success && $result->getValidAddresses() != "")
 		{
@@ -117,29 +114,26 @@ function AddressValidation($address_data)
 
 /*Function to fetch  in numeric format*/
 function getFieldValue($table,$fieldName,$conditionField,$conditionValue,$condition=NULL){
-if (file_exists('../../config.php')) {
-	require_once('../../config.php');
-}
-    $resArr=array();
-    $dbpreFix=DB_PREFIX;
-    
-     $qry="select $fieldName from $dbpreFix$table where $conditionField='$conditionValue' $condition";
-    $con = mysqli_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
-    if(!$con) echo "Failed to connect : " . mysqli_connect_error();
-    
-   $result=mysqli_query($con,$qry);
-    return $resArr=getSimpleArray($result,$fieldName);
-    
-    
-}
- function getSimpleArray($result,$field){
-                $arr=array();
-		while($row=mysqli_fetch_array($result))
-		{
-			$arr[]=$row["$field"];
-			
-		}
-		return $arr; 
+	if (file_exists('../../config.php')) {
+		require_once('../../config.php');
 	}
-//}
+	$resArr=array();
+	$dbpreFix=DB_PREFIX;
+
+	$qry="select $fieldName from $dbpreFix$table where $conditionField='$conditionValue' $condition";
+	$con = mysqli_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+	if(!$con) echo "Failed to connect : " . mysqli_connect_error();
+
+	$result=mysqli_query($con,$qry);
+	return $resArr=getSimpleArray($result,$fieldName);
+}
+
+function getSimpleArray($result,$field){
+	$arr=array();
+	while($row=mysqli_fetch_array($result))
+	{
+		$arr[]=$row["$field"];
+	}
+	return $arr; 
+}
 ?>

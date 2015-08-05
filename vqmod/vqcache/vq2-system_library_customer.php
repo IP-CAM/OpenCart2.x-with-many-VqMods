@@ -165,13 +165,12 @@ class Customer {
 		return $query->row['total'];
 	}
 
-			
 					 /***************************************************************************
 					 *   Last Updated On	:	05/14/2015			                            *
 					 *   Description        :   This function fetches address details from      *
 					 *                          database based on address_id                    *
 					 ***************************************************************************/
-		
+
 					public function getAddress($address_id) {
 						$address_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE address_id = '" . (int)$address_id . "'");
 

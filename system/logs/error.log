@@ -74,3 +74,7 @@
 2015-07-08 12:10:42 - PHP Notice:  Undefined variable: config_avatax_return_address_result in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1155
 2015-07-08 12:10:42 - PHP Notice:  Undefined variable: config_avatax_return_address_result in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 1165
 2015-07-13 12:23:20 - PHP Notice:  Undefined variable: time_start in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-catalog_model_account_return.php on line 440
+2015-07-31 17:37:45 - PHP Notice:  Undefined index: Development in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\ATConfig.class.php on line 27
+2015-08-03 11:42:39 - PHP Notice:  Undefined index: Development in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\ATConfig.class.php on line 27
+2015-08-03 11:44:03 - PHP Notice:  Undefined index: Development in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\ATConfig.class.php on line 27
+2015-08-03 11:46:56 - PHP Notice:  Undefined index: Development in D:\phpwork\opencart-2.0.0.0-release\system\AvaTax4PHP\classes\ATConfig.class.php on line 27

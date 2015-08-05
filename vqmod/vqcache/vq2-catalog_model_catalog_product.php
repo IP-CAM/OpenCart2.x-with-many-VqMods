@@ -360,13 +360,12 @@ class ModelCatalogProduct extends Model {
 	}
 
 
-			
-				 /***************************************************************************
-				 *   Last Updated On	:	05/14/2015			                            *
-				 *   Description        :   This function returns the discount amount of	* 
-				 *							product by product ID							*
-				 ***************************************************************************/
-			
+
+				 /***************************************************************************************************
+				 *   Last Updated On	:	05/14/2015			                            						*
+				 *   Description        :   This function returns the discounted amount of product by product ID	*
+				 ****************************************************************************************************/
+
 				public function getProductDiscountsForGivenRange($product_id, $quantity, $date) {
 					if ($this->customer->isLogged()) {
 						$customer_group_id = $this->customer->getGroupId();

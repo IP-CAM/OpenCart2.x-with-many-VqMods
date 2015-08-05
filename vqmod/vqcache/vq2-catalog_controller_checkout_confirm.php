@@ -455,13 +455,13 @@ public $tax_address_error;
 		}
 	}
 
-			
+
 				/****************************************************************************
 				*   Last Updated On		:	05/14/2015			                           	*
 				*   Description			:  	This function validates the given address		*
 				*   Description			:  	along with order info							*
 				****************************************************************************/
-			
+
 				public function AvaTaxAddressValidation($data) {
 
 					$environment = 'Development';
@@ -469,7 +469,7 @@ public $tax_address_error;
 					else $environment = 'Production';
 
 					$this->load->model('localisation/zone');
-								$zone_info = $this->model_localisation_zone->getZone($data['shipping_zone_id']);
+					$zone_info = $this->model_localisation_zone->getZone($data['shipping_zone_id']);
 
 					$address_data = array();
 					$address_data["service_url"] = $this->config->get('config_avatax_service_url');

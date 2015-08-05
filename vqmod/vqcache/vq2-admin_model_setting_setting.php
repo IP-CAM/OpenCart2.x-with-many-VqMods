@@ -40,9 +40,9 @@ class ModelSettingSetting extends Model {
 
 				/***************************************************************************
 				*   Last Updated On	   :	05/14/2015			                           				*
-				*   Description        :   avataxAddFields() function adds AvaTax fields in database.    * 
+				*   Description        :   avataxAddFields() function adds AvaTax fields in database.    *
 				****************************************************************************/
-			
+
 				public function avataxAddFields() {
 					$result = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "order` LIKE 'avatax_paytax_document_id'");
 					if($result->num_rows == 0){

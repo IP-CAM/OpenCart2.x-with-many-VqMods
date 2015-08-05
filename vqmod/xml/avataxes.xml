@@ -766,12 +766,18 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
+							<label class="col-sm-2 control-label" for="config_avatax_service_url">Admin Console link:</label>
 							<div class="col-sm-10" style="margin-top:10px">
-							<a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
+							<a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for Admin Console Production Link</a>
 							</div>
 						</div>
-					</fieldset>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_help_link">Help Center:</label>
+							<div class="col-sm-10" style="margin-top:10px">
+							<a href="https://help.avalara.com/004_AvaTax_Integrations/OpenCart" id="AvaTax Help Link" target="_blank">Click Here for Help Center Link</a>
+							</div>
+						</div>
+						</fieldset>
 				</div>
 			]]></add>
 		</operation>
@@ -2090,7 +2096,6 @@
 
 					if(!empty($order_info["shipping_address_1"]))
 					{
-
 						$DestAddress = $order_info["shipping_address_1"];
 						$DestCity = $order_info["shipping_city"];
 						$DestRegion = $order_info["shipping_zone_code"];
@@ -2099,7 +2104,6 @@
 					}
 					else
 					{
-
 						$DestAddress = $order_info["payment_address_1"];
 						$DestCity = $order_info["payment_city"];
 						$DestRegion = $order_info["payment_zone_code"];
@@ -2140,7 +2144,7 @@
 					$request->setLocationCode($LocationCode);
 					//$request->setCommit(FALSE);
 
-					//Code for paypal status
+					//Added for paypal status on 20 Apr 2015
 					if(isset($order_info["order_status_id"]) && $order_info["order_status_id"]==5 )
 						$request->setCommit(TRUE);
 					else
@@ -4519,13 +4523,6 @@
 				else {
 					$CustomerCode = $order_info->row["customer_group_id"];
 				}
-
-				//$this->load->model('localisation/country');
-
-				//$this->load->model('localisation/zone');
-
-				//$country_details = $this->model_localisation_country->getCountry($data['shipping_country_id']);
-				//$zone_details = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
 
 				$country_details = $this->getCountry($this->config->get('config_country_id'));
 				$zone_details = $this->getZone($this->config->get('config_zone_id'));

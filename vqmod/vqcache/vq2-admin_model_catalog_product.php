@@ -526,10 +526,9 @@ class ModelCatalogProduct extends Model {
 	}
 
 
-				
 					 /***************************************************************************
 					 *   Last Updated On	:	05/14/2015			                            *
-					 *   Description        :   This function returns the discount amount of	* 
+					 *   Description        :   This function returns the discount amount of	*
 					 *							product by product ID							*
 					 ***************************************************************************/
 

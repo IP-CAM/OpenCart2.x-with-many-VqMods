@@ -792,13 +792,13 @@ class ControllerSettingSetting extends Controller {
 					} else {
 						$data['config_avatax_taxcall_flag'] = $this->config->get('config_avatax_taxcall_flag');
 					}
-					
+
 					if (isset($this->request->post['config_avatax_transaction_calculation'])) {
 						$data['config_avatax_transaction_calculation'] = $this->request->post['config_avatax_transaction_calculation'];
 					} else {
 						$data['config_avatax_transaction_calculation'] = $this->config->get('config_avatax_transaction_calculation');
 					}
-		
+
 					if (isset($this->request->post['config_avatax_log'])) {
 						$data['config_avatax_log'] = $this->request->post['config_avatax_log'];
 					} else {
@@ -1406,7 +1406,7 @@ class ControllerSettingSetting extends Controller {
 					if ((utf8_strlen($this->request->post['config_postal_code']) < 5) || (utf8_strlen($this->request->post['config_postal_code']) > 10)) {
 						$this->error['postal_code'] = $this->language->get('error_postal_code');
 					}
-	
+
 					if(isset($this->request->post['config_zone_id']) && !($this->request->post['config_zone_id']>0))
 					{
 						$this->error['zone_id'] = $this->language->get('error_zone_id');

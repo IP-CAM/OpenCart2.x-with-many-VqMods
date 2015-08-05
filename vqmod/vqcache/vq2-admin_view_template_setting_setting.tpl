@@ -86,7 +86,7 @@
 						<input type="text" name="config_address_line2" value="<?php echo $config_address_line2; ?>" placeholder="Address Line 2" id="config_address_line2" class="form-control" />
 					</div>
 			    </div>
-  
+
 				<div class="form-group required">
 					<label class="col-sm-2 control-label" for="config_city">City:</label>
 					<div class="col-sm-10">
@@ -96,7 +96,7 @@
 							<?php } ?>
 					</div>
 				</div>
-			  
+
 			  <div class="form-group">
 					<label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
 					<div class="col-sm-10">
@@ -118,7 +118,7 @@
 					</select>
 				</div>
 			  </div>
-	  
+
 			   <div class="form-group required">
 					<label class="col-sm-2 control-label" for="config_postal_code">Postal Code:</label>
 					<div class="col-sm-10">
@@ -132,8 +132,8 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input type="button" id="validateAddress" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input> 
-									<input type='hidden' id='validAddressData' name='validAddressData'>									
+                                    <input type="button" id="validateAddress" data-loading-text="Loading..." class="btn btn-primary" value="Validate Address"></input>
+									<input type='hidden' id='validAddressData' name='validAddressData'>
                                 </div>
                            </div>
 
@@ -151,7 +151,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input> 
+                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input>
                                 </div>
                            </div>
 					<?php	}	?>
@@ -1088,10 +1088,10 @@
 					<div class="tab-pane" id="tab-avalara">
 						<fieldset>
 						<legend>Avalara Credentials</legend>
-			
+
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   Added account number option in Avalara tab   								* 
+						 *   Description        :   Added account number option in Avalara tab   								*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -1100,10 +1100,10 @@
 								<input type="text" name="config_avatax_account" value="<?php echo $config_avatax_account; ?>" placeholder="Account Number" id="config_avatax_account" class="form-control" />
 							</div>
 						</div>
-			
+
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   Added License Key option in Avalara tab   								* 
+						 *   Description        :   Added License Key option in Avalara tab   								*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -1115,12 +1115,12 @@
 
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   Assigned unique client key of connector.    								* 
+						 *   Description        :   Assigned unique client key of connector.    								*
 						 *****************************************************************************************************-->
 
 						 <?php $version = "OpenCart||".VERSION."||02.00.02.00";	?>
 						<input type="hidden" name="config_avatax_client" value="<?=$version?>" id="config_avatax_client" />
-			
+
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="input-country">Service URL:</label>
 							<div class="col-sm-10">
@@ -1135,10 +1135,10 @@
 								</select>
 							</div>
 						</div>
-	
+
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   Option added to Avalara tab. Clicking on test connection button, avatax_test_connection.php page will be called to test the connection. Service URL, account number, license key will be passed to check whether user has enetered proper credentials.      																* 
+						 *   Description        :   Option added to Avalara tab. Clicking on test connection button, avatax_test_connection.php page will be called to test the connection. Service URL, account number, license key will be passed to check whether user has enetered proper credentials.      																*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -1147,10 +1147,10 @@
 								<a href="javascript:;" id="AvaTaxTestConnection" ><img src="view/image/Avatax_test_connection.png" title="AvaTax Tax - Test Connection" alt="AvaTax Tax - Test Connection" /></a>
 							</div>
 						</div>
-					
+
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   Enter AvaTax admin console company name here. 								* 
+						 *   Description        :   Enter AvaTax admin console company name here. 								*
 						 *****************************************************************************************************-->
 
 						<div class="form-group" style="display:none;" id="config_avatax_company_code_div">
@@ -1171,7 +1171,7 @@
 
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   If enabled, AvaTax functions will be calculated & tax will be calculated.	* 
+						 *   Description        :   If enabled, AvaTax functions will be calculated & tax will be calculated.	*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -1184,7 +1184,7 @@
 							  <?php } else { ?>
 							  <input type="radio" name="config_avatax_tax_calculation" id="config_avatax_tax_calculation_yes" value="1" />
 							  <?php echo $text_yes; ?>
-							  
+
 							  <?php } ?>
 							</label>
 							<label class="radio-inline">
@@ -1198,16 +1198,16 @@
 							</label>
 						  </div>
 						</div>
-						
+
 						<div class="form-group">&nbsp;</div>
 						</fieldset>
-						
+
 					<fieldset>
 						<legend>Address Validation Settings</legend>
 
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   If enabled, AddressValidation() service will be called to validate the address. Address validation button will be available on store address & customer address in admin panel					* 
+						 *   Description        :   If enabled, AddressValidation() service will be called to validate the address. Address validation button will be available on store address & customer address in admin panel					*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -1220,7 +1220,7 @@
 							  <?php } else { ?>
 							  <input type="radio" name="config_avatax_tax_address_validation" value="1" />
 							  <?php echo $text_yes; ?>
-							  
+
 							  <?php } ?>
 							</label>
 							<label class="radio-inline">
@@ -1237,10 +1237,10 @@
 
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	07/13/2015			                            							*
-						 *   Description        :   Added an option to return results in upper case.   							* 
+						 *   Description        :   Added an option to return results in upper case.   							*
 						 *   AddressValidation() service will return results in Upper case if this option is enabled else deafult case	*
 						 *****************************************************************************************************-->
-						 
+
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Return results in upper case:</label>
 							<div class="col-sm-10">
@@ -1251,7 +1251,7 @@
 							  <?php } else { ?>
 							  <input type="radio" name="config_avatax_return_address_result" value="1" />
 							  <?php echo $text_yes; ?>
-							  
+
 							  <?php } ?>
 							</label>
 							<label class="radio-inline">
@@ -1290,7 +1290,7 @@
 							</select>
 							</div>
 						</div>
-						
+
 						<div class="form-group">&nbsp;</div>
 						</fieldset>
 
@@ -1312,7 +1312,7 @@
 								<?php } else { ?>
 								<input type="radio" name="config_avatax_transaction_calculation" id="config_avatax_transaction_calculation" value="1" />
 								<?php echo $text_yes; ?>
-							  
+
 								<?php } ?>
 								</label>
 								<label class="radio-inline">
@@ -1342,7 +1342,7 @@
 								<?php } else { ?>
 								<input type="radio" name="config_avatax_log" id="config_avatax_log" value="1" />
 								<?php echo $text_yes; ?>
-							  
+
 								<?php } ?>
 							</label>
 							<label class="radio-inline">
@@ -1356,11 +1356,11 @@
 							</label>
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Send Model Number/UPC/SKU to AvaTax:</label>
 							<div class="col-sm-10">
-								<label class="radio-inline">	
+								<label class="radio-inline">
 								<?php if (($config_avatax_product_code<>"UPC") && ($config_avatax_product_code<>"SKU")) { ?>
 								<input type="radio" name="config_avatax_product_code" id="config_avatax_product_code" value="Model" checked="checked" />
 								<?php echo "Model"; ?>
@@ -1405,16 +1405,16 @@
 								&nbsp;&nbsp;<img src="../image/question.jpg" title="If UPC/SKU is not available then Model Number will be sent to AvaTax by default">
 							</div>
 						</div>
-			
+
 						<div class="form-group">
 							<div class="col-sm-10">
 								<input type="hidden" name="config_avatax_taxcall_flag" id="config_avatax_taxcall_flag" value="0" />
 							</div>
 						</div>
-					
+
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	07/07/2015			                            							*
-						 *   Description        :   Added logo button to test connection window as per ticket - CONNECT-2717.   * 
+						 *   Description        :   Added logo button to test connection window as per ticket - CONNECT-2717.   *
 						 *  Called AvaTaxTestConnectionDialog() jquery function on click event to handle dialog box. 			*
 						 *****************************************************************************************************-->
 
@@ -1453,12 +1453,18 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_service_url">AvaTax Admin Console link:</label>
+							<label class="col-sm-2 control-label" for="config_avatax_service_url">Admin Console link:</label>
 							<div class="col-sm-10" style="margin-top:10px">
-							<a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for AvaTax Production Admin Console</a>
+							<a href="https://admin-avatax.avalara.net/login.aspx" id="AvaTax Production Admin Console" target="_blank">Click Here for Admin Console Production Link</a>
 							</div>
 						</div>
-					</fieldset>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_help_link">Help Center:</label>
+							<div class="col-sm-10" style="margin-top:10px">
+							<a href="https://help.avalara.com/004_AvaTax_Integrations/OpenCart" id="AvaTax Help Link" target="_blank">Click Here for Help Center Link</a>
+							</div>
+						</div>
+						</fieldset>
 				</div>
 			
             <div class="tab-pane" id="tab-image">
@@ -2109,9 +2115,9 @@ $('select[name=\'config_country_id\']').trigger('change');
 					</script>
 
 					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-				
+
 					<script type="text/javascript"><!--
-					$('#validateAddress').click(function() { 
+					$('#validateAddress').click(function() {
 						$.ajax({
 							url: '../system/AvaTax4PHP/avatax_address_validation.php',
 							type: 'post',
@@ -2128,14 +2134,14 @@ $('select[name=\'config_country_id\']').trigger('change');
 									//alert(validaddress);
 									//document.getElementById('validAddressData').value=json.address;
 									validatedAddress = "<p>Do you want to update this address?</p><p><div style='align:left; float:left;'>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"<br><br></div><div style='align:right; float:right;margin-left:40px;'>Validated Address - <br><strong>Line 1 </strong>-  "+validaddress.Line1+"<br><strong>Line 2 </strong>- "+validaddress.Line2+"<br><strong>City </strong>- "+validaddress.City+"<br><strong>Postal Code </strong>-  "+validaddress.PostalCode+"<br><strong>Region </strong>- "+validaddress.Region_name+"<br><strong>Country </strong>- "+validaddress.Country_name+"<br><br></div></p>";
-									
+
 									jQuery_1_8_16("#AvaTaxStoreAddressValidateDialog").html(validatedAddress).dialog({
 										title: "<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation",
 										resizable: true,
 										modal: true,
 										width: 'auto',
 										buttons: {
-											"Apply": function() 
+											"Apply": function()
 											{
 												$('#config_address').val(validaddress.Line1);
 												$('#config_address_line2').val(validaddress.Line2);
@@ -2146,14 +2152,14 @@ $('select[name=\'config_country_id\']').trigger('change');
 												//jQuery_1_8_16('#AvaTaxStoreAddressValidateDialog').dialog('close');
 												jQuery_1_8_16( this ).dialog( "close" );
 											},
-											"Cancel": function() 
+											"Cancel": function()
 											{
 												jQuery_1_8_16( this ).dialog( "close" );
 											}
-										}												
+										}
 										});
 									}
-									else 
+									else
 									{
 										invalidStoreAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"</div>";
 
@@ -2162,23 +2168,23 @@ $('select[name=\'config_country_id\']').trigger('change');
 											resizable: true,
 											modal: true,
 											buttons: {
-												"Ok": function() 
+												"Ok": function()
 												{
 													jQuery_1_8_16( this ).dialog( "close" );
 												}
 											}
-										});								
+										});
 									}
 								}
 							});
 						});
-                                    
+
 						$('#config_avatax_tax_calculation_yes').click(function() {
-							
+
 							if($("#config_avatax_account").val()=="") {
 								alert("AvaTax Account Number should not empty.");
 								$("#config_avatax_tax_calculation_no").prop("checked", true);
-								$("#config_avatax_account").focus();				
+								$("#config_avatax_account").focus();
 							}
 							else if($("#config_avatax_license_key").val()=="") {
 								alert("AvaTax License Key should not empty.");
@@ -2194,12 +2200,12 @@ $('select[name=\'config_country_id\']').trigger('change');
 								alert("AvaTax Company Name should not empty.");
 								$("#config_avatax_tax_calculation_no").prop("checked", true);
 								$("#config_avatax_company_code").focus();
-							}	
-							if(($("#config_address").val()=="") || ($("#config_city").val()=="") ||($("#config_country_id").val()=="") ||($("#config_zone_id").val()=="") ||($("#config_postal_code").val()==""))	
+							}
+							if(($("#config_address").val()=="") || ($("#config_city").val()=="") ||($("#config_country_id").val()=="") ||($("#config_zone_id").val()=="") ||($("#config_postal_code").val()==""))
 							{
-								alert("Store Address Line 1, City, Country, Region and Postal Code are required!\n\n Without these values we are not enable the AvaTax Tax Calculation.\n\n So, Please make sure above mentioned fields are filled on the General Tab section.");				
+								alert("Store Address Line 1, City, Country, Region and Postal Code are required!\n\n Without these values we are not enable the AvaTax Tax Calculation.\n\n So, Please make sure above mentioned fields are filled on the General Tab section.");
 								//$('#EnableAvaTaxValidation').html('Store Address Line 1, City, Country, Region and Postal Code are required!<br/> Without these values we are not enable the AvaTax Tax Calculation.<br/> So, Please make sure above mentioned fields are filled on the General Tab section.');
-								//$('#EnableAvaTaxValidation').dialog();				
+								//$('#EnableAvaTaxValidation').dialog();
 								$("#config_avatax_tax_calculation_no").prop("checked", true);
 							}
 						});
@@ -2224,7 +2230,7 @@ $('select[name=\'config_country_id\']').trigger('change');
 							else
 							{
 								jQuery_1_8_16('#AvaTaxTestConnectionDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
-								
+
 								jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog();
 
 								var accountVal = $("#config_avatax_account").val();
@@ -2236,13 +2242,13 @@ $('select[name=\'config_country_id\']').trigger('change');
 
 								if($("#config_avatax_service_url").val()=="https://development.avalara.net")
 									environment = "Development";
-								else 
+								else
 									environment = "Production";
 
 								/****************************************************************************************************
 								*   Last Updated On	:	07/27/2015			                            							*
 								* 	 Ticket - https://avalara.atlassian.net/browse/CONNECT-2717
-								*   Description        :   Removed service URL to be passed from query string. When we pass URL with https, customer is not able to get success/fail message in test connection dialog box. 
+								*   Description        :   Removed service URL to be passed from query string. When we pass URL with https, customer is not able to get success/fail message in test connection dialog box.
 								*****************************************************************************************************/
 
 								/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_test_connection.php?from=AvaTaxConnectionTest&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&client="+ client, {q: ""}, function(data){
@@ -2250,7 +2256,7 @@ $('select[name=\'config_country_id\']').trigger('change');
 								$("#config_avatax_company_code").empty();
 									if(data.length >0) {
 										jQuery_1_8_16('#AvaTaxTestConnectionDialog').html(data);
-										
+
 										if(data.indexOf("Success")>0)
 										{
 											//alert('in if');
@@ -2264,7 +2270,7 @@ $('select[name=\'config_country_id\']').trigger('change');
 														_select.append(
 																$('<option></option>').val(index).html(value)
 															);
-													});	
+													});
 
 													$('#config_avatax_company_code').append(_select.html());
 													var company_code = document.getElementById("config_avatax_company_code_value").value;

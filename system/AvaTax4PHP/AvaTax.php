@@ -8,6 +8,8 @@
 /**
  * Defines class loading search path.
  */
+/*Added spl_autoload_register(function ($class_name) on 10 Mar 2015 by Vijay. 
+As newer version of PHP & OpenCart are not supporting function __autoload($class_name).*/
  
 spl_autoload_register(function ($class_name)
 { 	
@@ -95,9 +97,5 @@ function getCurrentDate()
 {
 	$dateTime=new DateTime();
 	return $dateTime->format("Y-m-d");
-} 
-
-
-
-
+}
 ?>
