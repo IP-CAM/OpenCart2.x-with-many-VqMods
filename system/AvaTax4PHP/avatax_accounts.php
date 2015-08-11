@@ -13,7 +13,7 @@ function AccountValidation()
 
 	new ATConfig($environment, array('url'=>$development_url, 'account'=>$account,'license'=>$license,'client'=>$client, 'trace'=> TRUE));
 
-	$client = new AccountServiceSoap("Development");
+	$client = new AccountServiceSoap($environment);
 	
 	$return_message = "";
 	

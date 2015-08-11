@@ -1,2 +1,0 @@
-Calc Time - Class Name: (Tax) Method Name: (Tax::AvaTaxAmount) Start Time: (18:27:54:04559) - End Time: (18:27:55:55444) Time Difference: 1.508
-Connector Time - Class Name: (Tax) Method Name: (Tax::getRates) Start Time: (18:27:54:00159) - End Time: (18:27:55:56544) Time Difference: 1.563

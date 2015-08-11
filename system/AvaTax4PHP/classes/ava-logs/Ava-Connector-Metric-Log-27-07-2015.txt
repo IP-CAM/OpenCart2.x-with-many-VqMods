@@ -1,4 +1,0 @@
-2015-07-27 05:42:20 pm - INFO --> CONNECTOR METRICS  Type - GetTax SalesOrder    Line Count - 3   DOCNO - taxphp   Connector Latency - 5037
-2015-07-27 05:42:20 pm - INFO --> CONNECTOR METRICS  Type - GetTax SalesOrder    Line Count - 3   DOCNO - taxphp   Connector - 126
-2015-07-27 06:05:53 pm - INFO --> CONNECTOR METRICS  Type - GetTax SalesInvoice    Line Count - 3   DOCNO - 481   Connector Latency - 4248
-2015-07-27 06:05:53 pm - INFO --> CONNECTOR METRICS  Type - GetTax SalesInvoice    Line Count - 3   DOCNO - 481   Connector - 68

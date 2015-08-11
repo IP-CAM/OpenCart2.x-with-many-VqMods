@@ -390,6 +390,51 @@
 			]]></add>
 		</operation>
 		<operation>
+			<!--************************************************************************************************************************
+			*   Last Updated On		:	08/11/2015			                            												*
+			*   Description        	:   Added Country & State drop down data for self provisioning - In new account creation form   	*
+			*************************************************************************************************************************-->
+			<search position="before" ><![CDATA[$('select[name=\'config_country_id\']').trigger('change');]]></search>
+			<add><![CDATA[
+			$('select[name=\'config_avatax_newaccount_address_country\']').on('change', function() {
+			$.ajax({
+				url: 'index.php?route=setting/setting/country&token=<?php echo $token; ?>&country_id=' + this.value,
+				dataType: 'json',
+				beforeSend: function() {
+					$('select[name=\'config_avatax_newaccount_address_country\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+				},
+				complete: function() {
+					$('.fa-spin').remove();
+				},
+				success: function(json) {
+			  $('.fa-spin').remove();
+
+					html = '<option value=""><?php echo $text_select; ?></option>';
+
+					if (json['zone'] != '') {
+						for (i = 0; i < json['zone'].length; i++) {
+				  html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+
+							if (json['zone'][i]['zone_id'] == '<?php echo $config_avatax_newaccount_address_state; ?>') {
+					html += ' selected="selected"';
+				  }
+
+				  html += '>' + json['zone'][i]['name'] + '</option>';
+						}
+					} else {
+						html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';
+					}
+
+					$('select[name=\'config_avatax_newaccount_address_state\']').html(html);
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		});
+		]]></add>
+		</operation>
+		<operation>
 			<!--Avalara tab added in opencart admin panel configuration screen-->
 			<search position="after" ><![CDATA[<li><a href="#tab-option" data-toggle="tab"><?php echo $tab_option; ?></a></li>]]></search>
 				<add><![CDATA[<li><a href="#tab-avalara" data-toggle="tab">Avalara</a></li>]]></add>
@@ -399,6 +444,206 @@
 			<search position="before"><![CDATA[<div class="tab-pane" id="tab-image">]]></search>
 				<add><![CDATA[
 					<div class="tab-pane" id="tab-avalara">
+						<fieldset>
+						<div name="config_avatax_main_screen" id="config_avatax_main_screen">
+							<div style="margin-bottom:30px;"><font size="3"><strong>Already have an Avalara Account?</strong></font>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" style="width:100px;" id="button_config_avatax_existing_account" onClick="javascript:document.getElementById('tab-avalara-existing-user').style.display = 'block';document.getElementById('tab-avalara-new-user').style.display = 'none';document.getElementById('config_avatax_main_screen').style.display = 'none';" data-loading-text="Loading..." class="btn btn-primary" value="Sign In"></input></div>
+
+							<div><font size="3"><strong>New to Avalara? Let's sign you up!</strong></font> &nbsp;&nbsp;<input type="button" style="width:100px;" id="button_config_avatax_existing_account" onClick="javascript:document.getElementById('tab-avalara-existing-user').style.display = 'none';document.getElementById('tab-avalara-new-user').style.display = 'block';document.getElementById('config_avatax_main_screen').style.display = 'none';" data-loading-text="Loading..." class="btn btn-primary" value="Sign Up"></input><br>30 days free trial. No credit card required.</div>
+						</div>
+						</fieldset>
+
+						<div class="tab-pane" id="tab-avalara-new-user" style="display:none;">
+						<fieldset>
+						<legend>Company Profile</legend>
+						<p>Please fill below information to create your <strong>free trial</strong> account.</p>
+						<p>Lets' make sure we have the right info to get you quickly setup!</p><br>
+						 <div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_company">Company Name</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_company" placeholder="Company Name" id="config_avatax_newaccount_company" class="form-control" />
+							</div>
+						</div>
+							
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_tin">Business Tax Identification Number (TIN)</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_tin" placeholder="TIN (US Companies)" id="config_avatax_newaccount_tin" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_bin">Business Identification Number (BIN)</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_bin" placeholder="BIN (International Companies BIN or VAT #)" id="config_avatax_newaccount_bin" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_line1">Address</label>
+							<div class="col-sm-10"></div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_line1">Line 1</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_address_line1" placeholder="Address Line 1" id="config_avatax_newaccount_address_line1" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_line2">Line 2</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_address_line2" placeholder="Address Line 2" id="config_avatax_newaccount_address_line2" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_line3">Line 3</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_address_line3" placeholder="Address Line 3" id="config_avatax_newaccount_address_line3" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_city">City</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_address_city" placeholder="City" id="config_avatax_newaccount_address_city" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_country">Country</label>
+							<div class="col-sm-10">
+								<select name="config_avatax_newaccount_address_country" id="input-avatax-country" class="form-control">
+									<?php foreach ($countries as $country) { ?>
+										<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+									<?php } ?>
+							  </select>
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_state">Region / State</label>
+							<div class="col-sm-10">
+								<select name="config_avatax_newaccount_address_state" id="input-avatax-zone" class="form-control">
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_zip">Zip / Postal Code</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_address_zip" placeholder="Zip / Postal Code" id="config_avatax_newaccount_address_zip" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact">Primary Contact</label>
+							<div class="col-sm-10"></div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_title">Title</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_phone" placeholder="Title" id="config_avatax_newaccount_contact_title" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_firstname">First Name</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_firstname" placeholder="First Name" id="config_avatax_newaccount_contact_firstname" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_lastname">Last Name</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_lastname" placeholder="Last Name" id="config_avatax_newaccount_contact_lastname" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_email">Email Address</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_email" placeholder="Email Address" id="config_avatax_newaccount_contact_email" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group required">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_phone">Phone Number</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_phone" placeholder="Phone Number" id="config_avatax_newaccount_contact_phone" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_mobile">Mobile Phone Number</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_mobile" placeholder="Mobile Phone Number" id="config_avatax_newaccount_contact_mobile" class="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_fax">Fax</label>
+							<div class="col-sm-10">
+								<input type="text" name="config_avatax_newaccount_contact_fax" placeholder="Fax" id="config_avatax_newaccount_contact_fax" class="form-control" />
+							</div>
+						</div>
+						<p>&nbsp;</p>
+						</fieldset>
+						
+						<fieldset>
+						<legend>Where Should You Collect Tax?</legend>
+						 <div>Looking at your company address, we'll create nexus for you for below address</div>
+						 <div class="form-group">
+
+							<label class="col-sm-2 control-label" for="config_avatax_license_key">Country</label>
+							<div class="col-sm-10">
+								<label class="col-sm-2 control-label" for="config_avatax_license_key">Store Country Name</label>
+							</div>
+						 </div>
+
+						 <div class="form-group">
+							<label class="col-sm-2 control-label" for="config_avatax_license_key">State / Province</label>
+							<div class="col-sm-10">
+								<label class="col-sm-2 control-label" for="config_avatax_license_key">Store State Address</label>
+							</div>
+						 </div>
+							
+							<p>&nbsp;</p>
+							<p><strong>If you need to collect tax in more locations, visit Avalara Customer Portal.</strong></p>
+						</fieldset>
+						
+						<fieldset>
+						<p>&nbsp;</p>
+						<div id="submit-new-user-button" align="center"><input type="button" name="submit" value="Setup Account" onClick="document.getElementById('tab-avalara-new-user-credentials').style.display = 'block';document.getElementById('submit-new-user-button').style.display = 'none';">
+						<input type="reset" name="reset" value="Reset">
+						</div>
+						</fieldset>
+					
+						<div id="tab-avalara-new-user-credentials" style="display:none;">
+						<fieldset>
+						<legend>Here Are Your Avalara Credentials</legend>
+						<p><strong>Here are your login credentials for Avalara account:</strong></p>
+						<p><strong>Avalara Account ID:</strong> xxxxxxxxx<br>
+						<strong>License Key:</strong> xxxxxxxxxxxxxx<br>
+						<strong>User ID:</strong> xxxxxxxxxxxxxx<br>
+						<strong>Temporary Password:</strong> xxxxxxxxxxxx</p>
+						<p>AvaTax Customer Portal URL:</strong> <a href="https://avatax.avalara.net">https://avatax.avalara.net</a></p>
+						<p><strong>Please note:</strong> Updates to your Admin Console password and profile can be made from Settings > Manage My Information. Upon logging into the Admin Console, you will be prompted to change your temporary password.</p>
+						<p>Best Regards,<br>
+						Avalara Customer Care Team<br>
+						Email: support@avalara.com<br>
+						Phone: 1-877-780-4848</p>
+						<p>By clicking get started you are indicating you have read and agree to our terms of services.</p>
+						<p><input type="button" value="Get Started" onClick="document.getElementById('tab-avalara-existing-user').style.display = 'block';document.getElementById('tab-avalara-new-user').style.display = 'none';" /></p>
+						</div>
+						</fieldset>
+
+					</div>
+
+					<div class="tab-pane" id="tab-avalara-existing-user" style="display:none;">
 						<fieldset>
 						<legend>Avalara Credentials</legend>
 
@@ -778,6 +1023,7 @@
 							</div>
 						</div>
 						</fieldset>
+						</div>
 				</div>
 			]]></add>
 		</operation>
@@ -2045,7 +2291,6 @@
 					}
 					return $Product_price_taxcode;
 				}
-
 
 				/****************************************************************************
 				*   Last Updated On		:	05/14/2015			                           	*
@@ -3655,8 +3900,6 @@
 
 							$application_log->AddSystemLog($timeStamp->format('Y-m-d H:i:s'), __FUNCTION__, __CLASS__, __METHOD__, __FILE__, $u_name, $params, $client->__getLastResponse());		// Create System Log
 							$application_log->WriteSystemLogToFile();			// Log info goes to log file
-
-
 
 							//	$application_log->WriteSystemLogToDB();							// Log info goes to DB
 							// 	System Logger ends here
