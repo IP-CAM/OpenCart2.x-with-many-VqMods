@@ -214,6 +214,12 @@
 						$data['config_avatax_license_key'] = $this->config->get('config_avatax_license_key');
 					}
 
+					if (isset($this->request->post['config_avatax_company_code_value_array'])) {
+						$data['config_avatax_company_code_value_array'] = $this->request->post['config_avatax_company_code_value_array'];
+					} else {
+						$data['config_avatax_company_code_value_array'] = $this->config->get('config_avatax_company_code_value_array');
+					}
+
 					if (isset($this->request->post['config_avatax_client'])) {
 						$data['config_avatax_client'] = $this->request->post['config_avatax_client'];
 					} else {
@@ -383,7 +389,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input type="button" class="btn btn-primary" value="Validate Address" OnClick="alert('Please enable AvaTax Address Validation Service');"></input>
+                                    <input type="button" class="btn btn-primary" id="validateaddress_error" value="Validate Address"><span id="validateaddress_error_dialog" title="<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation" style="display:none;">AvaTax Address Validation Service is not enabled. Please enable it in Avalara Panel.</span></input>
                                 </div>
                            </div>
 					<?php	}	?>
@@ -426,12 +432,19 @@
 					}
 
 					$('select[name=\'config_avatax_newaccount_address_state\']').html(html);
+					$('#config_avatax_account_nexus_country').text($('#config_avatax_newaccount_address_country option:selected').text());
+					$('#config_avatax_account_nexus_state').text("");
 				},
 				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
 		});
+
+		$("#config_avatax_newaccount_address_state").change(function () {
+			$('#config_avatax_account_nexus_state').text($('#config_avatax_newaccount_address_state option:selected').text());
+		});
+		//$('select[name=\'config_avatax_newaccount_address_country\']').trigger('change');
 		]]></add>
 		</operation>
 		<operation>
@@ -448,26 +461,46 @@
 						<div name="config_avatax_main_screen" id="config_avatax_main_screen">
 							<div style="margin-bottom:30px;"><font size="3"><strong>Already have an Avalara Account?</strong></font>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" style="width:100px;" id="button_config_avatax_existing_account" onClick="javascript:document.getElementById('tab-avalara-existing-user').style.display = 'block';document.getElementById('tab-avalara-new-user').style.display = 'none';document.getElementById('config_avatax_main_screen').style.display = 'none';" data-loading-text="Loading..." class="btn btn-primary" value="Sign In"></input></div>
 
-							<div><font size="3"><strong>New to Avalara? Let's sign you up!</strong></font> &nbsp;&nbsp;<input type="button" style="width:100px;" id="button_config_avatax_existing_account" onClick="javascript:document.getElementById('tab-avalara-existing-user').style.display = 'none';document.getElementById('tab-avalara-new-user').style.display = 'block';document.getElementById('config_avatax_main_screen').style.display = 'none';" data-loading-text="Loading..." class="btn btn-primary" value="Sign Up"></input><br>30 days free trial. No credit card required.</div>
+							<div><font size="3"><strong>New to Avalara? Let's sign you up!</strong></font> &nbsp;&nbsp;<input type="button" style="width:100px;" id="button_config_avatax_existing_account" onClick="javascript:document.getElementById('tab-avalara-existing-user').style.display = 'none';document.getElementById('tab-avalara-new-user').style.display = 'block';document.getElementById('config_avatax_main_screen').style.display = 'none';fillNewAccountForm();" data-loading-text="Loading..." class="btn btn-primary" value="Sign Up"></input><br>30 days free trial. No credit card required.</div>
 						</div>
 						</fieldset>
 
+						<div class="tab-pane" id="tab-avalara-new-user-credentials" style="display:none;">
+						<legend>Here Are Your Avalara Credentials</legend>
+						<fieldset>
+						<div id="avalara-new-user-account-status" style="display:none;"></div>
+						</fieldset>
+						<fieldset>
+						<div id="avalara-new-user-account-credentials" style="display:none;">
+						<input type="hidden" name="avalara_new_license_key" id="avalara_new_license_key">
+						<input type="hidden" name="avalara_new_account_id" id="avalara_new_account_id">
+						</div>
+						</div>
+
 						<div class="tab-pane" id="tab-avalara-new-user" style="display:none;">
 						<fieldset>
+						<legend>Avalara Subscription - Free Trial</legend><br>
+						</fieldset>
+
+						<fieldset>
 						<legend>Company Profile</legend>
-						<p>Please fill below information to create your <strong>free trial</strong> account.</p>
+						<p>Please fill below information to create your account.</p>
 						<p>Lets' make sure we have the right info to get you quickly setup!</p><br>
-						 <div class="form-group">
+						
+						<div class="form-group required">
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_company">Company Name</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_company" placeholder="Company Name" id="config_avatax_newaccount_company" class="form-control" />
+								<div id="config_avatax_newaccount_company_error"></div>
 							</div>
 						</div>
 							
 						<div class="form-group required">
+						<!-- It must have 9 characters -->
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_tin">Business Tax Identification Number (TIN)</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_tin" placeholder="TIN (US Companies)" id="config_avatax_newaccount_tin" class="form-control" />
+								<div id="config_avatax_newaccount_tin_error"></div>
 							</div>
 						</div>
 
@@ -479,7 +512,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_line1">Address</label>
+							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address">Address</label>
 							<div class="col-sm-10"></div>
 						</div>
 
@@ -487,6 +520,7 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_line1">Line 1</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_address_line1" placeholder="Address Line 1" id="config_avatax_newaccount_address_line1" class="form-control" />
+								<div id="config_avatax_newaccount_address_line1_error"></div>
 							</div>
 						</div>
 
@@ -508,25 +542,28 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_city">City</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_address_city" placeholder="City" id="config_avatax_newaccount_address_city" class="form-control" />
+								<div id="config_avatax_newaccount_address_city_error"></div>
 							</div>
 						</div>
 
 						<div class="form-group required">
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_country">Country</label>
 							<div class="col-sm-10">
-								<select name="config_avatax_newaccount_address_country" id="input-avatax-country" class="form-control">
+								<select name="config_avatax_newaccount_address_country" id="config_avatax_newaccount_address_country" class="form-control">
 									<?php foreach ($countries as $country) { ?>
 										<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
 									<?php } ?>
 							  </select>
+							  <div id="config_avatax_newaccount_address_country_error"></div>
 							</div>
 						</div>
 
 						<div class="form-group required">
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_state">Region / State</label>
 							<div class="col-sm-10">
-								<select name="config_avatax_newaccount_address_state" id="input-avatax-zone" class="form-control">
+								<select name="config_avatax_newaccount_address_state" id="config_avatax_newaccount_address_state" class="form-control">
 								</select>
+								<div id="config_avatax_newaccount_address_state_error"></div>
 							</div>
 						</div>
 
@@ -534,6 +571,7 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_address_zip">Zip / Postal Code</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_address_zip" placeholder="Zip / Postal Code" id="config_avatax_newaccount_address_zip" class="form-control" />
+								<div id="config_avatax_newaccount_address_zip_error"></div>
 							</div>
 						</div>
 
@@ -545,7 +583,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_title">Title</label>
 							<div class="col-sm-10">
-								<input type="text" name="config_avatax_newaccount_contact_phone" placeholder="Title" id="config_avatax_newaccount_contact_title" class="form-control" />
+								<input type="text" name="config_avatax_newaccount_contact_title" placeholder="Title" id="config_avatax_newaccount_contact_title" class="form-control" />
 							</div>
 						</div>
 
@@ -553,6 +591,7 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_firstname">First Name</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_contact_firstname" placeholder="First Name" id="config_avatax_newaccount_contact_firstname" class="form-control" />
+								<div id="config_avatax_newaccount_contact_firstname_error"></div>
 							</div>
 						</div>
 
@@ -560,6 +599,7 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_lastname">Last Name</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_contact_lastname" placeholder="Last Name" id="config_avatax_newaccount_contact_lastname" class="form-control" />
+								<div id="config_avatax_newaccount_contact_lastname_error"></div>
 							</div>
 						</div>
 
@@ -567,6 +607,7 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_email">Email Address</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_contact_email" placeholder="Email Address" id="config_avatax_newaccount_contact_email" class="form-control" />
+								<div id="config_avatax_newaccount_contact_email_error"></div>
 							</div>
 						</div>
 
@@ -574,6 +615,7 @@
 							<label class="col-sm-2 control-label" for="config_avatax_newaccount_contact_phone">Phone Number</label>
 							<div class="col-sm-10">
 								<input type="text" name="config_avatax_newaccount_contact_phone" placeholder="Phone Number" id="config_avatax_newaccount_contact_phone" class="form-control" />
+								<div id="config_avatax_newaccount_contact_phone_error"></div>
 							</div>
 						</div>
 
@@ -598,49 +640,57 @@
 						 <div>Looking at your company address, we'll create nexus for you for below address</div>
 						 <div class="form-group">
 
-							<label class="col-sm-2 control-label" for="config_avatax_license_key">Country</label>
+							<label class="col-sm-2 control-label">Country</label>
 							<div class="col-sm-10">
-								<label class="col-sm-2 control-label" for="config_avatax_license_key">Store Country Name</label>
+								<label class="col-sm-10 control-label" id="config_avatax_account_nexus_country" style="text-align:left">Not Available</label>
 							</div>
 						 </div>
 
 						 <div class="form-group">
-							<label class="col-sm-2 control-label" for="config_avatax_license_key">State / Province</label>
+							<label class="col-sm-2 control-label">State / Province</label>
 							<div class="col-sm-10">
-								<label class="col-sm-2 control-label" for="config_avatax_license_key">Store State Address</label>
+								<label class="col-sm-10 control-label" id="config_avatax_account_nexus_state" style="text-align:left">Not Available</label>
 							</div>
 						 </div>
 							
-							<p>&nbsp;</p>
-							<p><strong>If you need to collect tax in more locations, visit Avalara Customer Portal.</strong></p>
+							<p><strong>If you need to collect tax in more locations, visit <a href="https://admin-avatax.avalara.net">Avalara Customer Portal</a>.</strong></p>
+							<p><div id="avatax-account-error" align="center" class="text-danger" style="display:block;"></div></p>
 						</fieldset>
 						
 						<fieldset>
-						<p>&nbsp;</p>
-						<div id="submit-new-user-button" align="center"><input type="button" name="submit" value="Setup Account" onClick="document.getElementById('tab-avalara-new-user-credentials').style.display = 'block';document.getElementById('submit-new-user-button').style.display = 'none';">
-						<input type="reset" name="reset" value="Reset">
-						</div>
-						</fieldset>
-					
-						<div id="tab-avalara-new-user-credentials" style="display:none;">
-						<fieldset>
-						<legend>Here Are Your Avalara Credentials</legend>
-						<p><strong>Here are your login credentials for Avalara account:</strong></p>
-						<p><strong>Avalara Account ID:</strong> xxxxxxxxx<br>
-						<strong>License Key:</strong> xxxxxxxxxxxxxx<br>
-						<strong>User ID:</strong> xxxxxxxxxxxxxx<br>
-						<strong>Temporary Password:</strong> xxxxxxxxxxxx</p>
-						<p>AvaTax Customer Portal URL:</strong> <a href="https://avatax.avalara.net">https://avatax.avalara.net</a></p>
-						<p><strong>Please note:</strong> Updates to your Admin Console password and profile can be made from Settings > Manage My Information. Upon logging into the Admin Console, you will be prompted to change your temporary password.</p>
-						<p>Best Regards,<br>
-						Avalara Customer Care Team<br>
-						Email: support@avalara.com<br>
-						Phone: 1-877-780-4848</p>
-						<p>By clicking get started you are indicating you have read and agree to our terms of services.</p>
-						<p><input type="button" value="Get Started" onClick="document.getElementById('tab-avalara-existing-user').style.display = 'block';document.getElementById('tab-avalara-new-user').style.display = 'none';" /></p>
-						</div>
-						</fieldset>
 
+					<script type="text/javascript">
+					//Once the new account cretaion form is ready, this function will fetch the auto filled values from Store & General tab and fill into this form
+					function fillNewAccountForm()
+					{
+						$('#config_avatax_newaccount_company').val($('#config_name').val());
+						$('#config_avatax_newaccount_address_line1').val($('#config_address').val());
+						$('#config_avatax_newaccount_address_line2').val($('#config_address_line2').val());
+						$('#config_avatax_newaccount_address_city').val($('#config_city').val());
+						$('#config_avatax_newaccount_address_zip').val($('#config_postal_code').val());
+
+						$('#config_avatax_newaccount_address_country').val($('#input-country option:selected').val());
+						$('select[name=\'config_avatax_newaccount_address_country\']').trigger('change');
+						//Set time out as jquery takes time to fill values in State drop down after selecting country
+						setTimeout(function(){
+							//alert($('#input-zone option:selected').val());
+							//alert($('#config_avatax_newaccount_address_state option:selected').val());
+							$('#config_avatax_newaccount_address_state').val($('#input-zone option:selected').val());
+							$('#config_avatax_account_nexus_state').text($('#input-zone option:selected').text());
+						}, 2000);
+
+						$('#config_avatax_newaccount_contact_firstname').val($('#input-owner').val());
+						$('#config_avatax_newaccount_contact_email').val($('#input-email').val());
+						$('#config_avatax_newaccount_contact_fax').val($('#input-fax').val());
+					}
+					</script>
+
+						<div align="center">
+						<input type="button" id="submit-new-account-button" data-loading-text="Loading..." class="btn btn-primary" value="Setup Account"></input>
+						<input type="reset" class="btn btn-primary" id="reset" name="reset" value="Reset"></input>
+						</div>
+	
+						</fieldset>
 					</div>
 
 					<div class="tab-pane" id="tab-avalara-existing-user" style="display:none;">
@@ -712,12 +762,29 @@
 						 *****************************************************************************************************-->
 
 						<div class="form-group" style="display:none;" id="config_avatax_company_code_div">
-							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Name:</label>
+							<label class="col-sm-2 control-label" for="config_avatax_company_code">Company Name <img src="../image/question.jpg" title="If you've not selected any Company, Default Company will be used for AvaTax Calculation">:</label>
 							<div class="col-sm-10">
 								<select name="config_avatax_company_code" id="config_avatax_company_code" class="form-control">
-								<option>Select One</option>
+								<?php
+								if(isset($config_avatax_company_code_value_array) && (trim($config_avatax_company_code_value_array)<>""))
+								{
+									$company_code_array = explode(",",$config_avatax_company_code_value_array);
+									foreach($company_code_array as $array_value)
+									{
+										$company_options_arrray = explode("-",$array_value);
+										if($company_options_arrray[0] == $config_avatax_company_code)
+											$selected = "Selected";
+										else
+											$selected = "";
+									?>
+										<option value="<?=$company_options_arrray[0]?>"<?=$selected?>><?=$company_options_arrray[1]?></option>
+									<?php	
+									}
+								}
+								?>
 								</select>
 								<input type="hidden" id="config_avatax_company_code_value" name="config_avatax_company_code_value" value="<?=$config_avatax_company_code?>">
+								<input type="hidden" id="config_avatax_company_code_value_array" name="config_avatax_company_code_value_array" value="<?php echo $config_avatax_company_code_value_array; ?>">
 							</div>
 						</div>
 
@@ -857,7 +924,7 @@
 
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If this option is disabled but tax claculation is enabled, tax will be calculated in checkout page at store front					*
+						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If disabled and tax calculation is enabled, tax will be calculated in checkout page at store front but entries will not be stored on admin console		*
 						 *****************************************************************************************************-->
 
 						 <div class="form-group">
@@ -887,9 +954,9 @@
 
 						 <!--****************************************************************************************************
 						 *   Last Updated On	:	06/02/2015			                            							*
-						 *   Description        :   If enabled, entries will be stored on AvaTax admin console. If this option is disabled but tax claculation is enabled, tax will be calculated in checkout page at store front					*
+						 *   Description        :   If enabled, log files will be genereated for each AvaTax transaction. 		*
+													Log files will be stored in system\AvaTax4PHP\classes\ava-logs folder		*
 						 *****************************************************************************************************-->
-
 						 <div class="form-group">
 							<label class="col-sm-2 control-label">Enable Log:</label>
 							<div class="col-sm-10">
@@ -1041,6 +1108,19 @@
 					<link type="text/css" href="view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 
 					<script type="text/javascript"><!--
+					$('#validateaddress_error').click(function() {
+						$(function() {
+							jQuery_1_8_16("#validateaddress_error_dialog").dialog({
+								modal: true,
+								buttons: {
+									Ok: function() {
+										jQuery_1_8_16( this ).dialog( "close" );
+									}
+								}
+							});
+						});
+					});
+
 					$('#validateAddress').click(function() {
 						$.ajax({
 							url: '../system/AvaTax4PHP/avatax_address_validation.php',
@@ -1081,133 +1161,395 @@
 												jQuery_1_8_16( this ).dialog( "close" );
 											}
 										}
+									});
+								}
+								else
+								{
+									invalidStoreAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"</div>";
+
+									jQuery_1_8_16("<div></div>").html(invalidStoreAddress+"<br>"+json.msg).dialog({
+										title: "<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation",
+										resizable: true,
+										modal: true,
+										buttons: {
+											"Ok": function()
+											{
+												jQuery_1_8_16( this ).dialog( "close" );
+											}
+										}
+									});
+								}
+							}
+						});
+					});
+
+					function avatax_get_started_account()	{
+						$("#tab-avalara-existing-user").show();
+						$("#tab-avalara-new-user").hide();
+						$("#config_avatax_main_screen").hide();
+						$("#tab-avalara-new-user-credentials").hide();
+						$("#config_avatax_account").val($("#avalara_new_account_id").val());
+						$("#config_avatax_license_key").val($("#avalara_new_license_key").val());
+					}
+
+					$('#submit-new-account-button').click(function() {
+						var errorFlag = 0;
+
+						var validation = {
+						isEmailAddress:function(str) {
+						   var pattern =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+						   return pattern.test($("#"+str+"").val());
+						   // returns a boolean
+						},
+						isNotEmpty:function (str) {
+						   var pattern =/\S+/;
+						   return pattern.test($("#"+str+"").val());
+						   // returns a boolean
+						},
+						isNumber:function(str) {
+							var pattern = /^\d+$/;
+							return pattern.test($("#"+str+"").val());
+							// returns a boolean
+						},
+						isName:function(str) {
+							var pattern = /^[A-Za-z ]+$/;
+							return pattern.test($("#"+str+"").val());
+							// returns a boolean
+						},
+						addError:function(str) {
+							$("#"+str+"").parent().parent().addClass("has-error");
+							$("#"+str+"_error").addClass("text-danger");
+						},
+						removeError:function(str) {
+							$("#"+str+"").parent().parent().removeClass("has-error");
+							$("#"+str+"_error").removeClass("text-danger");
+							$("#"+str+"_error").text("");
+						},
+						isSame:function(str1,str2){
+						  return str1 === str2;
+						}};
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_company"))	{
+							validation.addError("config_avatax_newaccount_company");
+							$("#config_avatax_newaccount_company_error").text("Please enter your Company Name");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_company");
+						}
+						
+						if(!validation.isNotEmpty("config_avatax_newaccount_tin"))	{
+							validation.addError("config_avatax_newaccount_tin");
+							$("#config_avatax_newaccount_tin_error").text("Please enter your TIN Number");
+							errorFlag = 1;
+						}
+						else if(!validation.isNumber("config_avatax_newaccount_tin"))	{
+							validation.addError("config_avatax_newaccount_tin");
+							$("#config_avatax_newaccount_tin_error").text("Please enter numbers only in TIN");
+							errorFlag = 1;
+						}
+						else if($('#config_avatax_newaccount_tin').val().length!=9)	{
+							validation.addError("config_avatax_newaccount_tin");
+							$("#config_avatax_newaccount_tin_error").text("TIN length should be of 9 characters.");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_tin");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_address_line1"))	{
+							validation.addError("config_avatax_newaccount_address_line1");
+							$("#config_avatax_newaccount_address_line1_error").text("Please enter your Address details");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_address_line1");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_address_city"))	{
+							validation.addError("config_avatax_newaccount_address_city");
+							$("#config_avatax_newaccount_address_city_error").text("Please enter your City");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_address_city");
+						}
+
+						if($('#config_avatax_newaccount_address_country option:selected').text()=="")	{
+							validation.addError("config_avatax_newaccount_address_country");
+							$("#config_avatax_newaccount_address_country_error").text("Please enter your Country");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_address_country");
+						}
+
+						if($('#config_avatax_newaccount_address_state option:selected').text()==" --- Please Select --- ")	{
+							validation.addError("config_avatax_newaccount_address_state");
+							$("#config_avatax_newaccount_address_state_error").text("Please enter your State");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_address_state");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_address_zip"))	{
+							validation.addError("config_avatax_newaccount_address_zip");
+							$("#config_avatax_newaccount_address_zip_error").text("Please enter your Zip Code");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_address_zip");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_contact_firstname"))	{
+							validation.addError("config_avatax_newaccount_contact_firstname");
+							$("#config_avatax_newaccount_contact_firstname_error").text("Please enter your First Name");
+							errorFlag = 1;
+						}
+						else if(!validation.isName("config_avatax_newaccount_contact_firstname"))	{
+							validation.addError("config_avatax_newaccount_contact_firstname");
+							$("#config_avatax_newaccount_contact_firstname_error").text("Please enter characters only in First Name");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_contact_firstname");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_contact_lastname"))	{
+							validation.addError("config_avatax_newaccount_contact_lastname");
+							$("#config_avatax_newaccount_contact_lastname_error").text("Please enter your Last Name");
+							errorFlag = 1;
+						}
+						else if(!validation.isName("config_avatax_newaccount_contact_lastname"))	{
+							validation.addError("config_avatax_newaccount_contact_lastname");
+							$("#config_avatax_newaccount_contact_lastname_error").text("Please enter characters only in Last Name");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_contact_lastname");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_contact_email"))	{
+							validation.addError("config_avatax_newaccount_contact_email");
+							$("#config_avatax_newaccount_contact_email_error").text("Please enter your Email Address");
+							errorFlag = 1;
+						}
+						else if(!validation.isEmailAddress("config_avatax_newaccount_contact_email"))	{
+							validation.addError("config_avatax_newaccount_contact_email");
+							$("#config_avatax_newaccount_contact_email_error").text("Please enter proper Email Address");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_contact_email");
+						}
+
+						if(!validation.isNotEmpty("config_avatax_newaccount_contact_phone"))	{
+							validation.addError("config_avatax_newaccount_contact_phone");
+							$("#config_avatax_newaccount_contact_phone_error").text("Please enter your Phone Number");
+							errorFlag = 1;
+						}
+						else	{
+							validation.removeError("config_avatax_newaccount_contact_phone");
+						}
+
+						if (errorFlag == 1) {
+							$("#avatax-account-error").show();
+							$("#avatax-account-error").html("<strong>Please Fill Required Fields!!!</strong>");
+						} else {
+							//alert("information is correct");
+							//return false;
+							$.ajax({
+								url: '../system/AvaTax4PHP/avatax_create_account.php',
+								type: 'post',
+								data:'company='+$('#config_avatax_newaccount_company').val()+'&line1='+$('#config_avatax_newaccount_address_line1').val()+'&line2='+$('#config_avatax_newaccount_address_line2').val()+'&line3='+$('#config_avatax_newaccount_address_line3').val()+'&city='+$('#config_avatax_newaccount_address_city').val()+'&state='+$('#config_avatax_newaccount_address_state option:selected').text()+'&country='+$('#config_avatax_newaccount_address_country option:selected').text()+'&zip='+$('#config_avatax_newaccount_address_zip').val()+'&contact_title='+$('#config_avatax_newaccount_contact_title').val()+'&firstname='+$('#config_avatax_newaccount_contact_firstname').val()+'&lastname='+$('#config_avatax_newaccount_contact_lastname').val()+'&email='+$('#config_avatax_newaccount_contact_email').val()+'&phone='+$('#config_avatax_newaccount_contact_phone').val()+'&mobile='+$('#config_avatax_newaccount_contact_mobile').val()+'&fax='+$('#config_avatax_newaccount_contact_fax').val()+'&tin='+$('#config_avatax_newaccount_tin').val()+'&bin='+$('#config_avatax_newaccount_bin').val(),
+								beforeSend: function() {
+									$('#submit-new-account-button').button('loading');
+								},
+								complete: function() {
+									//alert('complete');
+									$('#submit-new-account-button').button('reset');
+								},
+								success:function(data)	{
+									var json = JSON.parse(data);
+									//alert(json['Status']);
+									if(json['Status']=='Success')
+									{
+										var jsonMessage = json['Message'].slice(0,-1);
+										var avataxArr = jsonMessage.split('\u000a\u000d');
+										var jsonResult = json['Result'];
+										var accountID = jsonResult['AccountId'];
+										var licenseKey = jsonResult['LicenseKey'];
+
+										$("#avalara_new_account_id").val(accountID);
+										$("#avalara_new_license_key").val(licenseKey);
+										//alert(accountID+' - '+licenseKey);
+										//alert('in success');
+										$("#tab-avalara-new-user").hide();
+										$("#tab-avalara-new-user-credentials").show();
+
+										//$("#tab-avalara-new-user-credentials").html("<strong>"+json['Result']+" - "+json['Message']+"!!!</strong>");
+										
+										$("#avalara-new-user-account-status").show().append("<ul>");
+										$.each( avataxArr, function( key, value ) {
+											$("#avalara-new-user-account-status").append("<li class='everything something' style='margin-left: 2em;'><strong>"+value+"</strong></li>");
+										});
+
+										var timeOuts = new Array();
+											var eT=800;
+											function myFadeIn(jqObj) {
+												jqObj.fadeIn('slow');
+											}
+											function clearAllTimeouts() {
+												for (key in timeOuts) {
+													clearTimeout(timeOuts[key]);
+												}
+											}
+											$('.everything').hide().each(function(index) {
+												timeOuts[index] = setTimeout(myFadeIn, index*eT, $(this));
+											});
+											clearAllTimeouts();
+											$('.everything').stop(true,true).hide();
+											$('.something').each(function(index) {
+											timeOuts[index] = setTimeout(myFadeIn, index*eT, $(this));
+										});
+										$("#avalara-new-user-account-status").append("</ul><p>&nbsp;</p>");
+										
+										setTimeout(function(){
+											$("#avalara-new-user-account-credentials").show().append("<p>Here are your login credentials for Avalara Account,</p>");
+											$("#avalara-new-user-account-credentials").append("<p><strong>Account ID: </strong>"+jsonResult['AccountId']+"<br><strong>License Key: </strong>"+jsonResult['LicenseKey']+"</p><p><strong>User ID: </strong>"+jsonResult['User']['UserName']+"<br><strong>Temporary Password: </strong>"+jsonResult['User']['TempPwd']+"</p>");
+
+											$("#avalara-new-user-account-credentials").append("<p>&nbsp;</p><p>AvaTax Customer Portal URL: <a href='https://avatax.avalara.net'>https://avatax.avalara.net</a></p>");
+
+											$("#avalara-new-user-account-credentials").append("<p><strong>Please Note: </strong>Updates to your Admin Console password and profile can be made from Settings > Manage my Information. Upon logging into the Admin Console, you will be prompted to change your temporary password</p><p>&nbsp;</p><p>Best Regards,<br>Avalara Customer Care Team<br>Email:<a href='mailto:support@avalara.com'>support@avalara.com</a><br>Phone: 1-877-780-4848<br></p><p>By clicking get started you are indicating you have read and agree to our tems of services.</p>");
+											
+											$("#avalara-new-user-account-credentials").append("<p><input type='button' id='button_avatax_page' data-loading-text='Loading...' onClick='javascript:avatax_get_started_account();' class='btn btn-primary' value='Get Started'></input></p></fieldset>");
+										}, 4000);
+									}
+									else
+									{
+										//alert('in Error');
+										$("#avatax-account-error").show();
+										$("#avatax-account-error").html("<strong>"+json['Result']+" - "+json['Message']+"!!!</strong>");
+									}
+								}
+							});
+						}
+					});
+
+					$('#config_avatax_tax_calculation_yes').click(function() {
+
+						if($("#config_avatax_account").val()=="") {
+							alert("AvaTax Account Number should not be empty.");
+							$("#config_avatax_tax_calculation_no").prop("checked", true);
+							$("#config_avatax_account").focus();
+						}
+						else if($("#config_avatax_license_key").val()=="") {
+							alert("AvaTax License Key should not be empty.");
+							$("#config_avatax_tax_calculation_no").prop("checked", true);
+							$("#config_avatax_license_key").focus();
+						}
+						else if($("#config_avatax_service_url").val()=="") {
+							alert("AvaTax Service URL should not be empty.");
+							$("#config_avatax_tax_calculation_no").prop("checked", true);
+							$("#config_avatax_service_url").focus();
+						}
+						else if($("#config_avatax_company_code").val()=="") {
+							alert("AvaTax Company Name should not be empty.");
+							$("#config_avatax_tax_calculation_no").prop("checked", true);
+							$("#config_avatax_company_code").focus();
+						}
+						if(($("#config_address").val()=="") || ($("#config_city").val()=="") ||($("#config_country_id").val()=="") ||($("#config_zone_id").val()=="") ||($("#config_postal_code").val()==""))
+						{
+							alert("Store Address Line 1, City, Country, Region and Postal Code are required!\n\n Without these values we are not enable the AvaTax Tax Calculation.\n\n So, Please make sure above mentioned fields are filled on the General Tab section.");
+							//$('#EnableAvaTaxValidation').html('Store Address Line 1, City, Country, Region and Postal Code are required!<br/> Without these values we are not enable the AvaTax Tax Calculation.<br/> So, Please make sure above mentioned fields are filled on the General Tab section.');
+							//$('#EnableAvaTaxValidation').dialog();
+							$("#config_avatax_tax_calculation_no").prop("checked", true);
+						}
+					});
+
+					function closeTestConnection()
+					{
+						jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog('close');
+					}
+					$('#AvaTaxTestConnection').click(function() {
+						if($("#config_avatax_account").val()=="") {
+							alert("Please enter AvaTax Account Number!");
+							$("#config_avatax_account").focus();
+						}
+						else if($("#config_avatax_license_key").val()=="") {
+							alert("Please enter AvaTax License Key");
+							$("#config_avatax_license_key").focus();
+						}
+						else if($("#config_avatax_service_url").val()=="") {
+							alert("Please enter AvaTax Service URL");
+							$("#config_avatax_service_url").focus();
+						}
+						else
+						{
+							jQuery_1_8_16('#AvaTaxTestConnectionDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
+
+							jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog();
+
+							var accountVal = $("#config_avatax_account").val();
+							var licenseVal = $("#config_avatax_license_key").val();
+							var serviceURLVal = $("#config_avatax_service_url").val();
+							var environment = "Development";
+							var client = '<?="OpenCart||".VERSION."||02.00.02.00";?>';
+							var log = $('input[name=config_avatax_log]:checked').val();
+
+							if($("#config_avatax_service_url").val()=="https://development.avalara.net")
+								environment = "Development";
+							else
+								environment = "Production";
+
+							/****************************************************************************************************
+							*   Last Updated On	:	07/27/2015			                            							*
+							* 	 Ticket - https://avalara.atlassian.net/browse/CONNECT-2717
+							*   Description        :   Removed service URL to be passed from query string. When we pass URL with https, customer is not able to get success/fail message in test connection dialog box.
+							*****************************************************************************************************/
+
+							/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_test_connection.php?from=AvaTaxConnectionTest&acc="+accountVal+"&license="+licenseVal+"&environment="+ environment+"&client="+ client, {q: ""}, function(data){
+
+							$("#config_avatax_company_code").empty();
+								if(data.length >0) {
+									jQuery_1_8_16('#AvaTaxTestConnectionDialog').html(data);
+
+									if(data.indexOf("Success")>0)
+									{
+										//alert('in if');
+										$('#config_avatax_company_code_div').show();
+
+										/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_accounts.php?from=AvaTaxFetchCompanies&acc="+accountVal+"&license="+licenseVal+"&environment="+ environment+"&log="+ log+"&client="+ client, {q: ""}, function(data){
+											if(data.length >0) {
+												var accountsData = JSON.parse(data);
+												var _select = $('<select>');
+												var companyArray = "Select One - Select One";
+												_select.append($('<option></option>').val("").html("Select One"));
+												$.each(accountsData, function(index, value) {
+													_select.append(
+															$('<option></option>').val(index).html(value)
+														);
+														companyArray = companyArray+","+index+"-"+value;
+												});
+
+												$('#config_avatax_company_code').append(_select.html());
+												var company_code = document.getElementById("config_avatax_company_code_value").value;
+												$("#config_avatax_company_code").val(company_code);
+												$("#config_avatax_company_code_value_array").val(companyArray);
+											}
 										});
 									}
 									else
 									{
-										invalidStoreAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#config_address').val()+"<br><strong>Line 2 </strong>- "+$('#config_address_line2').val()+"<br><strong>City </strong>- "+$('#config_city').val()+"<br><strong>Postal Code </strong>-  "+$('#config_postal_code').val()+"<br><strong>Region </strong>- "+$('#input-zone option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country option:selected').text()+"</div>";
-
-										jQuery_1_8_16("<div></div>").html(invalidStoreAddress+"<br>"+json.msg).dialog({
-											title: "AvaTax Address Validation",
-											resizable: true,
-											modal: true,
-											buttons: {
-												"Ok": function()
-												{
-													jQuery_1_8_16( this ).dialog( "close" );
-												}
-											}
-										});
+										$("#config_avatax_company_code_value_array").val("");
 									}
 								}
 							});
-						});
 
-						$('#config_avatax_tax_calculation_yes').click(function() {
-
-							if($("#config_avatax_account").val()=="") {
-								alert("AvaTax Account Number should not empty.");
-								$("#config_avatax_tax_calculation_no").prop("checked", true);
-								$("#config_avatax_account").focus();
-							}
-							else if($("#config_avatax_license_key").val()=="") {
-								alert("AvaTax License Key should not empty.");
-								$("#config_avatax_tax_calculation_no").prop("checked", true);
-								$("#config_avatax_license_key").focus();
-							}
-							else if($("#config_avatax_service_url").val()=="") {
-								alert("AvaTax Service URL should not empty.");
-								$("#config_avatax_tax_calculation_no").prop("checked", true);
-								$("#config_avatax_service_url").focus();
-							}
-							else if($("#config_avatax_company_code").val()=="") {
-								alert("AvaTax Company Name should not empty.");
-								$("#config_avatax_tax_calculation_no").prop("checked", true);
-								$("#config_avatax_company_code").focus();
-							}
-							if(($("#config_address").val()=="") || ($("#config_city").val()=="") ||($("#config_country_id").val()=="") ||($("#config_zone_id").val()=="") ||($("#config_postal_code").val()==""))
-							{
-								alert("Store Address Line 1, City, Country, Region and Postal Code are required!\n\n Without these values we are not enable the AvaTax Tax Calculation.\n\n So, Please make sure above mentioned fields are filled on the General Tab section.");
-								//$('#EnableAvaTaxValidation').html('Store Address Line 1, City, Country, Region and Postal Code are required!<br/> Without these values we are not enable the AvaTax Tax Calculation.<br/> So, Please make sure above mentioned fields are filled on the General Tab section.');
-								//$('#EnableAvaTaxValidation').dialog();
-								$("#config_avatax_tax_calculation_no").prop("checked", true);
-							}
-						});
-
-						function closeTestConnection()
-						{
-							jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog('close');
 						}
-						$('#AvaTaxTestConnection').click(function() {
-							if($("#config_avatax_account").val()=="") {
-								alert("Please enter AvaTax Account Number!");
-								$("#config_avatax_account").focus();
-							}
-							else if($("#config_avatax_license_key").val()=="") {
-								alert("Please enter AvaTax License Key");
-								$("#config_avatax_license_key").focus();
-							}
-							else if($("#config_avatax_service_url").val()=="") {
-								alert("Please enter AvaTax Service URL");
-								$("#config_avatax_service_url").focus();
-							}
-							else
-							{
-								jQuery_1_8_16('#AvaTaxTestConnectionDialog').html('<div style="text-align:center;padding-top:10px;"><img src="view/image/loading2.gif" border="0" alt="Work In Progress..." ><br/>Work In Progress...</div>');
-
-								jQuery_1_8_16('#AvaTaxTestConnectionDialog').dialog();
-
-								var accountVal = $("#config_avatax_account").val();
-								var licenseVal = $("#config_avatax_license_key").val();
-								var serviceURLVal = $("#config_avatax_service_url").val();
-								var environment = "Development";
-								var client = '<?="OpenCart||".VERSION."||02.00.02.00";?>';
-								var log = $('input[name=config_avatax_log]:checked').val();
-
-								if($("#config_avatax_service_url").val()=="https://development.avalara.net")
-									environment = "Development";
-								else
-									environment = "Production";
-
-								/****************************************************************************************************
-								*   Last Updated On	:	07/27/2015			                            							*
-								* 	 Ticket - https://avalara.atlassian.net/browse/CONNECT-2717
-								*   Description        :   Removed service URL to be passed from query string. When we pass URL with https, customer is not able to get success/fail message in test connection dialog box.
-								*****************************************************************************************************/
-
-								/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_test_connection.php?from=AvaTaxConnectionTest&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&client="+ client, {q: ""}, function(data){
-
-								$("#config_avatax_company_code").empty();
-									if(data.length >0) {
-										jQuery_1_8_16('#AvaTaxTestConnectionDialog').html(data);
-
-										if(data.indexOf("Success")>0)
-										{
-											//alert('in if');
-											$('#config_avatax_company_code_div').show();
-
-											/**/$.post("<?php if ($config_secure) {echo str_replace("admin/","system/AvaTax4PHP/", HTTPS_SERVER);} else {echo str_replace("admin/","system/AvaTax4PHP/", HTTP_SERVER);}?>avatax_accounts.php?from=AvaTaxFetchCompanies&acc="+accountVal+"&license="+licenseVal+"&serviceurl="+serviceURLVal+"&environment="+ environment+"&log="+ log+"&client="+ client, {q: ""}, function(data){
-												if(data.length >0) {
-													var accountsData = JSON.parse(data);
-													var _select = $('<select>');
-													$.each(accountsData, function(index, value) {
-														_select.append(
-																$('<option></option>').val(index).html(value)
-															);
-													});
-
-													$('#config_avatax_company_code').append(_select.html());
-													var company_code = document.getElementById("config_avatax_company_code_value").value;
-													$("#config_avatax_company_code").val(company_code);
-												}
-											});
-										}
-									}
-								});
-
-							}
-						});
-					//--></script>
+					});
+				//--></script>
 				]]></add>
 		</operation>
 	</file>
@@ -2022,11 +2364,10 @@
 			<search position="after" offset='2' ><![CDATA[$this->response->setOutput($this->load->view('default/template/checkout/confirm.tpl', $data));]]></search>
 				<add><![CDATA[
 
-				/****************************************************************************
-				*   Last Updated On		:	05/14/2015			                           	*
-				*   Description			:  	This function validates the given address		*
-				*   Description			:  	along with order info							*
-				****************************************************************************/
+				/****************************************************************************************************
+				*   Last Updated On		:	05/14/2015			                           							*
+				*   Description			:  	This function validates the given address along with order info			*
+				*****************************************************************************************************/
 
 				public function AvaTaxAddressValidation($data) {
 
@@ -5402,6 +5743,7 @@
                     <add><![CDATA[$data['avatax_service_url'] = $this->config->get('config_avatax_service_url');
 					$data["avatax_account"]=$this->config->get('config_avatax_account');
 					$data["avatax_license"]=$this->config->get('config_avatax_license_key');
+					$data["config_avatax_company_code_value_array"]= $this->config->get('config_avatax_company_code_value_array'];
 					$data["avatax_client"]=$this->config->get('config_avatax_client');
 					$data["avatax_address_validation"]=$this->config->get('config_avatax_tax_address_validation');
 					$data["avatax_return_address_result"]=$this->config->get('config_avatax_return_address_result');
@@ -5466,7 +5808,7 @@
 							invalidCustomerAddress = "<p><div>Current Address - <br><strong>Line 1 </strong>-  "+$('#input-address-1'+rowId+'').val()+"<br><strong>Line 2 </strong>- "+$('#input-address-2'+rowId+'').val()+"<br><strong>City </strong>- "+$('#input-city'+rowId+'').val()+"<br><strong>Postal Code </strong>-  "+$('#input-postcode'+rowId+'').val()+"<br><strong>Region </strong>- "+$('#input-zone'+rowId+' option:selected').text()+"<br><strong>Country </strong>- "+$('#input-country'+rowId+' option:selected').text()+"</div></p>";
 
 							jQuery_1_8_16("<div></div>").html(invalidCustomerAddress+"<br>"+json.msg).dialog({
-								title: "AvaTax Address Validation",
+								title: "<img src='view/image/Ava-logo.jpg'> AvaTax Address Validation",
 								resizable: true,
 								modal: true,
 								buttons: {

@@ -8,18 +8,18 @@ if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
 	$account = $_GET["acc"];
 	$license = $_GET["license"];
 	$environment = $_GET["environment"];
-	$client = $_GET["client"];
 
 	if($environment == "Development")
 		$serviceURL = "https://development.avalara.net";
 	else
 		$serviceURL = "https://avatax.avalara.net";
 
-	
+	$client = $_GET["client"];
+
 	/****************************************************************************************************
 	*   Last Updated On	:	07/28/2015			                            							*
 	*   Description     :   Enter AvaTax admin console company code here.
-	* 	Removed URL from query string due to CONNECT-2717 issue. Now defining URL in testC_onnection.php page as per environment  	*
+	* 	Removed URL from query string. Now defining URL in testC_onnection.php page as per environment  	*
 	******************************************************************************************************/
 
 	new ATConfig($environment, array('url'=>$serviceURL, 'account'=>$account,'license'=>$license,'client'=>$client, 'trace'=> TRUE));
@@ -68,8 +68,6 @@ if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
 		$successMsg .= $msg."<br/>";
 		$successMsg .= "<p style='text-align:center;padding-top:20px;'><input type='button'  onClick='closeTestConnection()' value='OK' ></p>";
 		echo "<div style='text-align:center;padding-top:10px;'>".$successMsg."</div>"; 
-		//$successMsg .= $client->__getLastRequest()."<br/>";
-		//$successMsg .= $client->__getLastResponse()."<br/>"; 
 	}		
 }
 ?>

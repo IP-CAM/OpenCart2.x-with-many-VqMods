@@ -28,8 +28,7 @@ spl_autoload_register(function ($class_name)
 	
 	/********************************************************************************************
 	*   Last Updated On		:	08/10/2015			                           					*
-	*   Description			:  	Added if loop to avoid including third party plugin. 			*
-								This addresses resolution for connect ticket - CONNECT-3035.
+	*   Description			:  	Added if loop to avoid including third party plugin classes. 	*
 	********************************************************************************************/
 
 	if(file_exists($path))
