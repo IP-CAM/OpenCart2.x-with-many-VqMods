@@ -446,3 +446,17 @@
 2015-09-01 18:13:53 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
 2015-09-01 18:30:09 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
 2015-09-02 14:39:37 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-03 16:08:06 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-03 16:26:26 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-03 16:26:34 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-03 16:31:50 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-04 11:05:02 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-04 11:05:19 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-07 11:00:01 - PHP Warning:  unlink(D:\phpwork\opencart-2.0.0.0-release/system/cache/cache.language.1441348499): No such file or directory in D:\phpwork\opencart-2.0.0.0-release\system\library\cache\file.php on line 17
+2015-09-10 16:31:21 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-11 17:19:37 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-11 17:20:18 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-11 17:20:57 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-14 11:32:37 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-16 11:18:38 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382
+2015-09-22 10:40:57 - PHP Notice:  Undefined variable: config_avatax_newaccount_address_state in D:\phpwork\opencart-2.0.0.0-release\vqmod\vqcache\vq2-admin_view_template_setting_setting.tpl on line 2382

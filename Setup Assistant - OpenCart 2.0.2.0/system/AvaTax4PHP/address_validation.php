@@ -57,13 +57,22 @@ function AddressValidation($address_data)
 				$arr["Country"]=$arrCountryCode[0];
 				$arr["Country_txt"]=$obj->getCountry();
 				$arrCountryName=getFieldValue('country','name','iso_code_2',$obj->getCountry());
-				$arr["Country_name"]=$arrCountryName[0];
+
+				if($textCase=="Upper")
+					$arr["Country_name"]=strtoupper($arrCountryName[0]);
+				else
+					$arr["Country_name"]=$arrCountryName[0];
 
 				$arrRegion=getFieldValue('zone','zone_id','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
 				$arr["Region"]=$arrRegion[0];
 				$arr["Region_txt"]=$obj->getRegion();
 				$arrRegionName=getFieldValue('zone','name','code',$obj->getRegion(),"and country_id=" .$arrCountryCode[0]);
-				$arr["Region_name"]=$arrRegionName[0];
+
+				if($textCase=="Upper")
+					$arr["Region_name"]=strtoupper($arrRegionName[0]);
+				else
+					$arr["Region_name"]=$arrRegionName[0];
+
 				$arr["PostalCode"]=$obj->getPostalCode();
 			}
 			$return_message .= "Success";

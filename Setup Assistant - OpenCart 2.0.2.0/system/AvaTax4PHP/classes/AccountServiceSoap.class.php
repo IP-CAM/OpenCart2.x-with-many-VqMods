@@ -14,6 +14,9 @@
  * <pre>
  *  $accountService = new AccountServiceSoap();
  * </pre>
+ * @author    Avalara
+ * @copyright © 2004 - 2015 Avalara, Inc.  All rights reserved.
+ * @package   Address
  */
 
 class AccountServiceSoap extends AvalaraSoapClient

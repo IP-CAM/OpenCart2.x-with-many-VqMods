@@ -19,7 +19,7 @@ if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
 	/****************************************************************************************************
 	*   Last Updated On	:	07/28/2015			                            							*
 	*   Description     :   Enter AvaTax admin console company code here.
-	* 	Removed URL from query string. Now defining URL in testC_onnection.php page as per environment  	*
+	* 	Removed URL from query string. Now defining URL in test_connection.php page as per environment  	*
 	******************************************************************************************************/
 
 	new ATConfig($environment, array('url'=>$serviceURL, 'account'=>$account,'license'=>$license,'client'=>$client, 'trace'=> TRUE));

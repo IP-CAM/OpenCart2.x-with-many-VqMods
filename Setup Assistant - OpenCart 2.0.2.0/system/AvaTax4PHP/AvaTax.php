@@ -26,7 +26,10 @@ spl_autoload_register(function ($class_name)
 		$path=dirname(__FILE__).'/classes/AvaCert2Svc/'.$class_name . '.class.php';		
 	}
 	
-	require_once $path;
+	if(file_exists($path))
+	{
+		require_once $path;
+	}
 });
 
 function EnsureIsArray( $obj ) 

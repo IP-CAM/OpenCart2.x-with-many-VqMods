@@ -22,3 +22,13 @@
 2015-09-02 15:22:28 - PHP Notice:  Undefined index: config_avatax_company_code in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_controller_setting_setting.php on line 1516
 2015-09-02 15:25:39 - PHP Notice:  Undefined index: config_avatax_company_code in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_controller_setting_setting.php on line 1516
 2015-09-02 15:35:56 - PHP Notice:  Undefined index: config_avatax_company_code in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_controller_setting_setting.php on line 1516
+2015-09-07 15:10:25 - PHP Notice:  Undefined index: zone_id in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_view_template_sale_customer_form.tpl on line 402
+2015-09-09 15:44:29 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.2.0\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 200
+2015-09-09 15:45:34 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.2.0\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 200
+2015-09-11 18:22:40 - PHP Notice:  Undefined variable: config_avatax_tax_calculation in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_view_template_sale_customer_form.tpl on line 445
+2015-09-11 18:22:40 - PHP Notice:  Undefined variable: config_avatax_tax_calculation in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_view_template_sale_customer_form.tpl on line 445
+2015-09-11 18:22:40 - PHP Notice:  Undefined variable: config_avatax_tax_calculation in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_view_template_sale_customer_form.tpl on line 445
+2015-09-11 18:22:40 - PHP Notice:  Undefined variable: config_avatax_tax_calculation in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-admin_view_template_sale_customer_form.tpl on line 445
+2015-09-15 10:25:01 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.2.0\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 200
+2015-09-15 10:27:59 - PHP Notice:  Undefined property: stdClass::$TaxLine in D:\phpwork\opencart-2.0.2.0\system\AvaTax4PHP\classes\GetTaxResult.class.php on line 200
+2015-09-15 11:31:43 - PHP Notice:  Undefined variable: time_start in D:\phpwork\opencart-2.0.2.0\vqmod\vqcache\vq2-catalog_model_account_return.php on line 430
