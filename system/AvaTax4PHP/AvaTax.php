@@ -26,11 +26,6 @@ spl_autoload_register(function ($class_name)
 		$path=dirname(__FILE__).'/classes/AvaCert2Svc/'.$class_name . '.class.php';		
 	}
 	
-	/********************************************************************************************
-	*   Last Updated On		:	08/10/2015			                           					*
-	*   Description			:  	Added if loop to avoid including third party plugin classes. 	*
-	********************************************************************************************/
-
 	if(file_exists($path))
 	{
 		require_once $path;

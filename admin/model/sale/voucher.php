@@ -88,7 +88,7 @@ class ModelSaleVoucher extends Model {
 				$this->load->model('localisation/language');
 
 				$language = new Language($order_info['language_directory']);
-				$language->load($order_info['language_filename']);
+				$language->load('default');
 				$language->load('mail/voucher');
 
 				// HTML Mail
@@ -116,7 +116,15 @@ class ModelSaleVoucher extends Model {
 				$data['store_url'] = $order_info['store_url'];
 				$data['message'] = nl2br($voucher_info['message']);
 
-				$mail = new Mail($this->config->get('config_mail'));
+				$mail = new Mail();
+				$mail->protocol = $this->config->get('config_mail_protocol');
+				$mail->parameter = $this->config->get('config_mail_parameter');
+				$mail->smtp_hostname = $this->config->get('config_mail_smtp_host');
+				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			
 				$mail->setTo($voucher_info['to_email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($order_info['store_name']);
@@ -151,8 +159,16 @@ class ModelSaleVoucher extends Model {
 				$data['store_name'] = $this->config->get('config_name');
 				$data['store_url'] = HTTP_CATALOG;
 				$data['message'] = nl2br($voucher_info['message']);
-
-				$mail = new Mail($this->config->get('config_mail'));
+	
+				$mail = new Mail();
+				$mail->protocol = $this->config->get('config_mail_protocol');
+				$mail->parameter = $this->config->get('config_mail_parameter');
+				$mail->smtp_hostname = $this->config->get('config_mail_smtp_host');
+				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			
 				$mail->setTo($voucher_info['to_email']);
 				$mail->setFrom($this->config->get('config_email'));
 				$mail->setSender($this->config->get('config_name'));
@@ -173,10 +189,6 @@ class ModelSaleVoucher extends Model {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "voucher WHERE voucher_theme_id = '" . (int)$voucher_theme_id . "'");
 
 		return $query->row['total'];
-	}
-
-	public function addVoucherHistory($voucher_id, $order_id, $customer_id, $value) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "voucher_history SET voucher_id = '" . (int)$voucher_id . "', order_id = '" . (int)$order_id . "', customer_id = '" . (int)$customer_id . "', amount = '" . (float)$order_total['value'] . "', date_added = NOW()");
 	}
 
 	public function getVoucherHistories($voucher_id, $start = 0, $limit = 10) {

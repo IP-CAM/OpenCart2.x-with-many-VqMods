@@ -1,0 +1,14 @@
+---------- Date: 2015-09-09 15:00:34 ~ IP : ::1 ----------
+REQUEST URI : /opencart-2.0.2.0/
+MOD DETAILS:
+   modFile   : D:\phpwork\opencart-2.0.2.0\vqmod/xml/test1.xml
+   id        : Add the ability to charge AvaTaxes
+   version   : 1.0
+   vqmver    : 2.4.1
+   author    : Avalara
+
+File Name    : system/library/cart.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): echo "In test1.xml";
+----------------------------------------------------------------------
+
+

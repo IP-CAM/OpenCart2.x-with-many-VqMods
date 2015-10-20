@@ -24,7 +24,7 @@ class ControllerOpenbayEbayProfile extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['insert'] = $this->url->link('openbay/ebay_profile/add', 'token=' . $this->session->data['token'], 'SSL');
+		$data['add'] = $this->url->link('openbay/ebay_profile/add', 'token=' . $this->session->data['token'], 'SSL');
 		$data['types'] = $this->model_openbay_ebay_profile->getTypes();
 		$data['profiles'] = $this->model_openbay_ebay_profile->getAll();
 		$data['token'] = $this->session->data['token'];
@@ -32,7 +32,7 @@ class ControllerOpenbayEbayProfile extends Controller {
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
-			'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL'),
 			'text' => $this->language->get('text_home'),
 		);
 
@@ -148,6 +148,11 @@ class ControllerOpenbayEbayProfile extends Controller {
 		$profile_info = array();
 		if (isset($this->request->get['ebay_profile_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$profile_info = $this->model_openbay_ebay_profile->get($this->request->get['ebay_profile_id']);
+			$data['text_manage'] = $this->language->get('text_edit');
+			$data['action'] = $this->url->link('openbay/ebay_profile/edit', 'token=' . $this->session->data['token'], 'SSL');
+		} else {
+			$data['action'] = $this->url->link('openbay/ebay_profile/add', 'token=' . $this->session->data['token'], 'SSL');
+			$data['text_manage'] = $this->language->get('text_add');
 		}
 
 		if (isset($this->request->post['type'])) {
@@ -167,7 +172,7 @@ class ControllerOpenbayEbayProfile extends Controller {
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
-			'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL'),
 			'text' => $this->language->get('text_home'),
 		);
 
@@ -233,10 +238,10 @@ class ControllerOpenbayEbayProfile extends Controller {
 		if ($type == 0) {
 			$data['zones'] = $this->model_openbay_ebay->getShippingLocations();
 
-			$data['data']['national']['calculated']['types'] = $this->model_openbay_ebay->getShippingService('national', 'calculated');
-			$data['data']['international']['calculated']['types'] = $this->model_openbay_ebay->getShippingService('international', 'calculated');
-			$data['data']['national']['flat']['types'] = $this->model_openbay_ebay->getShippingService('national', 'flat');
-			$data['data']['international']['flat']['types'] = $this->model_openbay_ebay->getShippingService('international', 'flat');
+			$data['data']['national']['calculated']['types'] = $this->model_openbay_ebay->getShippingService(0, 'calculated');
+			$data['data']['international']['calculated']['types'] = $this->model_openbay_ebay->getShippingService(1, 'calculated');
+			$data['data']['national']['flat']['types'] = $this->model_openbay_ebay->getShippingService(0, 'flat');
+			$data['data']['international']['flat']['types'] = $this->model_openbay_ebay->getShippingService(1, 'flat');
 
 			$data['data']['national']['calculated']['count']	= isset($data['data']['national']['calculated']['service_id']) ? max(array_keys($data['data']['national']['calculated']['service_id']))+1 : 0;
 			$data['data']['national']['flat']['count']	= isset($data['data']['national']['flat']['service_id']) ? max(array_keys($data['data']['national']['flat']['service_id']))+1 : 0;
@@ -266,6 +271,8 @@ class ControllerOpenbayEbayProfile extends Controller {
 			$data['html_international_calculated']		= $this->load->view('openbay/ebay_profile_shipping_international_calculated.tpl', $data);
 		}
 
+		$data['cancel'] = $this->url->link('openbay/ebay_profile/profileAll', 'token=' . $this->session->data['token'], 'SSL');
+
 		$this->document->setTitle($data['heading_title']);
 
 		$data['header'] = $this->load->controller('common/header');
@@ -285,10 +292,10 @@ class ControllerOpenbayEbayProfile extends Controller {
 
 		if ($profile_info['type'] == 0) {
 			$data['data'] = $profile_info['data'];
-			$data['data']['national']['calculated']['types'] = $this->model_openbay_ebay->getShippingService('national', 'calculated');
-			$data['data']['international']['calculated']['types'] = $this->model_openbay_ebay->getShippingService('international', 'calculated');
-			$data['data']['national']['flat']['types'] = $this->model_openbay_ebay->getShippingService('national', 'flat');
-			$data['data']['international']['flat']['types'] = $this->model_openbay_ebay->getShippingService('international', 'flat');
+			$data['data']['national']['calculated']['types'] = $this->model_openbay_ebay->getShippingService(0, 'calculated');
+			$data['data']['international']['calculated']['types'] = $this->model_openbay_ebay->getShippingService(1, 'calculated');
+			$data['data']['national']['flat']['types'] = $this->model_openbay_ebay->getShippingService(0, 'flat');
+			$data['data']['international']['flat']['types'] = $this->model_openbay_ebay->getShippingService(1, 'flat');
 
 			$data['data']['national']['calculated']['count']	= isset($data['data']['national']['calculated']['service_id']) ? max(array_keys($data['data']['national']['calculated']['service_id']))+1 : 0;
 			$data['data']['national']['flat']['count']	= isset($data['data']['national']['flat']['service_id']) ? max(array_keys($data['data']['national']['flat']['service_id']))+1 : 0;
@@ -346,10 +353,6 @@ class ControllerOpenbayEbayProfile extends Controller {
 			$this->error['name'] = $this->language->get('error_name');
 		}
 
-		if (!$this->error) {
-			return true;
-		} else {
-			return false;
-		}
+		return !$this->error;
 	}
 }

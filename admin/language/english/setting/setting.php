@@ -3,6 +3,7 @@
 $_['heading_title']                    = 'Settings';
 
 // Text
+$_['text_stores']                      = 'Stores';
 $_['text_success']                     = 'Success: You have modified settings!';
 $_['text_edit']                        = 'Edit Setting';
 $_['text_product']                     = 'Products';
@@ -18,6 +19,8 @@ $_['text_shipping']                    = 'Shipping Address';
 $_['text_payment']                     = 'Payment Address';
 $_['text_mail']                        = 'Mail';
 $_['text_smtp']                        = 'SMTP';
+$_['text_google_analytics']            = 'Google Analytics';
+$_['text_google_captcha']              = 'Google reCAPTCHA';
 
 // Entry
 $_['entry_name']                       = 'Store Name';
@@ -60,6 +63,7 @@ $_['entry_customer_online']            = 'Customers Online';
 $_['entry_customer_group']             = 'Customer Group';
 $_['entry_customer_group_display']     = 'Customer Groups';
 $_['entry_customer_price']             = 'Login Display Prices';
+$_['entry_login_attempts']             = 'Max Login Attempts';
 $_['entry_account']                    = 'Account Terms';
 $_['entry_account_mail']               = 'New Account Alert Mail';
 $_['entry_api']                        = 'API User';
@@ -104,11 +108,11 @@ $_['entry_ftp_root']                   = 'FTP Root';
 $_['entry_ftp_status']                 = 'Enable FTP';
 $_['entry_mail_protocol']              = 'Mail Protocol';
 $_['entry_mail_parameter']             = 'Mail Parameters';
-$_['entry_smtp_hostname']              = 'SMTP Hostname';
-$_['entry_smtp_username']              = 'SMTP Username';
-$_['entry_smtp_password']              = 'SMTP Password';
-$_['entry_smtp_port']                  = 'SMTP Port';
-$_['entry_smtp_timeout']               = 'SMTP Timeout';
+$_['entry_mail_smtp_hostname']         = 'SMTP Hostname';
+$_['entry_mail_smtp_username']         = 'SMTP Username';
+$_['entry_mail_smtp_password']         = 'SMTP Password';
+$_['entry_mail_smtp_port']             = 'SMTP Port';
+$_['entry_mail_smtp_timeout']          = 'SMTP Timeout';
 $_['entry_fraud_detection']            = 'Use MaxMind Fraud Detection System';
 $_['entry_fraud_key']                  = 'MaxMind License Key';
 $_['entry_fraud_score']                = 'MaxMind Risk Score';
@@ -128,6 +132,9 @@ $_['entry_error_display']              = 'Display Errors';
 $_['entry_error_log']                  = 'Log Errors';
 $_['entry_error_filename']             = 'Error Log Filename';
 $_['entry_google_analytics']           = 'Google Analytics Code';
+$_['entry_google_captcha_public']      = 'Site key';
+$_['entry_google_captcha_secret']      = 'Secret key';
+$_['entry_status']                     = 'Status';
 
 // Help
 $_['help_geocode']                     = 'Please enter your store location geocode manually.';
@@ -151,6 +158,7 @@ $_['help_customer_online']             = 'Track customers online via the custome
 $_['help_customer_group']              = 'Default customer group.';
 $_['help_customer_group_display']      = 'Display customer groups that new customers can select to use such as wholesale and business when signing up.';
 $_['help_customer_price']              = 'Only show prices when a customer is logged in.';
+$_['help_login_attempts']              = 'Maximum login attempts allowed before the account is locked for 1 hour. Customer and affliate accounts can be unlocked on the customer or affliate admin pages.';
 $_['help_account']                     = 'Forces people to agree to terms before an account can be created.';
 $_['help_account_mail']                = 'Send an email to the store owner when a new account is registered.';
 $_['help_invoice_prefix']              = 'Set the invoice prefix (e.g. INV-2011-00). Invoice IDs will start at 1 for each unique prefix.';
@@ -193,6 +201,7 @@ $_['help_password']                    = 'Allow forgotten password to be used fo
 $_['help_encryption']                  = 'Please provide a secret key that will be used to encrypt private information when processing orders.';
 $_['help_compression']                 = 'GZIP for more efficient transfer to requesting clients. Compression level must be between 0 - 9.';
 $_['help_google_analytics']            = 'Login to your <a href="http://www.google.com/analytics/" target="_blank"><u>Google Analytics</u></a> account and after creating your website profile copy and paste the analytics code into this field.';
+$_['help_google_captcha']              = 'Go to <a href="https://www.google.com/recaptcha/intro/index.html" target="_blank"><u>Google reCAPTCHA page</u></a> and register your website.';
 
 // Error
 $_['error_warning']                    = 'Warning: Please check the form carefully for errors!';
@@ -204,6 +213,7 @@ $_['error_email']                      = 'E-Mail Address does not appear to be v
 $_['error_telephone']                  = 'Telephone must be between 3 and 32 characters!';
 $_['error_meta_title']                 = 'Title must be between 3 and 32 characters!';
 $_['error_limit']       	           = 'Limit required!';
+$_['error_login_attempts']       	   = 'Login Attempts must be greater than 0!';
 $_['error_customer_group_display']     = 'You must include the default customer group if you are going to use this feature!';
 $_['error_voucher_min']                = 'Minimum voucher amount required!';
 $_['error_voucher_max']                = 'Maximum voucher amount required!';

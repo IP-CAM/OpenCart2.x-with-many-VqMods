@@ -197,7 +197,7 @@ class GetTaxResult // extends BaseResult
      *
      * @return taxLines
      */
-	public function getTaxLines()  {return EnsureIsArray($this->TaxLines->TaxLine); }
+	public function getTaxLines()  {return @EnsureIsArray($this->TaxLines->TaxLine); }
 	
 	/**
      * TotalTaxCalculated indicates the total tax calculated by AvaTax. This is usually the same as the TotalTax, except when a tax override amount is specified.

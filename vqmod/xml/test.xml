@@ -1,0 +1,18 @@
+<modification>
+	<id><![CDATA[Add the ability to charge AvaTaxes]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[2.4.1]]></vqmver>
+	<author><![CDATA[Avalara]]></author>
+	<file name="system/library/cart.php">
+		<operation>
+			<!--tax class detail is fetched-->
+			<search position="after" ><![CDATA[public function getProducts() {]]></search>
+			<add><![CDATA[$a="In test.xml";]]></add>
+		</operation>
+		<operation>
+			<!--tax code is set-->
+			<search position="after" ><![CDATA[public function update($key, $qty) {]]></search>
+			<add><![CDATA[$a="In test.xml";]]></add>
+		</operation>
+    </file>
+</modification>

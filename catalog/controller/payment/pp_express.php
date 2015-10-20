@@ -21,6 +21,7 @@ class ControllerPaymentPPExpress extends Controller {
 	public function express() {
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$this->log->write('No product redirect');
+
 			$this->response->redirect($this->url->link('checkout/cart'));
 		}
 
@@ -29,6 +30,7 @@ class ControllerPaymentPPExpress extends Controller {
 			 * If the customer is already logged in
 			 */
 			$this->session->data['paypal']['guest'] = false;
+
 			unset($this->session->data['guest']);
 		} else {
 			if ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasRecurringProducts()) {
@@ -43,6 +45,7 @@ class ControllerPaymentPPExpress extends Controller {
 				 * Send them to the normal checkout flow.
 				 */
 				unset($this->session->data['guest']);
+
 				$this->response->redirect($this->url->link('checkout/checkout', '', 'SSL'));
 			}
 		}
@@ -141,11 +144,13 @@ class ControllerPaymentPPExpress extends Controller {
 			$this->session->data['guest']['firstname'] = trim($result['FIRSTNAME']);
 			$this->session->data['guest']['lastname'] = trim($result['LASTNAME']);
 			$this->session->data['guest']['email'] = trim($result['EMAIL']);
+
 			if (isset($result['PHONENUM'])) {
 				$this->session->data['guest']['telephone'] = $result['PHONENUM'];
 			} else {
 				$this->session->data['guest']['telephone'] = '';
 			}
+
 			$this->session->data['guest']['fax'] = '';
 
 			$this->session->data['guest']['payment']['firstname'] = trim($result['FIRSTNAME']);
@@ -426,8 +431,8 @@ class ControllerPaymentPPExpress extends Controller {
 		$data['column_price'] = $this->language->get('column_price');
 		$data['column_total'] = $this->language->get('column_total');
 
-		$data['button_shipping'] = $this->language->get('express_button_shipping');
-		$data['button_confirm'] = $this->language->get('express_button_confirm');
+		$data['button_shipping'] = $this->language->get('button_express_shipping');
+		$data['button_confirm'] = $this->language->get('button_express_confirm');
 
 		if (isset($this->request->post['next'])) {
 			$data['next'] = $this->request->post['next'];
@@ -510,7 +515,7 @@ class ControllerPaymentPPExpress extends Controller {
 				if ($product['recurring']['duration']) {
 					$recurring_description .= sprintf($this->language->get('text_payment_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
 				} else {
-					$recurring_description .= sprintf($this->language->get('text_payment_until_canceled_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+					$recurring_description .= sprintf($this->language->get('text_payment_cancel'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
 				}
 			}
 
@@ -1173,7 +1178,7 @@ class ControllerPaymentPPExpress extends Controller {
 						$data = array(
 							'METHOD'             => 'CreateRecurringPaymentsProfile',
 							'TOKEN'              => $this->session->data['paypal']['token'],
-							'PROFILESTARTDATE'   => gmdate("Y-m-d\TH:i:s\Z", mktime(gmdate("H"), gmdate("i")+5, gmdate("s"), gmdate("m"), gmdate("d"), gmdate("y"))),
+							'PROFILESTARTDATE'   => gmdate("Y-m-d\TH:i:s\Z", gmmktime(gmdate("H"), gmdate("i")+5, gmdate("s"), gmdate("m"), gmdate("d"), gmdate("y"))),
 							'BILLINGPERIOD'      => $billing_period[$item['recurring']['frequency']],
 							'BILLINGFREQUENCY'   => $item['recurring']['cycle'],
 							'TOTALBILLINGCYCLES' => $item['recurring']['duration'],
@@ -1250,7 +1255,7 @@ class ControllerPaymentPPExpress extends Controller {
 					}
 				}
 
-				$this->session->data['error'] = $result['L_LONGMESSAGE0'];
+				$this->session->data['error_warning'] = $result['L_LONGMESSAGE0'];
 				$this->response->redirect($this->url->link('payment/pp_express/expressConfirm', '', 'SSL'));
 			}
 		} else {
@@ -1273,13 +1278,29 @@ class ControllerPaymentPPExpress extends Controller {
 		$max_amount = min($max_amount * 1.25, 10000);
 		$max_amount = $this->currency->format($max_amount, $this->currency->getCode(), '', false);
 
+		if ($this->cart->hasShipping()) {
+			$shipping = 0;
+			$data_shipping = array(
+				'PAYMENTREQUEST_0_SHIPTONAME'        => html_entity_decode($order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'], ENT_QUOTES, 'UTF-8'),
+				'PAYMENTREQUEST_0_SHIPTOSTREET'      => html_entity_decode($order_info['shipping_address_1'], ENT_QUOTES, 'UTF-8'),
+				'PAYMENTREQUEST_0_SHIPTOSTREET2'     => html_entity_decode($order_info['shipping_address_2'], ENT_QUOTES, 'UTF-8'),
+				'PAYMENTREQUEST_0_SHIPTOCITY'        => html_entity_decode($order_info['shipping_city'], ENT_QUOTES, 'UTF-8'),
+				'PAYMENTREQUEST_0_SHIPTOSTATE'       => html_entity_decode($order_info['shipping_zone'], ENT_QUOTES, 'UTF-8'),
+				'PAYMENTREQUEST_0_SHIPTOZIP'         => html_entity_decode($order_info['shipping_postcode'], ENT_QUOTES, 'UTF-8'),
+				'PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE' => $order_info['shipping_iso_code_2']
+			);
+		} else {
+			$shipping = 1;
+			$data_shipping = array();
+		}
+
 		$data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,
 			'RETURNURL'          => $this->url->link('payment/pp_express/checkoutReturn', '', 'SSL'),
 			'CANCELURL'          => $this->url->link('checkout/checkout', '', 'SSL'),
 			'REQCONFIRMSHIPPING' => 0,
-			'NOSHIPPING'         => 1,
+			'NOSHIPPING'         => $shipping,
 			'LOCALECODE'         => 'EN',
 			'LANDINGPAGE'        => 'Login',
 			'HDRIMG'             => $this->model_tool_image->resize($this->config->get('pp_express_logo'), 790, 90),
@@ -1287,6 +1308,8 @@ class ControllerPaymentPPExpress extends Controller {
 			'CHANNELTYPE'        => 'Merchant',
 			'ALLOWNOTE'          => $this->config->get('pp_express_allow_note')
 		);
+
+		$data = array_merge($data, $data_shipping);
 
 		if (isset($this->session->data['pp_login']['seamless']['access_token']) && (isset($this->session->data['pp_login']['seamless']['customer_id']) && $this->session->data['pp_login']['seamless']['customer_id'] == $this->customer->getId()) && $this->config->get('pp_login_seamless')) {
 			$data['IDENTITYACCESSTOKEN'] = $this->session->data['pp_login']['seamless']['access_token'];
@@ -1437,7 +1460,7 @@ class ControllerPaymentPPExpress extends Controller {
 					$data = array(
 						'METHOD'             => 'CreateRecurringPaymentsProfile',
 						'TOKEN'              => $this->session->data['paypal']['token'],
-						'PROFILESTARTDATE'   => gmdate("Y-m-d\TH:i:s\Z", mktime(gmdate('H'), gmdate('i') + 5, gmdate('s'), gmdate('m'), gmdate('d'), gmdate('y'))),
+						'PROFILESTARTDATE'   => gmdate("Y-m-d\TH:i:s\Z", gmmktime(gmdate('H'), gmdate('i') + 5, gmdate('s'), gmdate('m'), gmdate('d'), gmdate('y'))),
 						'BILLINGPERIOD'      => $billing_period[$item['recurring']['frequency']],
 						'BILLINGFREQUENCY'   => $item['recurring']['cycle'],
 						'TOTALBILLINGCYCLES' => $item['recurring']['duration'],
@@ -1521,15 +1544,13 @@ class ControllerPaymentPPExpress extends Controller {
 			$data['breadcrumbs'] = array();
 
 			$data['breadcrumbs'][] = array(
-				'href'      => $this->url->link('common/home'),
-				'text'      => $this->language->get('text_home'),
-				'separator' => false
+				'href' => $this->url->link('common/home'),
+				'text' => $this->language->get('text_home')
 			);
 
 			$data['breadcrumbs'][] = array(
-				'href'      => $this->url->link('checkout/cart'),
-				'text'      => $this->language->get('text_cart'),
-				'separator' => $this->language->get('text_separator')
+				'href' => $this->url->link('checkout/cart'),
+				'text' => $this->language->get('text_cart')
 			);
 
 			$data['heading_title'] = $this->language->get('error_heading_title');
@@ -1920,7 +1941,7 @@ class ControllerPaymentPPExpress extends Controller {
 		if (!$error) {
 			return true;
 		} else {
-			$this->session->data['error_warning'] = $this->language->get('error_voucher');;
+			$this->session->data['error_warning'] = $this->language->get('error_voucher');
 			return false;
 		}
 	}

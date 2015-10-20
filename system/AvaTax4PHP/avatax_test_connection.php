@@ -8,16 +8,16 @@ if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
 	$account = $_GET["acc"];
 	$license = $_GET["license"];
 	$environment = $_GET["environment"];
+	$client = $_GET["client"];
 
 	if($environment == "Development")
 		$serviceURL = "https://development.avalara.net";
 	else
 		$serviceURL = "https://avatax.avalara.net";
 
-	$client = $_GET["client"];
 
 	/****************************************************************************************************
-	*   Last Updated On	:	07/28/2015			                            							*
+	*   Last Updated On	:	07/28/2015																		*
 	*   Description     :   Enter AvaTax admin console company code here.
 	* 	Removed URL from query string. Now defining URL in test_connection.php page as per environment  	*
 	******************************************************************************************************/
