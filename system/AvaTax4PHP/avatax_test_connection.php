@@ -1,6 +1,20 @@
 <?php
 if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
-{		
+{
+	/****************************************************************************************************
+	*   Last Updated On	:	10/23/2015			                            							*
+	*   Description     :   Checking SOAP service is enabled or customer's PHP environment.				*
+	* 	If SOAP service is installed, returning an error message to install SOAP service  				*
+	******************************************************************************************************/
+
+	if (!extension_loaded('SOAP')) {
+		$errorMsg = "";
+		$errorMsg.= "<div style='text-align:center;padding-top:10px;'>Please enable SOAP service. It is mandatory to enable AvaTax.</div>";
+		$errorMsg.= "<p style='text-align:center;padding-top:10px;'><input type='button'  onClick='closeTestConnection()' value='OK' ></p>";
+		echo $errorMsg;
+		exit;
+	}
+
 	require_once('AvaTax.php');
 	
 	$successMsg = "";
@@ -17,7 +31,7 @@ if(isset($_GET["from"]) && $_GET["from"]=="AvaTaxConnectionTest")
 
 
 	/****************************************************************************************************
-	*   Last Updated On	:	07/28/2015																		*
+	*   Last Updated On	:	07/28/2015			                            							*
 	*   Description     :   Enter AvaTax admin console company code here.
 	* 	Removed URL from query string. Now defining URL in test_connection.php page as per environment  	*
 	******************************************************************************************************/

@@ -56,6 +56,6 @@ admin\view\template\common\column_left.tpl
 admin\controller\common\footer.php
 admin\language\english\common\footer.php
 admin\view\template\common\footer.tpl
+admin\model\localisation\zone.php
 admin\language\english\common\login.php
 admin\view\template\common\login.tpl
-admin\model\localisation\zone.php

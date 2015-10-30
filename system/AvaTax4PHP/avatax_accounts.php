@@ -22,6 +22,9 @@ function AccountValidation()
 	
 	try
 	{
+		$result_auth = $client->isAuthorized("");
+		//print_r($result_auth);
+
 		$result = $client->CompanyFetch("");
         $response= array();
 
